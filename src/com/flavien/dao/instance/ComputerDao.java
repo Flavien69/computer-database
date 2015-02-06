@@ -12,6 +12,7 @@ public class ComputerDao {
 	private String dB_HOST;
 	private String dB_PORT;
 	private String dB_NAME;
+	private String dB_PATH;
 	private String dB_USER;
 	private String dB_PWD;
 	
@@ -23,11 +24,12 @@ public class ComputerDao {
 	private final static String dB_COLUMN_COMPANY_ID = "company_id";
 
 	
-	public ComputerDao(String DB_HOST, String DB_PORT, String DB_NAME,
+	public ComputerDao(String DB_HOST, String DB_PORT, String DB_NAME, String DB_ARGUMENT,
 			String DB_USER, String DB_PWD) {
 		dB_HOST = DB_HOST;
 		dB_PORT = DB_PORT;
 		dB_NAME = DB_NAME;
+		dB_PATH = DB_NAME+DB_ARGUMENT;
 		dB_USER = DB_USER;
 		dB_PWD = DB_PWD;
 	}
@@ -36,7 +38,7 @@ public class ComputerDao {
 		java.sql.Statement query;
 		try {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
-					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_PATH, dB_USER, dB_PWD);
 
 			query = connection.createStatement();
 
@@ -46,7 +48,7 @@ public class ComputerDao {
 					+ computer.getIntroduced()
 					+ "', '"
 					+ computer.getDiscontinued()
-					+ "', '"
+					+ "', "
 					+ computer.getCompany_id()
 					+ ");";			
 			
@@ -110,7 +112,7 @@ public class ComputerDao {
 
 		try {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
-					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_PATH, dB_USER, dB_PWD);
 
 			java.sql.Statement query;
 
@@ -121,7 +123,8 @@ public class ComputerDao {
 			while (rs.next()) {
 				Computer computer = new Computer(
 						rs.getInt(dB_COLUMN_ID), rs.getString(dB_COLUMN_NAME),
-						rs.getDate(dB_COLUMN_INTRODUCED), rs.getDate(dB_COLUMN_DISCONTINUED),
+						rs.getTimestamp(dB_COLUMN_INTRODUCED), 
+						rs.getTimestamp(dB_COLUMN_DISCONTINUED),
 						rs.getInt(dB_COLUMN_COMPANY_ID));
 
 				computerList.add(computer);

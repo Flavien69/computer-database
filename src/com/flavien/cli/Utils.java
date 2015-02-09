@@ -1,15 +1,14 @@
 package com.flavien.cli;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.InputMismatchException;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Utils {
 	
 	private static Scanner scannerInstance = null;		
+	public static int RESULT_SKIP = -1;
+	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm";
 		
 	public static synchronized Scanner getScannerInstance(){
 		if (scannerInstance == null)
@@ -18,9 +17,18 @@ public class Utils {
 		return scannerInstance;
 	}
 	
+	public static Boolean isSkip(String input){
+		if (input.equals(""))
+			return true;
+		
+		return false;
+	}
+	
 	public static String getStringInput(){
 		Scanner sc = getScannerInstance();
-	    String input  = sc.next();
+	    String input  = sc.nextLine();
+	    if(isSkip(input))
+	    	return null;
 		return input;
 	}
 	
@@ -32,7 +40,10 @@ public class Utils {
 		do {
 		    erreur = false;
 		    try {
-			    valeur = sc.nextInt();
+			    String valeurString = sc.nextLine();
+			    if(isSkip(valeurString))
+			    	return RESULT_SKIP;
+			    valeur = Integer.parseInt(valeurString);
 				if (valeur < maxValue ){
 					return valeur;
 				}
@@ -40,10 +51,10 @@ public class Utils {
 					erreur = true;
 			        errorInput(sc, "Erreur! veillez rentrer un chiffre inférieur à "+maxValue);
 				}
-		    }catch (InputMismatchException e) {
-		       erreur = true;
-		       errorInput(sc, "Erreur! veillez rentrer un chiffre");
-		    }
+		    }catch (Exception e) {
+			       erreur = true;
+			       errorInput(sc, "Erreur! veillez rentrer un chiffre");
+		}
 		} while (erreur);
 		return valeur;
 	}
@@ -56,9 +67,12 @@ public class Utils {
 		do {
 		    erreur = false;
 		    try {
-			    valeur = sc.nextInt();
-				return valeur;
-		    }catch (InputMismatchException e) {
+			    String valeurString = sc.nextLine();
+			    if(isSkip(valeurString))
+			    	return RESULT_SKIP;
+			    valeur = Integer.parseInt(valeurString);
+			    return valeur;
+		    }catch (Exception e) {
 		       erreur = true;
 		       errorInput(sc, "Erreur! veillez rentrer un chiffre");
 		    }
@@ -68,20 +82,21 @@ public class Utils {
 	
 	public static LocalDateTime getDateInput(){
 		boolean erreur;
-	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		String dateInString;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String dateInString;
 		Scanner sc = getScannerInstance();
 
 		do {
 		    erreur = false;
-		 
+			dateInString = sc.nextLine();
+		    if(isSkip(dateInString))
+		    	return null;
+
 			try {
-				dateInString = sc.nextLine();
-				Date date = (Date) formatter.parse(dateInString);
-				long time = date.getTime();
-				return LocalDateTime.of(date.getYear(), date.getMonth(), date.getDay(), date.getMonth(), date.getMinutes(), date.getSeconds());
+				LocalDateTime dateTime = LocalDateTime.parse(dateInString, formatter);
+				return dateTime;
 				
-			} catch (ParseException e) {
+			} catch (Exception e) {
 				erreur = true;
 				errorInput(sc,"invalid date! retry :");
 			}
@@ -90,7 +105,6 @@ public class Utils {
 	}
 	
 	private static void errorInput(Scanner sc, String msg){
-		sc.nextLine();
 		System.out.println(msg);
 	}
 }

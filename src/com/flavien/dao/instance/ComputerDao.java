@@ -1,11 +1,15 @@
 package com.flavien.dao.instance;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import com.flavien.dao.fabric.DaoFabric;
 import com.flavien.models.Computer;
+import com.flavien.models.Page;
 
 public class ComputerDao {
 
@@ -34,58 +38,132 @@ public class ComputerDao {
 		dB_USER = DB_USER;
 		dB_PWD = DB_PWD;
 	}
-
-	public void addComputer(Computer computer) {
+	
+	public Computer getComputerFromResult(ResultSet rs) throws SQLException{
+		
+		Computer computer = new Computer(
+				rs.getInt(dB_COLUMN_ID), rs.getString(dB_COLUMN_NAME),
+				Utils.getLocalDate(rs.getTimestamp(dB_COLUMN_INTRODUCED)), 
+				Utils.getLocalDate(rs.getTimestamp(dB_COLUMN_DISCONTINUED)), 
+				rs.getInt(dB_COLUMN_COMPANY_ID));
+		
+		return computer;
+	}
+	
+	public Boolean addComputer(Computer computer) {
 		java.sql.Statement query;
+		PreparedStatement preparedStatement = null;
+		Boolean isSuccess = false;
+
 		try {
-			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
-					+ dB_HOST + ":" + dB_PORT + "/" + dB_PATH, dB_USER, dB_PWD);
+			connection = DaoFabric.getConnectionInstance();
 
 			query = connection.createStatement();
+			String sql;
+				sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_COMPUTER_TABLE+"` (`"+dB_COLUMN_NAME+"`, `"+dB_COLUMN_INTRODUCED+"`, `"+dB_COLUMN_DISCONTINUED+"`, `"+dB_COLUMN_COMPANY_ID+"`) VALUES"
+					+ "(?,?,?,?)";		
 
-			String sql = "INSERT INTO `"+ dB_NAME +"`.`"+dB_COMPUTER_TABLE+"` (`"+dB_COLUMN_NAME+"`, `"+dB_COLUMN_INTRODUCED+"`, `"+dB_COLUMN_DISCONTINUED+"`, `"+dB_COLUMN_COMPANY_ID+"`) VALUES ('"
-					+ computer.getName()
-					+ "', '"
-					+ computer.getIntroduced()
-					+ "', '"
-					+ computer.getDiscontinued()
-					+ "', "
-					+ computer.getCompany_id()
-					+ ");";			
+			preparedStatement = connection.prepareStatement(sql);
+			 
+			preparedStatement.setString(1, computer.getName());
+			if (computer.getIntroduced() == null)
+				preparedStatement.setTimestamp(2,null);
+			else
+				preparedStatement.setTimestamp(2, Timestamp.valueOf(computer.getIntroduced()));
 			
-			int rs = query.executeUpdate(sql);	
+			if (computer.getDiscontinued() == null)
+				preparedStatement.setTimestamp(3,null);
+			else
+				preparedStatement.setTimestamp(3, Timestamp.valueOf(computer.getDiscontinued()));
+			
+			if(computer.getCompany_id() != 0)
+				preparedStatement.setInt(4, computer.getCompany_id());
+			else
+				preparedStatement.setNull(4, java.sql.Types.BIGINT);
+			
+			int rs = preparedStatement.executeUpdate();
+			
+			if(rs > 0) isSuccess = true;
 			
 			query.close();
-			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return isSuccess;
 	}
 	
-	public void updateComputer(Computer computer) {
+	public Computer getComputerByID(int computerId) {
+		java.sql.Statement query;
+		PreparedStatement preparedStatement = null;
+		Computer computer = null;
 
+		try {
+			connection = DaoFabric.getConnectionInstance();
+
+			query = connection.createStatement();
+
+			String sql = "SELECT * FROM "+dB_COMPUTER_TABLE+" WHERE id=?";		
+			
+			preparedStatement = connection.prepareStatement(sql);
+			 
+			preparedStatement.setInt(1, computerId);
+			
+			java.sql.ResultSet rs = preparedStatement.executeQuery();
+			
+			if(rs.first()) 		
+				computer = getComputerFromResult(rs);
+
+			query.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return computer;
+	}
+	
+	public Boolean updateComputer(Computer computer) {
+
+		Boolean isSuccess = false;
+		PreparedStatement preparedStatement = null;
 		java.sql.Statement query;
 		try {
-			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
-					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			connection = DaoFabric.getConnectionInstance();
 
 			query = connection.createStatement();
 
 			String sql = "UPDATE  `"+ dB_NAME +"`.`"+dB_COMPUTER_TABLE+"` SET "
-					+"`name`='"+ computer.getName()
-					+"',`introduced`='"+ computer.getIntroduced()
-					+"',`discontinued`="+ computer.getDiscontinued()
-					+",`company_id`='"+ computer.getCompany_id()+"'";
+					+"`name`=?"
+					+",`introduced`=?"
+					+",`discontinued`=?"
+					+",`company_id`=?"
+					+" WHERE id=?";
 			
+			preparedStatement = connection.prepareStatement(sql);
+			 
+			preparedStatement.setString(1, computer.getName());
 			
-			int rs = query.executeUpdate(sql);
+			if (computer.getIntroduced() == null)
+				preparedStatement.setTimestamp(2,null);
+			else
+				preparedStatement.setTimestamp(2, Timestamp.valueOf(computer.getIntroduced()));
 			
+			if (computer.getDiscontinued() == null)
+				preparedStatement.setTimestamp(3,null);
+			else
+				preparedStatement.setTimestamp(3, Timestamp.valueOf(computer.getDiscontinued()));
+			preparedStatement.setInt(4, computer.getCompany_id());
+			preparedStatement.setInt(5, computer.getId());
+
+			int rs = preparedStatement.executeUpdate();			
 			
+			if(rs > 0){
+				isSuccess = true;
+			}
 			query.close();
-			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return isSuccess;
 	}
 	
 	public Boolean deleteComputer(Computer computer) {
@@ -93,8 +171,7 @@ public class ComputerDao {
 		Boolean isSuccess = false;
 		java.sql.Statement query;
 		try {
-			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
-					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			connection = DaoFabric.getConnectionInstance();
 
 			query = connection.createStatement();
 
@@ -114,7 +191,6 @@ public class ComputerDao {
 			}
 			
 			query.close();
-			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -126,8 +202,7 @@ public class ComputerDao {
 		Boolean isSuccess = false;
 		java.sql.Statement query;
 		try {
-			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
-					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+			connection = DaoFabric.getConnectionInstance();
 
 			query = connection.createStatement();
 
@@ -147,19 +222,46 @@ public class ComputerDao {
 			}
 			
 			query.close();
-			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return isSuccess;
 	}
 
+	public Page getComputersByPage(int index) {
+		Page page = new Page();
+		ArrayList<Computer> computerList = new ArrayList<Computer>();
+
+		try {
+			connection = DaoFabric.getConnectionInstance();
+
+			java.sql.Statement query;
+
+			query = connection.createStatement();
+
+			java.sql.ResultSet rs = query
+					.executeQuery("SELECT * FROM "+dB_COMPUTER_TABLE+" ORDER BY "+dB_COLUMN_ID+" LIMIT "+index*Page.NB_ENTITY_BY_PAGE+","+Page.NB_ENTITY_BY_PAGE);
+			
+			while (rs.next()) {		
+				Computer computer = getComputerFromResult(rs);
+				computerList.add(computer);
+			}
+			rs.close();
+			query.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		page.setComputerList(computerList);
+		page.setIndex(index);
+		return page;
+	}
+	
 	public ArrayList<Computer> getAllComputers() {
 		ArrayList<Computer> computerList = new ArrayList<Computer>();
 
 		try {
-			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
-					+ dB_HOST + ":" + dB_PORT + "/" + dB_PATH, dB_USER, dB_PWD);
+			connection = DaoFabric.getConnectionInstance();
 
 			java.sql.Statement query;
 
@@ -167,27 +269,13 @@ public class ComputerDao {
 
 			java.sql.ResultSet rs = query
 					.executeQuery("SELECT * FROM "+dB_COMPUTER_TABLE);
-			LocalDateTime introducedTime = null;
-			LocalDateTime discontinuedTime = null;
-			while (rs.next()) {
-				
-				if(rs.getTimestamp(dB_COLUMN_INTRODUCED) != null)
-					introducedTime = rs.getTimestamp(dB_COLUMN_INTRODUCED).toLocalDateTime();
-
-				if(rs.getTimestamp(dB_COLUMN_DISCONTINUED) != null)
-					discontinuedTime = rs.getTimestamp(dB_COLUMN_DISCONTINUED).toLocalDateTime();
-				
-				Computer computer = new Computer(
-						rs.getInt(dB_COLUMN_ID), rs.getString(dB_COLUMN_NAME),
-						introducedTime, 
-						discontinuedTime,
-						rs.getInt(dB_COLUMN_COMPANY_ID));
-
+			
+			while (rs.next()) {		
+				Computer computer = getComputerFromResult(rs);
 				computerList.add(computer);
 			}
 			rs.close();
 			query.close();
-			connection.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();

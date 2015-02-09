@@ -1,4 +1,6 @@
 package com.flavien.cli;
+import java.sql.SQLException;
+
 import com.flavien.dao.fabric.DaoFabric;
 
 public class Menu {
@@ -9,6 +11,7 @@ public class Menu {
 	public enum MenuEntries {
 		  SHOW_COMPANY ("Visualiser l'ensemble des company."),
 		  SHOW_COMPUTERS ("Visualiser l'ensemble des computers."),
+		  SHOW_COMPUTERS_PAGINATION ("Visualiser les computers avec pagination."),
 		  UPDATE_COMPUTERS ("Mettre à jour un computer."),
 		  DELETE_COMPUTERS ("Supprimer un computer."),
 		  CREATE_COMPUTERS ("Creer un computer."),
@@ -26,8 +29,8 @@ public class Menu {
 	}
 	
 	public Menu(){
-		this.computerCli = new ComputerCli(DaoFabric.getInstance().createComputerDao());
-		this.companyCli = new CompanyCli(DaoFabric.getInstance().createCompanyDao());
+		this.computerCli = new ComputerCli();
+		this.companyCli = new CompanyCli();
 	}
 	
 	public void run(){
@@ -45,8 +48,11 @@ public class Menu {
 	                 
 	        case SHOW_COMPUTERS: computerCli.showComputers();
             	break;
+            	
+	        case SHOW_COMPUTERS_PAGINATION: computerCli.showComputersPage();
+        		break;
             
-	        case UPDATE_COMPUTERS: System.out.println(MenuEntries.UPDATE_COMPUTERS.toString());
+	        case UPDATE_COMPUTERS: computerCli.updateComputer();
 	        	break;
             
 	        case DELETE_COMPUTERS: computerCli.deleteComputer();
@@ -55,7 +61,13 @@ public class Menu {
 	        case CREATE_COMPUTERS: computerCli.createComputer();
             	break;  
             
-	        case QUIT: System.exit(0);
+	        case QUIT: 	System.exit(0);
+	        		   	Utils.getScannerInstance().close();
+						try {
+							DaoFabric.getConnectionInstance().close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
             	break;  
 	
 	        default: System.out.println("Error");

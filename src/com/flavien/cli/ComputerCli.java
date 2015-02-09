@@ -35,7 +35,7 @@ public class ComputerCli {
 
 			 System.out.println("\nVeuillez tapez entrer pour trouver les suivants ou 'exit' pour quitter\n");
 			 input = Utils.getStringInput();
-		}while(input == null);
+		}while(input == null && page.getComputerList().size() == Page.NB_ENTITY_BY_PAGE);
 	}
 	
 	public void displayComputer(List<Computer> computerList){

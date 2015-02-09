@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Page {
 	private ArrayList<Computer> computerList;
 	private int index;
-	public static int NB_ENTITY_BY_PAGE = 10;
+	public static int NB_ENTITY_BY_PAGE = 100;
 	
 	public Page() {}
 	

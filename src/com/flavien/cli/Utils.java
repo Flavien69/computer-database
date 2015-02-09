@@ -1,9 +1,8 @@
 package com.flavien.cli;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -49,7 +48,25 @@ public class Utils {
 		return valeur;
 	}
 	
-	public static LocalDate getDateInput(){
+	public static int getIntInput(){
+		boolean erreur;
+		int valeur = 0;
+		Scanner sc = getScannerInstance();
+
+		do {
+		    erreur = false;
+		    try {
+			    valeur = sc.nextInt();
+				return valeur;
+		    }catch (InputMismatchException e) {
+		       erreur = true;
+		       errorInput(sc, "Erreur! veillez rentrer un chiffre");
+		    }
+		} while (erreur);
+		return valeur;
+	}
+	
+	public static LocalDateTime getDateInput(){
 		boolean erreur;
 	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String dateInString;
@@ -62,6 +79,7 @@ public class Utils {
 				dateInString = sc.nextLine();
 				Date date = (Date) formatter.parse(dateInString);
 				long time = date.getTime();
+				return LocalDateTime.of(date.getYear(), date.getMonth(), date.getDay(), date.getMonth(), date.getMinutes(), date.getSeconds());
 				
 			} catch (ParseException e) {
 				erreur = true;
@@ -72,6 +90,7 @@ public class Utils {
 	}
 	
 	private static void errorInput(Scanner sc, String msg){
-       System.out.println(msg);
+		sc.nextLine();
+		System.out.println(msg);
 	}
 }

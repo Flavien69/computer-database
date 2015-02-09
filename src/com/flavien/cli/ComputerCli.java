@@ -19,6 +19,16 @@ public class ComputerCli {
 		}	
 	}
 	
+	public void deleteComputer(){
+		showComputers();
+		System.out.println("\nENTER THE ID OF THE COMPUTER TO DELETE : \n");
+		int computerId = Utils.getIntInput();
+		if (computerDao.deleteComputerById(computerId))
+			System.out.println("the computer "+computerId+" is deleted");
+		else
+			System.out.println("Fail to delete the computer "+computerId);
+	}
+	
 	public void createComputer(){
 		
 		Computer computer = new Computer();
@@ -31,8 +41,8 @@ public class ComputerCli {
 		System.out.println("Veuillez choisir une date de introduced (dd/MM/YYYY):");
 		computer.setIntroduced(Utils.getDateInput());
 		computer.setCompany_id(2);
-		System.out.println("Veuillez choisir une date de introduced (dd/MM/YYYY):");
-		computer.setDiscontinued(Utils.getDateInput());
+		/*System.out.println("Veuillez choisir une date de introduced (dd/MM/YYYY):");
+		computer.setDiscontinued(Utils.getDateInput());*/
 		
 		this.computerDao.addComputer(computer);
 		System.out.println("Computer added!\n");

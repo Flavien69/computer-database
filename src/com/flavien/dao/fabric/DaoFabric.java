@@ -11,8 +11,8 @@ public final class DaoFabric {
 	private static final String DB_PORT = "3306";
 	private static final String DB_NAME = "computer-database-db";
 	private static final String DB_ARGUMENT = "?zeroDateTimeBehavior=convertToNull";
-	private static final String DB_USER = "root";
-	private static final String DB_PWD = "flavienbert";
+	private static final String DB_USER = "admincdb";
+	private static final String DB_PWD = "qwerty1234";
 
 	private DaoFabric() {
 		super();

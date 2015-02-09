@@ -49,7 +49,7 @@ public class Menu {
 	        case UPDATE_COMPUTERS: System.out.println(MenuEntries.UPDATE_COMPUTERS.toString());
 	        	break;
             
-	        case DELETE_COMPUTERS: System.out.println(MenuEntries.DELETE_COMPUTERS.toString());
+	        case DELETE_COMPUTERS: computerCli.deleteComputer();
             	break;
             
 	        case CREATE_COMPUTERS: computerCli.createComputer();

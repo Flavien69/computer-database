@@ -1,61 +1,28 @@
 package com.flavien.models;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 
 public class Computer {
 	private int id;
 	private String name;
-	private LocalDate introduced;
-	private LocalDate discontinued;
+	private LocalDateTime introduced;
+	private LocalDateTime discontinued;
 	private int company_id;
 	
 	public Computer() {
 		super();
 	}
 
-	public Computer(int id, String name, LocalDate introduced,
-			LocalDate discontinued, int company_id) {
+	public Computer(int id, String name, LocalDateTime introduced,
+			LocalDateTime discontinued, int company_id) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
 		this.company_id = company_id;
-	}
-	
-	public Computer(int id, String name, Timestamp introduced,
-			Timestamp discontinued, int company_id) {
-		super();
-		this.id = id;
-		this.name = name;
-		try{
-			this.introduced = introduced.toLocalDateTime().toLocalDate();
-		}
-		catch(NullPointerException e ){
-			this.introduced = null;
-		}
-		try{
-			this.discontinued = discontinued.toLocalDateTime().toLocalDate();
-		}
-		catch(NullPointerException e ){
-			this.discontinued = null;
-		}		
-
-		this.company_id = company_id;
-	}
-	
-	public Computer(LocalDateTime introduced) {
-		super();
-		try{
-			this.introduced = introduced.toLocalDate();
-		}
-		catch(NullPointerException e ){
-			this.introduced = null;
-		}
 	}
 	
 	public int getId() {
@@ -70,16 +37,16 @@ public class Computer {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public LocalDate getIntroduced() {
+	public LocalDateTime getIntroduced() {
 		return introduced;
 	}
-	public void setIntroduced(LocalDate introduced) {
+	public void setIntroduced(LocalDateTime introduced) {
 		this.introduced = introduced;
 	}
-	public LocalDate getDiscontinued() {
+	public LocalDateTime getDiscontinued() {
 		return discontinued;
 	}
-	public void setDiscontinued(LocalDate discontinued) {
+	public void setDiscontinued(LocalDateTime discontinued) {
 		this.discontinued = discontinued;
 	}
 	public int getCompany_id() {

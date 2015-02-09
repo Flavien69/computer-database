@@ -2,6 +2,7 @@ package com.flavien.dao.instance;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.flavien.models.Computer;
@@ -87,8 +88,9 @@ public class ComputerDao {
 		}
 	}
 	
-	public void deleteComputer(Computer computer) {
-
+	public Boolean deleteComputer(Computer computer) {
+		
+		Boolean isSuccess = false;
 		java.sql.Statement query;
 		try {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
@@ -100,11 +102,56 @@ public class ComputerDao {
 			
 			int rs = query.executeUpdate(sql);
 					
+			switch (rs) {
+			case 0: isSuccess = false;				
+				break;
+			
+			case 1: isSuccess = true;				
+				break;
+			default:
+				isSuccess = false;
+				break;
+			}
+			
 			query.close();
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return isSuccess;
+	}
+	
+	public Boolean deleteComputerById(int computerId) {
+
+		Boolean isSuccess = false;
+		java.sql.Statement query;
+		try {
+			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
+					+ dB_HOST + ":" + dB_PORT + "/" + dB_NAME, dB_USER, dB_PWD);
+
+			query = connection.createStatement();
+
+			String sql = "DELETE FROM`"+ dB_NAME +"`.`"+dB_COMPUTER_TABLE+"` WHERE `"+dB_COMPUTER_TABLE+"`.`"+dB_COLUMN_ID+"` = '"+computerId+"'";
+			
+			int rs = query.executeUpdate(sql);
+			
+			switch (rs) {
+			case 0: isSuccess = false;				
+				break;
+			
+			case 1: isSuccess = true;				
+				break;
+			default:
+				isSuccess = false;
+				break;
+			}
+			
+			query.close();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isSuccess;
 	}
 
 	public ArrayList<Computer> getAllComputers() {
@@ -120,11 +167,20 @@ public class ComputerDao {
 
 			java.sql.ResultSet rs = query
 					.executeQuery("SELECT * FROM "+dB_COMPUTER_TABLE);
+			LocalDateTime introducedTime = null;
+			LocalDateTime discontinuedTime = null;
 			while (rs.next()) {
+				
+				if(rs.getTimestamp(dB_COLUMN_INTRODUCED) != null)
+					introducedTime = rs.getTimestamp(dB_COLUMN_INTRODUCED).toLocalDateTime();
+
+				if(rs.getTimestamp(dB_COLUMN_DISCONTINUED) != null)
+					discontinuedTime = rs.getTimestamp(dB_COLUMN_DISCONTINUED).toLocalDateTime();
+				
 				Computer computer = new Computer(
 						rs.getInt(dB_COLUMN_ID), rs.getString(dB_COLUMN_NAME),
-						rs.getTimestamp(dB_COLUMN_INTRODUCED), 
-						rs.getTimestamp(dB_COLUMN_DISCONTINUED),
+						introducedTime, 
+						discontinuedTime,
 						rs.getInt(dB_COLUMN_COMPANY_ID));
 
 				computerList.add(computer);

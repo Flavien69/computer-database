@@ -1,7 +1,7 @@
 package com.flavien.cli;
 import java.sql.SQLException;
 
-import com.flavien.dao.fabric.DaoFabric;
+import com.flavien.dao.DbConnection;
 
 public class Menu {
 	private final String MENU_TEMPLATE= "\t%d] %s";
@@ -63,11 +63,7 @@ public class Menu {
             
 	        case QUIT: 	System.exit(0);
 	        		   	Utils.getScannerInstance().close();
-						try {
-							DaoFabric.getConnectionInstance().close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
+						DbConnection.INSTANCE.closeConnection();
             	break;  
 	
 	        default: System.out.println("Error");

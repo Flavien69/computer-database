@@ -2,7 +2,6 @@ package com.flavien.cli;
 
 import java.util.List;
 
-import com.flavien.dao.fabric.DaoFabric;
 import com.flavien.dao.instance.CompanyDao;
 import com.flavien.models.Company;
 
@@ -11,7 +10,7 @@ public class CompanyCli {
 	private CompanyDao companyDao;
 	
 	public CompanyCli(){
-		this.companyDao = DaoFabric.getInstance().createCompanyDao();
+		this.companyDao = CompanyDao.INSTANCE;
 	}
 	
 	public void showCompany(){

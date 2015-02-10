@@ -1,11 +1,11 @@
 package com.flavien.models;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Page {
-	private ArrayList<Computer> computerList;
+	private List<Computer> computerList;
 	private int index;
-	public static int NB_ENTITY_BY_PAGE = 100;
+	public static final int NB_ENTITY_BY_PAGE = 100;
 	
 	public Page() {}
 	
@@ -16,16 +16,16 @@ public class Page {
 	}
 
 
-	public Page(ArrayList<Computer> computerList, int index) {
+	public Page(List<Computer> computerList, int index) {
 		super();
 		this.computerList = computerList;
 		this.index = index;
 	}
 	
-	public ArrayList<Computer> getComputerList() {
+	public List<Computer> getComputerList() {
 		return computerList;
 	}
-	public void setComputerList(ArrayList<Computer> computerList) {
+	public void setComputerList(List<Computer> computerList) {
 		this.computerList = computerList;
 	}
 	public int getIndex() {

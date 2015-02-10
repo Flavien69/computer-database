@@ -1,6 +1,5 @@
 package com.flavien.models;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -9,7 +8,7 @@ public class Computer {
 	private String name;
 	private LocalDateTime introduced;
 	private LocalDateTime discontinued;
-	private int company_id;
+	private int companyId;
 	
 	public Computer() {
 		super();
@@ -22,7 +21,7 @@ public class Computer {
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
-		this.company_id = company_id;
+		this.companyId = company_id;
 	}
 	
 	public int getId() {
@@ -50,17 +49,17 @@ public class Computer {
 		this.discontinued = discontinued;
 	}
 	public int getCompany_id() {
-		return company_id;
+		return companyId;
 	}
-	public void setCompany_id(int company_id) {
-		this.company_id = company_id;
+	public void setCompany_id(int companyId) {
+		this.companyId = companyId;
 	}
 
 	@Override
 	public String toString() {
 		return "Computer [id=" + id + ", name=" + name + ", introduced="
 				+ introduced + ", discontinued=" + discontinued
-				+ ", company_id=" + company_id + "]";
+				+ ", company_id=" + companyId + "]";
 	}
 	
 }

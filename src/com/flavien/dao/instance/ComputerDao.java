@@ -2,12 +2,12 @@ package com.flavien.dao.instance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.flavien.dao.ComputerMapper;
 import com.flavien.dao.DbConnection;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
@@ -16,28 +16,17 @@ public enum ComputerDao {
 	INSTANCE;
 	private Connection connection;
 
-	private static final String DB_NAME = "computer-database-db";
-	private final static String DB_COMPUTER_TABLE = "computer";
-	private final static String DB_COLUMN_ID = "id";
-	private final static String DB_COLUMN_NAME = "name";
-	private final static String DB_COLUMN_INTRODUCED = "introduced";
-	private final static String DB_COLUMN_DISCONTINUED = "discontinued";
-	private final static String DB_COLUMN_COMPANY_ID = "company_id";
+	public static final String DB_NAME = "computer-database-db";
+	public final static String DB_COMPUTER_TABLE = "computer";
+	public final static String DB_COLUMN_ID = "id";
+	public final static String DB_COLUMN_NAME = "name";
+	public final static String DB_COLUMN_INTRODUCED = "introduced";
+	public final static String DB_COLUMN_DISCONTINUED = "discontinued";
+	public final static String DB_COLUMN_COMPANY_ID = "company_id";
 
 	private ComputerDao() {}
 
-	public Computer getComputerFromResult(ResultSet rs) throws SQLException {
-
-		return new Computer(
-				rs.getInt(DB_COLUMN_ID),
-				rs.getString(DB_COLUMN_NAME),
-				DateUtils.getLocalDate(rs.getTimestamp(DB_COLUMN_INTRODUCED)),
-				DateUtils.getLocalDate(rs.getTimestamp(DB_COLUMN_DISCONTINUED)),
-				rs.getInt(DB_COLUMN_COMPANY_ID));
-
-	}
-
-	public Boolean addComputer(Computer computer) {
+	public Boolean add(Computer computer) {
 		java.sql.Statement query;
 		PreparedStatement preparedStatement = null;
 		Boolean isSuccess = false;
@@ -84,7 +73,7 @@ public enum ComputerDao {
 		return isSuccess;
 	}
 
-	public Computer getComputerByID(int computerId) {
+	public Computer getByID(int computerId) {
 		java.sql.Statement query;
 		PreparedStatement preparedStatement = null;
 		Computer computer = null;
@@ -103,7 +92,7 @@ public enum ComputerDao {
 			java.sql.ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.first())
-				computer = getComputerFromResult(rs);
+				computer = ComputerMapper.INSTANCE.getObject(rs);
 
 			query.close();
 		} catch (SQLException e) {
@@ -112,7 +101,7 @@ public enum ComputerDao {
 		return computer;
 	}
 
-	public Boolean updateComputer(Computer computer) {
+	public Boolean update(Computer computer) {
 
 		Boolean isSuccess = false;
 		PreparedStatement preparedStatement = null;
@@ -157,7 +146,7 @@ public enum ComputerDao {
 		return isSuccess;
 	}
 
-	public Boolean deleteComputer(Computer computer) {
+	public Boolean delete(Computer computer) {
 
 		Boolean isSuccess = false;
 		java.sql.Statement query;
@@ -192,7 +181,7 @@ public enum ComputerDao {
 		return isSuccess;
 	}
 
-	public Boolean deleteComputerById(int computerId) {
+	public Boolean deleteById(int computerId) {
 
 		Boolean isSuccess = false;
 		java.sql.Statement query;
@@ -227,7 +216,7 @@ public enum ComputerDao {
 		return isSuccess;
 	}
 
-	public Page getComputersByPage(int index) {
+	public Page getByPage(int index) {
 		Page page = new Page();
 		List<Computer> computerList = new ArrayList<Computer>();
 
@@ -243,10 +232,9 @@ public enum ComputerDao {
 					+ " LIMIT " + index * Page.NB_ENTITY_BY_PAGE + ","
 					+ Page.NB_ENTITY_BY_PAGE);
 
-			while (rs.next()) {
-				Computer computer = getComputerFromResult(rs);
-				computerList.add(computer);
-			}
+
+			computerList = ComputerMapper.INSTANCE.getList(rs);
+			
 			rs.close();
 			query.close();
 
@@ -258,7 +246,7 @@ public enum ComputerDao {
 		return page;
 	}
 
-	public List<Computer> getAllComputers() {
+	public List<Computer> getAll() {
 		List<Computer> computerList = new ArrayList<Computer>();
 
 		try {
@@ -271,10 +259,7 @@ public enum ComputerDao {
 			java.sql.ResultSet rs = query.executeQuery("SELECT * FROM "
 					+ DB_COMPUTER_TABLE);
 
-			while (rs.next()) {
-				Computer computer = getComputerFromResult(rs);
-				computerList.add(computer);
-			}
+			computerList = ComputerMapper.INSTANCE.getList(rs);
 			rs.close();
 			query.close();
 

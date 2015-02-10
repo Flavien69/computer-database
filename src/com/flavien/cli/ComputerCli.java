@@ -21,7 +21,7 @@ public class ComputerCli {
 	}
 
 	public void showComputers() {
-		List<Computer> computerList = ComputerDao.INSTANCE.getAllComputers();
+		List<Computer> computerList = ComputerDao.INSTANCE.getAll();
 		displayComputer(computerList);
 	}
 
@@ -29,7 +29,7 @@ public class ComputerCli {
 		String input;
 		Page page = new Page(-1);
 		do {
-			page = this.computerDao.getComputersByPage(page.getIndex() + 1);
+			page = this.computerDao.getByPage(page.getIndex() + 1);
 			displayComputer(page.getComputerList());
 
 			System.out
@@ -81,7 +81,7 @@ public class ComputerCli {
 
 			int computerId = Utils.getIntInput();
 			if (computerId != Utils.RESULT_SKIP) {
-				company = companyDao.getCompanyByID(computerId);
+				company = companyDao.getByID(computerId);
 				if (company != null)
 					computer.setCompany_id(company.getId());
 			} else
@@ -89,7 +89,7 @@ public class ComputerCli {
 			isCompanyIdError = true;
 		} while (company == null);
 
-		if (this.computerDao.addComputer(computer))
+		if (this.computerDao.add(computer))
 			System.out.println("Computer added!\n");
 		else
 			System.out.println("Fail to add the computer!\n");
@@ -113,7 +113,7 @@ public class ComputerCli {
 				System.out
 						.println("\nERREUR: ID INVALID, choisir votre computer à modifier (l'ID du computer):");
 
-			computer = computerDao.getComputerByID(Utils.getIntInput());
+			computer = computerDao.getByID(Utils.getIntInput());
 			isComputerIdError = true;
 		} while (computer == null);
 
@@ -148,7 +148,7 @@ public class ComputerCli {
 
 			int computerId = Utils.getIntInput();
 			if (computerId != Utils.RESULT_SKIP) {
-				company = companyDao.getCompanyByID(computerId);
+				company = companyDao.getByID(computerId);
 				if (company != null)
 					computer.setCompany_id(company.getId());
 			} else
@@ -156,7 +156,7 @@ public class ComputerCli {
 			isCompanyIdError = true;
 		} while (company == null);
 
-		if (this.computerDao.updateComputer(computer))
+		if (this.computerDao.update(computer))
 			System.out.println("Computer updated!\n");
 		else
 			System.out.println("Fail to update the computer!\n");
@@ -179,11 +179,11 @@ public class ComputerCli {
 				System.out
 						.println("\nERREUR: ID INVALID, choisir votre computer à supprimer (l'ID du computer):");
 
-			computer = computerDao.getComputerByID(Utils.getIntInput());
+			computer = computerDao.getByID(Utils.getIntInput());
 			isComputerIdError = true;
 		} while (computer == null);
 
-		if (this.computerDao.deleteComputer(computer))
+		if (this.computerDao.delete(computer))
 			System.out.println("Computer deleted!\n");
 		else
 			System.out.println("Fail to delete the computer!\n");

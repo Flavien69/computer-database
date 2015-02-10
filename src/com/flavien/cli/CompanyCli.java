@@ -14,7 +14,7 @@ public class CompanyCli {
 	}
 	
 	public void showCompany(){
-		List<Company> companyList = companyDao.getAllCompany();
+		List<Company> companyList = companyDao.getAll();
 		
 		for(Company company: companyList){
 			System.out.println(company.toString());

@@ -2,11 +2,11 @@ package com.flavien.dao.instance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.flavien.dao.CompanyMapper;
 import com.flavien.dao.DbConnection;
 import com.flavien.models.Company;
 
@@ -15,16 +15,13 @@ public enum CompanyDao {
 
 	private Connection connection;
 
-	private final static String DB_COMPANY_TABLE = "company";
-	private final static String DB_COLUMN_ID = "id";
-	private final static String DB_COLUMN_NAME = "name";
+	public final static String DB_COMPANY_TABLE = "company";
+	public final static String DB_COLUMN_ID = "id";
+	public final static String DB_COLUMN_NAME = "name";
 
-	public Company getCompanyFromResult(ResultSet rs) throws SQLException {
-		return new Company(rs.getInt(DB_COLUMN_ID),
-				rs.getString(DB_COLUMN_NAME));
-	}
+	private CompanyDao() {}
 
-	public List<Company> getAllCompany() {
+	public List<Company> getAll() {
 		List<Company> companyList = new ArrayList<Company>();
 
 		try {
@@ -36,11 +33,9 @@ public enum CompanyDao {
 
 			java.sql.ResultSet rs = query.executeQuery("SELECT * FROM "
 					+ DB_COMPANY_TABLE);
-			while (rs.next()) {
-				Company company = getCompanyFromResult(rs);
 
-				companyList.add(company);
-			}
+			companyList = CompanyMapper.INSTANCE.getList(rs);
+			
 			rs.close();
 			query.close();
 
@@ -50,7 +45,7 @@ public enum CompanyDao {
 		return companyList;
 	}
 
-	public Company getCompanyByID(int companyId) {
+	public Company getByID(int companyId) {
 		java.sql.Statement query;
 		PreparedStatement preparedStatement = null;
 		Company company = null;
@@ -65,8 +60,7 @@ public enum CompanyDao {
 			java.sql.ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.first()) {
-				company = new Company(rs.getInt(DB_COLUMN_ID),
-						rs.getString(DB_COLUMN_NAME));
+				company = CompanyMapper.INSTANCE.getObject(rs);
 			}
 
 			query.close();

@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.flavien.dao.ComputerMapper;
 import com.flavien.dao.DbConnection;
+import com.flavien.dao.DbUtils;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 
@@ -93,6 +94,7 @@ public enum ComputerDao {
 			e.printStackTrace();
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
 		}
 		return isSuccess;
 	}
@@ -100,12 +102,13 @@ public enum ComputerDao {
 	public Computer getByID(int computerId) {
 		PreparedStatement preparedStatement = null;
 		Computer computer = null;
+		ResultSet rs = null;
 
 		try {
 			connection = DbConnection.INSTANCE.getConnection();
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
 			preparedStatement.setInt(1, computerId);
-			java.sql.ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			if (rs.first())
 				computer = ComputerMapper.INSTANCE.getObject(rs);
@@ -114,6 +117,8 @@ public enum ComputerDao {
 			e.printStackTrace();
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
+			DbUtils.closeResultSet(rs);
 		}
 		return computer;
 	}
@@ -154,6 +159,7 @@ public enum ComputerDao {
 			e.printStackTrace();
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
 		}
 
 		return isSuccess;
@@ -186,6 +192,7 @@ public enum ComputerDao {
 			e.printStackTrace();
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
 		}
 		return isSuccess;
 	}
@@ -194,19 +201,22 @@ public enum ComputerDao {
 		Page page = new Page();
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
 
 		try {
 			connection = DbConnection.INSTANCE.getConnection();
 			preparedStatement = connection
 					.prepareStatement(REQUEST_GET_BY_PAGE);
 			preparedStatement.setInt(1, index * Page.NB_ENTITY_BY_PAGE);
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			computerList = ComputerMapper.INSTANCE.getList(rs);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
+			DbUtils.closeResultSet(rs);
 		}
 		page.setComputerList(computerList);
 		page.setIndex(index);
@@ -216,17 +226,19 @@ public enum ComputerDao {
 	public List<Computer> getAll() {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
-
+		ResultSet rs = null;
 		try {
 			connection = DbConnection.INSTANCE.getConnection();
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
-			ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			computerList = ComputerMapper.INSTANCE.getList(rs);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
+			DbUtils.closeResultSet(rs);
 		}
 		return computerList;
 	}

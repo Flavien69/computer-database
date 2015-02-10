@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.flavien.dao.CompanyMapper;
 import com.flavien.dao.DbConnection;
+import com.flavien.dao.DbUtils;
 import com.flavien.models.Company;
 
 public enum CompanyDao {
@@ -31,18 +32,20 @@ public enum CompanyDao {
 	public List<Company> getAll() {
 		List<Company> companyList = new ArrayList<Company>();
 		PreparedStatement preparedStatement = null;
-
+		java.sql.ResultSet rs = null;
 		try {
 			connection = DbConnection.INSTANCE.getConnection();
 
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
-			java.sql.ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 			companyList = CompanyMapper.INSTANCE.getList(rs);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
+			DbUtils.closeResultSet(rs);
 		}
 		return companyList;
 	}
@@ -50,12 +53,13 @@ public enum CompanyDao {
 	public Company getByID(int companyId) {
 		PreparedStatement preparedStatement = null;
 		Company company = null;
-
+		java.sql.ResultSet rs = null;
+		
 		try {
 			connection = DbConnection.INSTANCE.getConnection();
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
 			preparedStatement.setInt(1, companyId);
-			java.sql.ResultSet rs = preparedStatement.executeQuery();
+			rs = preparedStatement.executeQuery();
 
 			if (rs.first()) {
 				company = CompanyMapper.INSTANCE.getObject(rs);
@@ -65,6 +69,8 @@ public enum CompanyDao {
 			e.printStackTrace();
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
+			DbUtils.closeResultSet(rs);
 		}
 		return company;
 	}

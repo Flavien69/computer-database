@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flavien.dao.instance.ComputerDao;
+import com.flavien.models.Company;
 import com.flavien.models.Computer;
 
 public enum ComputerMapper implements RowMappable<Computer>{
@@ -19,17 +20,20 @@ public enum ComputerMapper implements RowMappable<Computer>{
 			Computer computer = getObject(rs);
 			computerList.add(computer);
 		}
-		return computerList;
+		return computerList; 
 	}
 
 	@Override
 	public Computer getObject(ResultSet rs) throws SQLException {
-			return new Computer(
-					rs.getInt(ComputerDao.DB_COLUMN_ID),
-					rs.getString(ComputerDao.DB_COLUMN_NAME),
-					DateUtils.getLocalDate(rs.getTimestamp(ComputerDao.DB_COLUMN_INTRODUCED)),
-					DateUtils.getLocalDate(rs.getTimestamp(ComputerDao.DB_COLUMN_DISCONTINUED)),
-					rs.getInt(ComputerDao.DB_COLUMN_COMPANY_ID));
+		
+		Company company = new Company(rs.getInt(ComputerDao.DB_COLUMN_COMPANY_ID),rs.getString(ComputerDao.DB_COLUMN_COMPANY_NAME));
+		
+		return new Computer(
+			rs.getInt(ComputerDao.DB_COLUMN_ID),
+			rs.getString(ComputerDao.DB_COLUMN_NAME),
+			DateUtils.getLocalDate(rs.getTimestamp(ComputerDao.DB_COLUMN_INTRODUCED)),
+			DateUtils.getLocalDate(rs.getTimestamp(ComputerDao.DB_COLUMN_DISCONTINUED)),
+			company);
 	}
 
 }

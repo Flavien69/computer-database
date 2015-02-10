@@ -5,16 +5,14 @@ import java.util.List;
 import com.flavien.dao.instance.CompanyDao;
 import com.flavien.models.Company;
 
-public class CompanyCli {
+public enum CompanyCli {
+	INSTANCE;
 	
-	private CompanyDao companyDao;
-	
-	public CompanyCli(){
-		this.companyDao = CompanyDao.INSTANCE;
+	private CompanyCli(){
 	}
 	
 	public void showCompany(){
-		List<Company> companyList = companyDao.getAll();
+		List<Company> companyList = CompanyDao.INSTANCE.getAll();
 		
 		for(Company company: companyList){
 			System.out.println(company.toString());

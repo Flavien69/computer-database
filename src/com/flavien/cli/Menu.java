@@ -1,21 +1,18 @@
 package com.flavien.cli;
-import java.sql.SQLException;
 
-import com.flavien.dao.DbConnection;
-
-public class Menu {
+public enum Menu {
+	INSTANCE;
+	private Menu(){};
 	private final String MENU_TEMPLATE= "\t%d] %s";
-	private CompanyCli companyCli;
-	private ComputerCli computerCli;
 	
 	public enum MenuEntries {
-		  SHOW_COMPANY ("Visualiser l'ensemble des company."),
-		  SHOW_COMPUTERS ("Visualiser l'ensemble des computers."),
-		  SHOW_COMPUTERS_PAGINATION ("Visualiser les computers avec pagination."),
-		  UPDATE_COMPUTERS ("Mettre à jour un computer."),
-		  DELETE_COMPUTERS ("Supprimer un computer."),
-		  CREATE_COMPUTERS ("Creer un computer."),
-		  QUIT ("Quitter.");		  
+		  SHOW_COMPANY ("Show all the company."),
+		  SHOW_COMPUTERS ("Show all the computers."),
+		  SHOW_COMPUTERS_PAGINATION ("Show computers page by page."),
+		  UPDATE_COMPUTERS ("Update a computer."),
+		  DELETE_COMPUTERS ("Delete a computer."),
+		  CREATE_COMPUTERS ("Create a computer."),
+		  QUIT ("Quit.");		  
 		   
 		  private String name;
 		   
@@ -28,11 +25,6 @@ public class Menu {
 		  }
 	}
 	
-	public Menu(){
-		this.computerCli = new ComputerCli();
-		this.companyCli = new CompanyCli();
-	}
-	
 	public void run(){
 		while(true){
 			display();
@@ -43,27 +35,26 @@ public class Menu {
 		MenuEntries selection = MenuEntries.values()[choice];
 		
 		switch (selection) {
-	        case SHOW_COMPANY: companyCli.showCompany();
+	        case SHOW_COMPANY: CompanyCli.INSTANCE.showCompany();
             	break;
 	                 
-	        case SHOW_COMPUTERS: computerCli.showComputers();
+	        case SHOW_COMPUTERS: ComputerCli.INSTANCE.showComputers();
             	break;
             	
-	        case SHOW_COMPUTERS_PAGINATION: computerCli.showComputersPage();
+	        case SHOW_COMPUTERS_PAGINATION: ComputerCli.INSTANCE.showComputersPage();
         		break;
             
-	        case UPDATE_COMPUTERS: computerCli.updateComputer();
+	        case UPDATE_COMPUTERS: ComputerCli.INSTANCE.updateComputer();
 	        	break;
             
-	        case DELETE_COMPUTERS: computerCli.deleteComputer();
+	        case DELETE_COMPUTERS: ComputerCli.INSTANCE.deleteComputer();
             	break;
             
-	        case CREATE_COMPUTERS: computerCli.createComputer();
+	        case CREATE_COMPUTERS: ComputerCli.INSTANCE.createComputer();
             	break;  
             
 	        case QUIT: 	System.exit(0);
 	        		   	Utils.getScannerInstance().close();
-						DbConnection.INSTANCE.closeConnection();
             	break;  
 	
 	        default: System.out.println("Error");
@@ -79,7 +70,7 @@ public class Menu {
 		}
 		System.out.println("\n****************************************************\n");
 		
-		System.out.println("Veuillez saisir votre choix (numéro):");
+		System.out.println("Choose a number :");
 		redirectUser(Utils.getIntInput(MenuEntries.values().length));
 	}
 }

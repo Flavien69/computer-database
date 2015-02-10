@@ -2,6 +2,7 @@ package com.flavien.dao.instance;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -23,25 +24,47 @@ public enum ComputerDao {
 	public final static String DB_COLUMN_INTRODUCED = "introduced";
 	public final static String DB_COLUMN_DISCONTINUED = "discontinued";
 	public final static String DB_COLUMN_COMPANY_ID = "company_id";
+	public final static String DB_COLUMN_COMPANY_NAME = "companyName";
 
-	private ComputerDao() {}
+	private final static String REQUEST_GET_ALL = "SELECT "
+			+ ComputerDao.DB_COMPUTER_TABLE + ".*, "
+			+ CompanyDao.DB_COMPANY_TABLE + "." + CompanyDao.DB_COLUMN_NAME
+			+ " AS " + DB_COLUMN_COMPANY_NAME + " FROM "
+			+ ComputerDao.DB_COMPUTER_TABLE + " LEFT JOIN "
+			+ CompanyDao.DB_COMPANY_TABLE + " ON "
+			+ ComputerDao.DB_COMPUTER_TABLE + "."
+			+ ComputerDao.DB_COLUMN_COMPANY_ID + "="
+			+ CompanyDao.DB_COMPANY_TABLE + "." + CompanyDao.DB_COLUMN_ID;
+
+	private final static String REQUEST_GET_BY_ID = REQUEST_GET_ALL + " WHERE "
+			+ ComputerDao.DB_COMPUTER_TABLE + ".id=?";
+
+	private final static String REQUEST_ADD = "INSERT INTO `" + DB_NAME + "`.`"
+			+ DB_COMPUTER_TABLE + "` (`" + DB_COLUMN_NAME + "`, `"
+			+ DB_COLUMN_INTRODUCED + "`, `" + DB_COLUMN_DISCONTINUED + "`, `"
+			+ DB_COLUMN_COMPANY_ID + "`) VALUES" + "(?,?,?,?)";
+
+	private final static String REQUEST_UPDATE = "UPDATE  `" + DB_NAME + "`.`"
+			+ DB_COMPUTER_TABLE + "` SET " + "`name`=?" + ",`introduced`=?"
+			+ ",`discontinued`=?" + ",`company_id`=?" + " WHERE id=?";
+
+	private final static String REQUEST_DELETE = "DELETE FROM "
+			+ DB_COMPUTER_TABLE + " WHERE " + DB_COLUMN_ID + " =?";
+
+	private final static String REQUEST_GET_BY_PAGE = REQUEST_GET_ALL
+			+ " ORDER BY " + DB_COLUMN_ID + " LIMIT ?,"
+			+ Page.NB_ENTITY_BY_PAGE;
+
+	private ComputerDao() {
+	}
 
 	public Boolean add(Computer computer) {
-		java.sql.Statement query;
 		PreparedStatement preparedStatement = null;
 		Boolean isSuccess = false;
 
 		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
-
-			query = connection.createStatement();
-			String sql;
-			sql = "INSERT INTO `" + DB_NAME + "`.`" + DB_COMPUTER_TABLE
-					+ "` (`" + DB_COLUMN_NAME + "`, `" + DB_COLUMN_INTRODUCED
-					+ "`, `" + DB_COLUMN_DISCONTINUED + "`, `"
-					+ DB_COLUMN_COMPANY_ID + "`) VALUES" + "(?,?,?,?)";
-
-			preparedStatement = connection.prepareStatement(sql);
+			connection = DbConnection.INSTANCE.getConnection();
+			preparedStatement = connection.prepareStatement(REQUEST_ADD);
 
 			preparedStatement.setString(1, computer.getName());
 			if (computer.getIntroduced() == null)
@@ -56,8 +79,8 @@ public enum ComputerDao {
 				preparedStatement.setTimestamp(3,
 						Timestamp.valueOf(computer.getDiscontinued()));
 
-			if (computer.getCompany_id() != 0)
-				preparedStatement.setInt(4, computer.getCompany_id());
+			if (computer.getCompany() != null && computer.getCompany().getId() != 0)
+				preparedStatement.setInt(4, computer.getCompany().getId());
 			else
 				preparedStatement.setNull(4, java.sql.Types.BIGINT);
 
@@ -66,37 +89,31 @@ public enum ComputerDao {
 			if (rs > 0)
 				isSuccess = true;
 
-			query.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
 		}
 		return isSuccess;
 	}
 
 	public Computer getByID(int computerId) {
-		java.sql.Statement query;
 		PreparedStatement preparedStatement = null;
 		Computer computer = null;
 
 		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
-
-			query = connection.createStatement();
-
-			String sql = "SELECT * FROM " + DB_COMPUTER_TABLE + " WHERE id=?";
-
-			preparedStatement = connection.prepareStatement(sql);
-
+			connection = DbConnection.INSTANCE.getConnection();
+			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
 			preparedStatement.setInt(1, computerId);
-
 			java.sql.ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.first())
 				computer = ComputerMapper.INSTANCE.getObject(rs);
 
-			query.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
 		}
 		return computer;
 	}
@@ -105,18 +122,9 @@ public enum ComputerDao {
 
 		Boolean isSuccess = false;
 		PreparedStatement preparedStatement = null;
-		java.sql.Statement query;
 		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
-
-			query = connection.createStatement();
-
-			String sql = "UPDATE  `" + DB_NAME + "`.`" + DB_COMPUTER_TABLE
-					+ "` SET " + "`name`=?" + ",`introduced`=?"
-					+ ",`discontinued`=?" + ",`company_id`=?" + " WHERE id=?";
-
-			preparedStatement = connection.prepareStatement(sql);
-
+			connection = DbConnection.INSTANCE.getConnection();
+			preparedStatement = connection.prepareStatement(REQUEST_UPDATE);
 			preparedStatement.setString(1, computer.getName());
 
 			if (computer.getIntroduced() == null)
@@ -130,7 +138,11 @@ public enum ComputerDao {
 			else
 				preparedStatement.setTimestamp(3,
 						Timestamp.valueOf(computer.getDiscontinued()));
-			preparedStatement.setInt(4, computer.getCompany_id());
+			if (computer.getCompany() != null && computer.getCompany().getId() != 0)
+				preparedStatement.setInt(4, computer.getCompany().getId());
+			else
+				preparedStatement.setNull(4, java.sql.Types.BIGINT);
+			
 			preparedStatement.setInt(5, computer.getId());
 
 			int rs = preparedStatement.executeUpdate();
@@ -138,64 +150,25 @@ public enum ComputerDao {
 			if (rs > 0) {
 				isSuccess = true;
 			}
-			query.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
 		}
 
-		return isSuccess;
-	}
-
-	public Boolean delete(Computer computer) {
-
-		Boolean isSuccess = false;
-		java.sql.Statement query;
-		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
-
-			query = connection.createStatement();
-
-			String sql = "DELETE FROM`" + DB_NAME + "`.`" + DB_COMPUTER_TABLE
-					+ "` WHERE `" + DB_COMPUTER_TABLE + "`.`" + DB_COLUMN_ID
-					+ "` = '" + computer.getId() + "'";
-
-			int rs = query.executeUpdate(sql);
-
-			switch (rs) {
-			case 0:
-				isSuccess = false;
-				break;
-
-			case 1:
-				isSuccess = true;
-				break;
-			default:
-				isSuccess = false;
-				break;
-			}
-
-			query.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return isSuccess;
 	}
 
 	public Boolean deleteById(int computerId) {
-
 		Boolean isSuccess = false;
-		java.sql.Statement query;
+		PreparedStatement preparedStatement = null;
 		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
+			connection = DbConnection.INSTANCE.getConnection();
 
-			query = connection.createStatement();
+			preparedStatement = connection.prepareStatement(REQUEST_DELETE);
+			preparedStatement.setInt(1, computerId);
 
-			String sql = "DELETE FROM`" + DB_NAME + "`.`" + DB_COMPUTER_TABLE
-					+ "` WHERE `" + DB_COMPUTER_TABLE + "`.`" + DB_COLUMN_ID
-					+ "` = '" + computerId + "'";
-
-			int rs = query.executeUpdate(sql);
-
+			int rs = preparedStatement.executeUpdate();
 			switch (rs) {
 			case 0:
 				isSuccess = false;
@@ -209,9 +182,10 @@ public enum ComputerDao {
 				break;
 			}
 
-			query.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
 		}
 		return isSuccess;
 	}
@@ -219,27 +193,20 @@ public enum ComputerDao {
 	public Page getByPage(int index) {
 		Page page = new Page();
 		List<Computer> computerList = new ArrayList<Computer>();
+		PreparedStatement preparedStatement = null;
 
 		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
-
-			java.sql.Statement query;
-
-			query = connection.createStatement();
-
-			java.sql.ResultSet rs = query.executeQuery("SELECT * FROM "
-					+ DB_COMPUTER_TABLE + " ORDER BY " + DB_COLUMN_ID
-					+ " LIMIT " + index * Page.NB_ENTITY_BY_PAGE + ","
-					+ Page.NB_ENTITY_BY_PAGE);
-
-
+			connection = DbConnection.INSTANCE.getConnection();
+			preparedStatement = connection
+					.prepareStatement(REQUEST_GET_BY_PAGE);
+			preparedStatement.setInt(1, index * Page.NB_ENTITY_BY_PAGE);
+			ResultSet rs = preparedStatement.executeQuery();
 			computerList = ComputerMapper.INSTANCE.getList(rs);
-			
-			rs.close();
-			query.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
 		}
 		page.setComputerList(computerList);
 		page.setIndex(index);
@@ -248,23 +215,18 @@ public enum ComputerDao {
 
 	public List<Computer> getAll() {
 		List<Computer> computerList = new ArrayList<Computer>();
+		PreparedStatement preparedStatement = null;
 
 		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
-
-			java.sql.Statement query;
-
-			query = connection.createStatement();
-
-			java.sql.ResultSet rs = query.executeQuery("SELECT * FROM "
-					+ DB_COMPUTER_TABLE);
-
+			connection = DbConnection.INSTANCE.getConnection();
+			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
+			ResultSet rs = preparedStatement.executeQuery();
 			computerList = ComputerMapper.INSTANCE.getList(rs);
-			rs.close();
-			query.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
 		}
 		return computerList;
 	}

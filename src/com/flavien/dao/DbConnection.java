@@ -5,8 +5,6 @@ import java.sql.SQLException;
 
 public enum DbConnection {
 	INSTANCE;
-	
-	private Connection connection = null;
 
 	private static final String DB_HOST = "localhost";
 	private static final String DB_PORT = "3306";
@@ -16,24 +14,30 @@ public enum DbConnection {
 	private static final String DB_USER = "admincdb";
 	private static final String DB_PWD = "qwerty1234";
 	
-	private DbConnection(){}
+	private DbConnection(){
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	public Connection getConnectionInstance() throws SQLException {
-
-		if (connection == null) {
+	public Connection getConnection(){
+		Connection connection = null;
+		try {
 			connection = java.sql.DriverManager.getConnection("jdbc:mysql://"
-					+ DB_HOST + ":" + DB_PORT + "/" + DB_PATH, DB_USER, DB_PWD);	
+						+ DB_HOST + ":" + DB_PORT + "/" + DB_PATH, DB_USER, DB_PWD);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return connection;
 	}
 	
-	public void closeConnection() {
-		if (connection != null)
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	public void closeConnection(Connection connection){
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
 }

@@ -49,12 +49,12 @@ public class Utils {
 				} else {
 					erreur = true;
 					errorInput(sc,
-							"Erreur! veillez rentrer un chiffre inférieur à "
+							"Erreur! Erreur! please enter a number less than "
 									+ maxValue);
 				}
 			} catch (Exception e) {
 				erreur = true;
-				errorInput(sc, "Erreur! veillez rentrer un chiffre");
+				errorInput(sc, "Erreur! please enter a number");
 			}
 		} while (erreur);
 		return valeur;
@@ -75,7 +75,7 @@ public class Utils {
 				return valeur;
 			} catch (Exception e) {
 				erreur = true;
-				errorInput(sc, "Erreur! veillez rentrer un chiffre");
+				errorInput(sc, "Erreur! please enter a number");
 			}
 		} while (erreur);
 		return valeur;

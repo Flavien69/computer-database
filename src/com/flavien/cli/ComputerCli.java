@@ -9,16 +9,11 @@ import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 
-public class ComputerCli {
-
+public enum ComputerCli {
+	INSTANCE;
 	private Computer computer;
-	private ComputerDao computerDao;
-	private CompanyDao companyDao;
 
-	public ComputerCli() {
-		this.companyDao = CompanyDao.INSTANCE;
-		this.computerDao = ComputerDao.INSTANCE;
-	}
+	private ComputerCli() {}
 
 	public void showComputers() {
 		List<Computer> computerList = ComputerDao.INSTANCE.getAll();
@@ -29,11 +24,11 @@ public class ComputerCli {
 		String input;
 		Page page = new Page(-1);
 		do {
-			page = this.computerDao.getByPage(page.getIndex() + 1);
+			page = ComputerDao.INSTANCE.getByPage(page.getIndex() + 1);
 			displayComputer(page.getComputerList());
 
 			System.out
-					.println("\nVeuillez tapez entrer pour trouver les suivants ou 'exit' pour quitter\n");
+					.println("\n'enter' to search the next or 'exit' to return in the menu\n");
 			input = Utils.getStringInput();
 		} while (input == null
 				&& page.getComputerList().size() == Page.NB_ENTITY_BY_PAGE);
@@ -50,46 +45,45 @@ public class ComputerCli {
 		Computer computer = new Computer();
 
 		System.out
-				.println("\n***************** CREATION D'UN COMPUTER ***********************************\n");
+				.println("\n***************** CREATE A COMPUTER ***********************************\n");
 		String name = null;
 		do {
-			System.out.println("Veuillez choisir un nom:(champs obligatoire)");
+			System.out.println("choose a name (field needed)");
 			name = Utils.getStringInput();
 			computer.setName(name);
 		} while (name == null);
 
-		System.out.println("Veuillez choisir une date de introduced ("
-				+ Utils.DATE_FORMAT + " ou entrer pour passer) :");
+		System.out.println("Vchoose a date of introduced ("
+				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		computer.setIntroduced(Utils.getDateInput());
 
-		System.out.println("Veuillez choisir une date de discontinued ("
-				+ Utils.DATE_FORMAT + " ou entrer pour passer) :");
+		System.out.println("choose a date of discontinued ("
+				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		computer.setDiscontinued(Utils.getDateInput());
 
-		CompanyCli companyCli = new CompanyCli();
-		companyCli.showCompany();
+		CompanyCli.INSTANCE.showCompany();
 
 		Boolean isCompanyIdError = false;
 		Company company = null;
 		do {
 			if (!isCompanyIdError)
 				System.out
-						.println("\nchoisir votre company (l'ID de la company ou enter pour ne pas le changer):");
+						.println("\nchoose the company (ID of the company or 'enter' to skip):");
 			else
 				System.out
-						.println("\nERREUR: ID INVALID, choisir votre company (l'ID de la company ou enter pour ne pas le changer):");
+						.println("\nERREUR: choose the company (ID of the company or 'enter' to skip):");
 
 			int computerId = Utils.getIntInput();
 			if (computerId != Utils.RESULT_SKIP) {
-				company = companyDao.getByID(computerId);
+				company = CompanyDao.INSTANCE.getByID(computerId);
 				if (company != null)
-					computer.setCompany_id(company.getId());
+					computer.setCompany(company);
 			} else
 				break;
 			isCompanyIdError = true;
 		} while (company == null);
 
-		if (this.computerDao.add(computer))
+		if (ComputerDao.INSTANCE.add(computer))
 			System.out.println("Computer added!\n");
 		else
 			System.out.println("Fail to add the computer!\n");
@@ -97,8 +91,7 @@ public class ComputerCli {
 
 	public void updateComputer() {
 
-		System.out
-				.println("\n***************** UPDATE UN COMPUTER ***********************************\n");
+		System.out.println("\n***************** UPDATE A COMPUTER ***********************************\n");
 		showComputers();
 
 		computer = null;
@@ -108,55 +101,54 @@ public class ComputerCli {
 		do {
 			if (!isComputerIdError)
 				System.out
-						.println("\nchoisir votre computer à modifier (l'ID du computer):");
+						.println("\nchoose the computer to update (ID of the computer):");
 			else
 				System.out
-						.println("\nERREUR: ID INVALID, choisir votre computer à modifier (l'ID du computer):");
+						.println("\nERREUR: choose the computer to update (ID of the computer):");
 
-			computer = computerDao.getByID(Utils.getIntInput());
+			computer = ComputerDao.INSTANCE.getByID(Utils.getIntInput());
 			isComputerIdError = true;
 		} while (computer == null);
 
 		System.out
-				.println("Veuillez choisir un nom: (enter pour ne pas le changer)");
+				.println("Choose a name or 'enter' to skip: ");
 		String name = Utils.getStringInput();
 		if (name != null)
 			computer.setName(name);
 
-		System.out.println("Veuillez choisir une date de introduced ("
-				+ Utils.DATE_FORMAT + " ou enter pour ne pas le changer) :");
+		System.out.println("Choose a date of introduced ("
+				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		LocalDateTime introducedDate = Utils.getDateInput();
 		if (introducedDate != null)
 			computer.setIntroduced(introducedDate);
 
-		System.out.println("Veuillez choisir une date de discontinued ("
-				+ Utils.DATE_FORMAT + " ou enter pour ne pas le changer) :");
+		System.out.println("Choose a date of discontinued ("
+				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		LocalDateTime discontinued = Utils.getDateInput();
 		if (introducedDate != null)
 			computer.setDiscontinued(discontinued);
 
-		CompanyCli companyCli = new CompanyCli();
-		companyCli.showCompany();
+		CompanyCli.INSTANCE.showCompany();
 		Company company = null;
 		do {
 			if (!isCompanyIdError)
 				System.out
-						.println("\nchoisir votre company (l'ID de la company ou enter pour ne pas le changer):");
+						.println("\nchoose your company (ID of the company or 'enter' to skip):");
 			else
 				System.out
-						.println("\nERREUR: ID INVALID, choisir votre company (l'ID de la company ou enter pour ne pas le changer):");
+						.println("\nERREUR: choose your company (ID of the company or 'enter' to skip):");
 
 			int computerId = Utils.getIntInput();
 			if (computerId != Utils.RESULT_SKIP) {
-				company = companyDao.getByID(computerId);
+				company = CompanyDao.INSTANCE.getByID(computerId);
 				if (company != null)
-					computer.setCompany_id(company.getId());
+					computer.setCompany(company);
 			} else
 				break;
 			isCompanyIdError = true;
 		} while (company == null);
 
-		if (this.computerDao.update(computer))
+		if (ComputerDao.INSTANCE.update(computer))
 			System.out.println("Computer updated!\n");
 		else
 			System.out.println("Fail to update the computer!\n");
@@ -165,28 +157,23 @@ public class ComputerCli {
 	public void deleteComputer() {
 
 		System.out
-				.println("\n***************** DELETE UN COMPUTER ***********************************\n");
+				.println("\n***************** DELETE A COMPUTER ***********************************\n");
 		showComputers();
 
 		computer = null;
 		Boolean isComputerIdError = false;
 
 		do {
-			if (!isComputerIdError)
+			if (isComputerIdError)
 				System.out
-						.println("\nchoisir votre computer à supprimer (l'ID du computer):");
+						.println("\nchoose a computer to delete (ID of the computer):");
 			else
 				System.out
-						.println("\nERREUR: ID INVALID, choisir votre computer à supprimer (l'ID du computer):");
+						.println("\nERREUR: choose a computer to delete (ID of the computer):");
 
-			computer = computerDao.getByID(Utils.getIntInput());
-			isComputerIdError = true;
-		} while (computer == null);
-
-		if (this.computerDao.delete(computer))
-			System.out.println("Computer deleted!\n");
-		else
-			System.out.println("Fail to delete the computer!\n");
+			isComputerIdError = ComputerDao.INSTANCE.deleteById(Utils.getIntInput());
+		} while (!isComputerIdError);
+		System.out.println("Computer deleted!\n");
 	}
 
 }

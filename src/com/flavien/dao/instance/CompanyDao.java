@@ -19,43 +19,41 @@ public enum CompanyDao {
 	public final static String DB_COLUMN_ID = "id";
 	public final static String DB_COLUMN_NAME = "name";
 
-	private CompanyDao() {}
+	private final static String REQUEST_GET_ALL = "SELECT * FROM "
+			+ DB_COMPANY_TABLE;
+
+	private final static String REQUEST_GET_BY_ID = "SELECT * FROM "
+			+ DB_COMPANY_TABLE + " WHERE id=?";
+
+	private CompanyDao() {
+	}
 
 	public List<Company> getAll() {
 		List<Company> companyList = new ArrayList<Company>();
+		PreparedStatement preparedStatement = null;
 
 		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
+			connection = DbConnection.INSTANCE.getConnection();
 
-			java.sql.Statement query;
-
-			query = connection.createStatement();
-
-			java.sql.ResultSet rs = query.executeQuery("SELECT * FROM "
-					+ DB_COMPANY_TABLE);
-
+			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
+			java.sql.ResultSet rs = preparedStatement.executeQuery();
 			companyList = CompanyMapper.INSTANCE.getList(rs);
-			
-			rs.close();
-			query.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
 		}
 		return companyList;
 	}
 
 	public Company getByID(int companyId) {
-		java.sql.Statement query;
 		PreparedStatement preparedStatement = null;
 		Company company = null;
 
 		try {
-			connection = DbConnection.INSTANCE.getConnectionInstance();
-			query = connection.createStatement();
-
-			String sql = "SELECT * FROM " + DB_COMPANY_TABLE + " WHERE id=?";
-			preparedStatement = connection.prepareStatement(sql);
+			connection = DbConnection.INSTANCE.getConnection();
+			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
 			preparedStatement.setInt(1, companyId);
 			java.sql.ResultSet rs = preparedStatement.executeQuery();
 
@@ -63,9 +61,10 @@ public enum CompanyDao {
 				company = CompanyMapper.INSTANCE.getObject(rs);
 			}
 
-			query.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
 		}
 		return company;
 	}

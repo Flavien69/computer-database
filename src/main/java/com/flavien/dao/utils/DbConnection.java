@@ -3,12 +3,14 @@ package com.flavien.dao.utils;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.flavien.utils.PropertyValues;
+
 public enum DbConnection {
 	INSTANCE;
 
 	private static final String DB_HOST = "localhost";
 	private static final String DB_PORT = "3306";
-	public static final String DB_NAME = "computer-database-db";
+	public static final String DB_NAME = PropertyValues.INSTANCE.getDbName();
 	private static final String DB_ARGUMENT = "?zeroDateTimeBehavior=convertToNull";
 	private static final String DB_PATH = DB_NAME+DB_ARGUMENT;
 	private static final String DB_USER = "admincdb";

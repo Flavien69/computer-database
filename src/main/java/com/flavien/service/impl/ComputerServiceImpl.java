@@ -23,7 +23,12 @@ public enum ComputerServiceImpl implements ComputerService{
 
 	@Override
 	public Page getByPage(int index) {
-		return computerDao.getByPage(index);
+		int count = computerDao.getCount();
+		if (count > 0){
+			List<Computer> computerList = computerDao.getByPage(index);		
+			return new Page(computerList, index,count);
+		}
+		return null;
 	}
 
 	@Override

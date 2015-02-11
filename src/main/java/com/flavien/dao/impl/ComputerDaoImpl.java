@@ -14,12 +14,13 @@ import com.flavien.dao.utils.DbUtils;
 import com.flavien.dao.ComputerDao;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
+import com.flavien.utils.PropertyValues;
 
 public enum ComputerDaoImpl implements ComputerDao {
 	INSTANCE;
 	private Connection connection;
 
-	public static final String DB_NAME = "computer-database-db";
+	public static final String DB_NAME = PropertyValues.INSTANCE.getDbName();
 	public final static String DB_COMPUTER_TABLE = "computer";
 	public final static String DB_COLUMN_ID = "id";
 	public final static String DB_COLUMN_NAME = "name";
@@ -27,6 +28,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	public final static String DB_COLUMN_DISCONTINUED = "discontinued";
 	public final static String DB_COLUMN_COMPANY_ID = "company_id";
 	public final static String DB_COLUMN_COMPANY_NAME = "companyName";
+	public final static String DB_COLUMN_COUNT = "count";
 
 	private final static String REQUEST_GET_ALL = "SELECT "
 			+ ComputerDaoImpl.DB_COMPUTER_TABLE + ".*, "
@@ -56,6 +58,8 @@ public enum ComputerDaoImpl implements ComputerDao {
 	private final static String REQUEST_GET_BY_PAGE = REQUEST_GET_ALL
 			+ " ORDER BY " + DB_COLUMN_ID + " LIMIT ?,"
 			+ Page.NB_ENTITY_BY_PAGE;
+	
+	private final static String REQUEST_COUNT = "SELECT COUNT(*) AS "+DB_COLUMN_COUNT+" FROM "+DB_COMPUTER_TABLE;
 
 	private ComputerDaoImpl() {
 	}
@@ -198,8 +202,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 		return isSuccess;
 	}
 
-	public Page getByPage(int index) {
-		Page page = new Page();
+	public List<Computer> getByPage(int index) {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
@@ -219,9 +222,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			DbUtils.closePreparedStatement(preparedStatement);
 			DbUtils.closeResultSet(rs);
 		}
-		page.setComputerList(computerList);
-		page.setIndex(index);
-		return page;
+		return computerList;
 	}
 
 	public List<Computer> getAll() {
@@ -242,5 +243,28 @@ public enum ComputerDaoImpl implements ComputerDao {
 			DbUtils.closeResultSet(rs);
 		}
 		return computerList;
+	}
+
+	@Override
+	public int getCount() {
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			connection = DbConnection.INSTANCE.getConnection();
+			preparedStatement = connection.prepareStatement(REQUEST_COUNT);
+			rs = preparedStatement.executeQuery();
+			while(rs.next()){
+			    count = rs.getInt(DB_COLUMN_COUNT);
+		    }
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
+			DbUtils.closeResultSet(rs);
+		}
+		return count;
 	}
 }

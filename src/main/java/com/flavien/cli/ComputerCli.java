@@ -38,8 +38,8 @@ public class ComputerCli {
 			page = computerService.getByPage(page.getIndex() + 1);
 			displayComputer(page.getComputerList());
 
-			System.out
-					.println("\n'enter' to search the next or 'exit' to return in the menu\n");
+			System.out.println("\npage "+page.getIndex()+"/"+page.getNbTotalPage());
+			System.out.println("\n'enter' to search the next or 'exit' to return in the menu\n");
 			input = Utils.getStringInput();
 		} while (input == null
 				&& page.getComputerList().size() == Page.NB_ENTITY_BY_PAGE);

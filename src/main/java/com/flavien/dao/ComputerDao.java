@@ -3,7 +3,6 @@ package com.flavien.dao;
 import java.util.List;
 
 import com.flavien.models.Computer;
-import com.flavien.models.Page;
 
 public interface ComputerDao {
 	
@@ -25,7 +24,7 @@ public interface ComputerDao {
 	 * @param index represent the actual page.
 	 * @return a List<Computer> that is the page[index].
 	 */
-	public Page getByPage(int index);
+	public List<Computer> getByPage(int index);
 	
 	/**
 	 * Delete a computer in the database.
@@ -47,4 +46,10 @@ public interface ComputerDao {
 	 * @return the computer find in the database or null if not found.
 	 */
 	public Computer getByID(int computerId);
+	
+	/**
+	 * Get the total number of computers in the database.
+	 * @return the number of computer find in the database.
+	 */
+	public int getCount();
 }

@@ -2,8 +2,8 @@ package com.flavien.cli;
 
 import java.util.List;
 
-import com.flavien.dao.implementations.CompanyDaoImpl;
 import com.flavien.models.Company;
+import com.flavien.service.impl.CompanyServiceImpl;
 
 public class CompanyCli {
 	
@@ -14,7 +14,7 @@ public class CompanyCli {
 	 * 
 	 */
 	public static void showCompany(){
-		List<Company> companyList = CompanyDaoImpl.INSTANCE.getAll();
+		List<Company> companyList = CompanyServiceImpl.INSTANCE.getAll();
 		
 		for(Company company: companyList){
 			System.out.println(company.toString());

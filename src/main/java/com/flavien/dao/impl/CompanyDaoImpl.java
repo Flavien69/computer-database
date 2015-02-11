@@ -1,4 +1,4 @@
-package com.flavien.dao.implementations;
+package com.flavien.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.flavien.dao.CompanyMapper;
-import com.flavien.dao.DbConnection;
-import com.flavien.dao.DbUtils;
+import com.flavien.dao.utils.CompanyMapper;
+import com.flavien.dao.utils.DbConnection;
+import com.flavien.dao.utils.DbUtils;
 import com.flavien.models.Company;
 
 public enum CompanyDaoImpl {

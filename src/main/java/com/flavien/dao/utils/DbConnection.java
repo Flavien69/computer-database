@@ -1,4 +1,4 @@
-package com.flavien.dao;
+package com.flavien.dao.utils;
 
 import java.sql.Connection;
 import java.sql.SQLException;

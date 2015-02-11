@@ -1,4 +1,4 @@
-package com.flavien.dao;
+package com.flavien.dao.utils;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

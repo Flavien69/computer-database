@@ -3,16 +3,16 @@ package com.flavien.cli;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.flavien.dao.implementations.CompanyDaoImpl;
-import com.flavien.dao.implementations.ComputerDaoImpl;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
+import com.flavien.service.impl.CompanyServiceImpl;
+import com.flavien.service.impl.ComputerServiceImpl;
 
 public class ComputerCli {
 	
-	private static ComputerDaoImpl computerDao = ComputerDaoImpl.INSTANCE;
-	private static CompanyDaoImpl companyDao = CompanyDaoImpl.INSTANCE;	
+	private static CompanyServiceImpl companyService = CompanyServiceImpl.INSTANCE;
+	private static ComputerServiceImpl computerService = ComputerServiceImpl.INSTANCE;	
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class ComputerCli {
 	 * 
 	 */
 	public static void showComputers() {
-		List<Computer> computerList = computerDao.getAll();
+		List<Computer> computerList = computerService.getAll();
 		displayComputer(computerList);
 	}
 
@@ -35,7 +35,7 @@ public class ComputerCli {
 		String input;
 		Page page = new Page(-1);
 		do {
-			page = computerDao.getByPage(page.getIndex() + 1);
+			page = computerService.getByPage(page.getIndex() + 1);
 			displayComputer(page.getComputerList());
 
 			System.out
@@ -98,7 +98,7 @@ public class ComputerCli {
 
 			int computerId = Utils.getIntInput(Utils.NO_MAX_VALUE);
 			if (computerId != Utils.RESULT_SKIP) {
-				company = companyDao.getByID(computerId);
+				company = companyService.getByID(computerId);
 				if (company != null)
 					computer.setCompany(company);
 			} else
@@ -106,7 +106,7 @@ public class ComputerCli {
 			isCompanyIdError = true;
 		} while (company == null);
 
-		if (computerDao.add(computer))
+		if (computerService.add(computer))
 			System.out.println("Computer added!\n");
 		else
 			System.out.println("Fail to add the computer!\n");
@@ -135,7 +135,7 @@ public class ComputerCli {
 				System.out
 						.println("\nERREUR: choose the computer to update (ID of the computer):");
 
-			computer = computerDao.getByID(Utils.getIntInput(Utils.NO_MAX_VALUE));
+			computer = computerService.getByID(Utils.getIntInput(Utils.NO_MAX_VALUE));
 			isComputerIdError = true;
 		} while (computer == null);
 
@@ -169,7 +169,7 @@ public class ComputerCli {
 
 			int computerId = Utils.getIntInput(Utils.NO_MAX_VALUE);
 			if (computerId != Utils.RESULT_SKIP) {
-				company = companyDao.getByID(computerId);
+				company = companyService.getByID(computerId);
 				if (company != null)
 					computer.setCompany(company);
 			} else
@@ -177,7 +177,7 @@ public class ComputerCli {
 			isCompanyIdError = true;
 		} while (company == null);
 
-		if (computerDao.update(computer))
+		if (computerService.update(computer))
 			System.out.println("Computer updated!\n");
 		else
 			System.out.println("Fail to update the computer!\n");
@@ -205,7 +205,7 @@ public class ComputerCli {
 				System.out
 						.println("\nERREUR: choose a computer to delete (ID of the computer):");
 
-			isComputerIdError = computerDao.deleteById(Utils.getIntInput(Utils.NO_MAX_VALUE));
+			isComputerIdError = computerService.deleteById(Utils.getIntInput(Utils.NO_MAX_VALUE));
 		} while (!isComputerIdError);
 		System.out.println("Computer deleted!\n");
 	}

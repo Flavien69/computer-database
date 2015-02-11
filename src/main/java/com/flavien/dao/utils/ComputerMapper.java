@@ -1,11 +1,11 @@
-package com.flavien.dao;
+package com.flavien.dao.utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.flavien.dao.implementations.ComputerDaoImpl;
+import com.flavien.dao.impl.ComputerDaoImpl;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 

@@ -1,4 +1,4 @@
-package com.flavien.dao;
+package com.flavien.dao.utils;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

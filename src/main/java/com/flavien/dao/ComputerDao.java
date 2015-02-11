@@ -1,4 +1,4 @@
-package com.flavien.dao.interfaces;
+package com.flavien.dao;
 
 import java.util.List;
 

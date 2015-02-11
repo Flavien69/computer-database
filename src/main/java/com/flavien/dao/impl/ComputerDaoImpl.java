@@ -1,4 +1,4 @@
-package com.flavien.dao.implementations;
+package com.flavien.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.flavien.dao.ComputerMapper;
-import com.flavien.dao.DbConnection;
-import com.flavien.dao.DbUtils;
-import com.flavien.dao.interfaces.ComputerDao;
+import com.flavien.dao.utils.ComputerMapper;
+import com.flavien.dao.utils.DbConnection;
+import com.flavien.dao.utils.DbUtils;
+import com.flavien.dao.ComputerDao;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 

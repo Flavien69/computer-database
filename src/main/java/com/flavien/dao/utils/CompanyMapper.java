@@ -1,11 +1,11 @@
-package com.flavien.dao;
+package com.flavien.dao.utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.flavien.dao.implementations.CompanyDaoImpl;
+import com.flavien.dao.impl.CompanyDaoImpl;
 import com.flavien.models.Company;
 
 public enum CompanyMapper implements RowMappable<Company>{

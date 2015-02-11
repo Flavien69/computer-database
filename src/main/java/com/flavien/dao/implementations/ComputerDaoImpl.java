@@ -1,4 +1,4 @@
-package com.flavien.dao.instance;
+package com.flavien.dao.implementations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,10 +11,11 @@ import java.util.List;
 import com.flavien.dao.ComputerMapper;
 import com.flavien.dao.DbConnection;
 import com.flavien.dao.DbUtils;
+import com.flavien.dao.interfaces.ComputerDao;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 
-public enum ComputerDao {
+public enum ComputerDaoImpl implements ComputerDao {
 	INSTANCE;
 	private Connection connection;
 
@@ -28,17 +29,17 @@ public enum ComputerDao {
 	public final static String DB_COLUMN_COMPANY_NAME = "companyName";
 
 	private final static String REQUEST_GET_ALL = "SELECT "
-			+ ComputerDao.DB_COMPUTER_TABLE + ".*, "
-			+ CompanyDao.DB_COMPANY_TABLE + "." + CompanyDao.DB_COLUMN_NAME
+			+ ComputerDaoImpl.DB_COMPUTER_TABLE + ".*, "
+			+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME
 			+ " AS " + DB_COLUMN_COMPANY_NAME + " FROM "
-			+ ComputerDao.DB_COMPUTER_TABLE + " LEFT JOIN "
-			+ CompanyDao.DB_COMPANY_TABLE + " ON "
-			+ ComputerDao.DB_COMPUTER_TABLE + "."
-			+ ComputerDao.DB_COLUMN_COMPANY_ID + "="
-			+ CompanyDao.DB_COMPANY_TABLE + "." + CompanyDao.DB_COLUMN_ID;
+			+ ComputerDaoImpl.DB_COMPUTER_TABLE + " LEFT JOIN "
+			+ CompanyDaoImpl.DB_COMPANY_TABLE + " ON "
+			+ ComputerDaoImpl.DB_COMPUTER_TABLE + "."
+			+ ComputerDaoImpl.DB_COLUMN_COMPANY_ID + "="
+			+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_ID;
 
 	private final static String REQUEST_GET_BY_ID = REQUEST_GET_ALL + " WHERE "
-			+ ComputerDao.DB_COMPUTER_TABLE + ".id=?";
+			+ ComputerDaoImpl.DB_COMPUTER_TABLE + ".id=?";
 
 	private final static String REQUEST_ADD = "INSERT INTO `" + DB_NAME + "`.`"
 			+ DB_COMPUTER_TABLE + "` (`" + DB_COLUMN_NAME + "`, `"
@@ -56,12 +57,12 @@ public enum ComputerDao {
 			+ " ORDER BY " + DB_COLUMN_ID + " LIMIT ?,"
 			+ Page.NB_ENTITY_BY_PAGE;
 
-	private ComputerDao() {
+	private ComputerDaoImpl() {
 	}
 
-	public Boolean add(Computer computer) {
+	public boolean add(Computer computer) {
 		PreparedStatement preparedStatement = null;
-		Boolean isSuccess = false;
+		boolean isSuccess = false;
 
 		try {
 			connection = DbConnection.INSTANCE.getConnection();
@@ -69,13 +70,13 @@ public enum ComputerDao {
 
 			preparedStatement.setString(1, computer.getName());
 			if (computer.getIntroduced() == null)
-				preparedStatement.setTimestamp(2, null);
+				preparedStatement.setNull(2, java.sql.Types.TIMESTAMP);
 			else
 				preparedStatement.setTimestamp(2,
 						Timestamp.valueOf(computer.getIntroduced()));
 
 			if (computer.getDiscontinued() == null)
-				preparedStatement.setTimestamp(3, null);
+				preparedStatement.setNull(3, java.sql.Types.TIMESTAMP);
 			else
 				preparedStatement.setTimestamp(3,
 						Timestamp.valueOf(computer.getDiscontinued()));
@@ -123,9 +124,9 @@ public enum ComputerDao {
 		return computer;
 	}
 
-	public Boolean update(Computer computer) {
+	public boolean update(Computer computer) {
 
-		Boolean isSuccess = false;
+		boolean isSuccess = false;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = DbConnection.INSTANCE.getConnection();
@@ -133,13 +134,13 @@ public enum ComputerDao {
 			preparedStatement.setString(1, computer.getName());
 
 			if (computer.getIntroduced() == null)
-				preparedStatement.setTimestamp(2, null);
+				preparedStatement.setNull(2, java.sql.Types.TIMESTAMP);
 			else
 				preparedStatement.setTimestamp(2,
 						Timestamp.valueOf(computer.getIntroduced()));
 
 			if (computer.getDiscontinued() == null)
-				preparedStatement.setTimestamp(3, null);
+				preparedStatement.setNull(3, java.sql.Types.TIMESTAMP);
 			else
 				preparedStatement.setTimestamp(3,
 						Timestamp.valueOf(computer.getDiscontinued()));
@@ -165,8 +166,8 @@ public enum ComputerDao {
 		return isSuccess;
 	}
 
-	public Boolean deleteById(int computerId) {
-		Boolean isSuccess = false;
+	public boolean deleteById(int computerId) {
+		boolean isSuccess = false;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = DbConnection.INSTANCE.getConnection();

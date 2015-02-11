@@ -3,28 +3,39 @@ package com.flavien.cli;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.flavien.dao.instance.CompanyDao;
-import com.flavien.dao.instance.ComputerDao;
+import com.flavien.dao.implementations.CompanyDaoImpl;
+import com.flavien.dao.implementations.ComputerDaoImpl;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 
-public enum ComputerCli {
-	INSTANCE;
-	private Computer computer;
+public class ComputerCli {
+	
+	private static ComputerDaoImpl computerDao = ComputerDaoImpl.INSTANCE;
+	private static CompanyDaoImpl companyDao = CompanyDaoImpl.INSTANCE;	
 
-	private ComputerCli() {}
-
-	public void showComputers() {
-		List<Computer> computerList = ComputerDao.INSTANCE.getAll();
+	/**
+	 * 
+	 * Show a list of computers 
+	 * @author flavien
+	 * 
+	 */
+	public static void showComputers() {
+		List<Computer> computerList = computerDao.getAll();
 		displayComputer(computerList);
 	}
 
-	public void showComputersPage() {
+	/**
+	 * 
+	 * Show a list of computer page by page using a Page object
+	 * @author flavien
+	 * 
+	 */
+	public static void showComputersPage() {
 		String input;
 		Page page = new Page(-1);
 		do {
-			page = ComputerDao.INSTANCE.getByPage(page.getIndex() + 1);
+			page = computerDao.getByPage(page.getIndex() + 1);
 			displayComputer(page.getComputerList());
 
 			System.out
@@ -34,13 +45,25 @@ public enum ComputerCli {
 				&& page.getComputerList().size() == Page.NB_ENTITY_BY_PAGE);
 	}
 
-	public void displayComputer(List<Computer> computerList) {
+	/**
+	 * 
+	 * Display a list of computer 
+	 * @author flavien
+	 * 
+	 */
+	public static void displayComputer(List<Computer> computerList) {
 		for (Computer computer : computerList) {
 			System.out.println(computer.toString());
 		}
 	}
 
-	public void createComputer() {
+	/**
+	 * 
+	 * Create a computer using the cli interface 
+	 * @author flavien
+	 * 
+	 */
+	public static void createComputer() {
 
 		Computer computer = new Computer();
 
@@ -61,7 +84,7 @@ public enum ComputerCli {
 				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		computer.setDiscontinued(Utils.getDateInput());
 
-		CompanyCli.INSTANCE.showCompany();
+		CompanyCli.showCompany();
 
 		Boolean isCompanyIdError = false;
 		Company company = null;
@@ -73,9 +96,9 @@ public enum ComputerCli {
 				System.out
 						.println("\nERREUR: choose the company (ID of the company or 'enter' to skip):");
 
-			int computerId = Utils.getIntInput();
+			int computerId = Utils.getIntInput(Utils.NO_MAX_VALUE);
 			if (computerId != Utils.RESULT_SKIP) {
-				company = CompanyDao.INSTANCE.getByID(computerId);
+				company = companyDao.getByID(computerId);
 				if (company != null)
 					computer.setCompany(company);
 			} else
@@ -83,18 +106,24 @@ public enum ComputerCli {
 			isCompanyIdError = true;
 		} while (company == null);
 
-		if (ComputerDao.INSTANCE.add(computer))
+		if (computerDao.add(computer))
 			System.out.println("Computer added!\n");
 		else
 			System.out.println("Fail to add the computer!\n");
 	}
 
-	public void updateComputer() {
+	/**
+	 * 
+	 * Update a computer using the cli interface 
+	 * @author flavien
+	 * 
+	 */
+	public static void updateComputer() {
 
 		System.out.println("\n***************** UPDATE A COMPUTER ***********************************\n");
 		showComputers();
 
-		computer = null;
+		Computer computer = null;
 		Boolean isComputerIdError = false;
 		Boolean isCompanyIdError = false;
 
@@ -106,7 +135,7 @@ public enum ComputerCli {
 				System.out
 						.println("\nERREUR: choose the computer to update (ID of the computer):");
 
-			computer = ComputerDao.INSTANCE.getByID(Utils.getIntInput());
+			computer = computerDao.getByID(Utils.getIntInput(Utils.NO_MAX_VALUE));
 			isComputerIdError = true;
 		} while (computer == null);
 
@@ -128,7 +157,7 @@ public enum ComputerCli {
 		if (introducedDate != null)
 			computer.setDiscontinued(discontinued);
 
-		CompanyCli.INSTANCE.showCompany();
+		CompanyCli.showCompany();
 		Company company = null;
 		do {
 			if (!isCompanyIdError)
@@ -138,9 +167,9 @@ public enum ComputerCli {
 				System.out
 						.println("\nERREUR: choose your company (ID of the company or 'enter' to skip):");
 
-			int computerId = Utils.getIntInput();
+			int computerId = Utils.getIntInput(Utils.NO_MAX_VALUE);
 			if (computerId != Utils.RESULT_SKIP) {
-				company = CompanyDao.INSTANCE.getByID(computerId);
+				company = companyDao.getByID(computerId);
 				if (company != null)
 					computer.setCompany(company);
 			} else
@@ -148,19 +177,24 @@ public enum ComputerCli {
 			isCompanyIdError = true;
 		} while (company == null);
 
-		if (ComputerDao.INSTANCE.update(computer))
+		if (computerDao.update(computer))
 			System.out.println("Computer updated!\n");
 		else
 			System.out.println("Fail to update the computer!\n");
 	}
 
-	public void deleteComputer() {
+	/**
+	 * 
+	 * Delete a computer using the cli interface 
+	 * @author flavien
+	 * 
+	 */
+	public static void deleteComputer() {
 
 		System.out
 				.println("\n***************** DELETE A COMPUTER ***********************************\n");
 		showComputers();
 
-		computer = null;
 		Boolean isComputerIdError = false;
 
 		do {
@@ -171,7 +205,7 @@ public enum ComputerCli {
 				System.out
 						.println("\nERREUR: choose a computer to delete (ID of the computer):");
 
-			isComputerIdError = ComputerDao.INSTANCE.deleteById(Utils.getIntInput());
+			isComputerIdError = computerDao.deleteById(Utils.getIntInput(Utils.NO_MAX_VALUE));
 		} while (!isComputerIdError);
 		System.out.println("Computer deleted!\n");
 	}

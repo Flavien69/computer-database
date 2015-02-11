@@ -1,4 +1,4 @@
-package com.flavien.dao.instance;
+package com.flavien.dao.implementations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import com.flavien.dao.DbConnection;
 import com.flavien.dao.DbUtils;
 import com.flavien.models.Company;
 
-public enum CompanyDao {
+public enum CompanyDaoImpl {
 	INSTANCE;
 
 	private Connection connection;
@@ -26,7 +26,7 @@ public enum CompanyDao {
 	private final static String REQUEST_GET_BY_ID = "SELECT * FROM "
 			+ DB_COMPANY_TABLE + " WHERE id=?";
 
-	private CompanyDao() {
+	private CompanyDaoImpl() {
 	}
 
 	public List<Company> getAll() {

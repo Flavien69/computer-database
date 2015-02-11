@@ -3,13 +3,16 @@ package com.flavien.cli;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Utils {
 
 	private static Scanner scannerInstance = null;
 	public static final int RESULT_SKIP = -1;
+	public static final int NO_MAX_VALUE = -2;
 	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
-
+	public static final String DATE_REGEX = "^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])\\s[0-9][0-9]:[0-9][0-9]$";
+	public static final String INT_REGEX = "^[0-9]*$";
 	public static synchronized Scanner getScannerInstance() {
 		if (scannerInstance == null)
 			scannerInstance = new Scanner(System.in);
@@ -39,44 +42,30 @@ public class Utils {
 
 		do {
 			erreur = false;
-			try {
-				String valeurString = sc.nextLine();
-				if (isSkip(valeurString))
-					return RESULT_SKIP;
-				valeur = Integer.parseInt(valeurString);
-				if (valeur < maxValue) {
-					return valeur;
-				} else {
-					erreur = true;
-					errorInput(sc,
-							"Erreur! Erreur! please enter a number less than "
-									+ maxValue);
+			String valeurString = sc.nextLine();
+			if(isMatch(INT_REGEX, valeurString)){
+				try {
+					if (isSkip(valeurString))
+						return RESULT_SKIP;
+					valeur = Integer.parseInt(valeurString);
+					if (maxValue != NO_MAX_VALUE && valeur < maxValue) {
+						return valeur;
+					} else {
+						erreur = true;
+						errorInput(sc,
+								"Erreur! Erreur! please enter a number less than "
+										+ maxValue);
+					}
+				} catch (Exception e) {
+					e.printStackTrace(); 
+				    System.exit(1);
 				}
-			} catch (Exception e) {
+			}
+			else{
 				erreur = true;
 				errorInput(sc, "Erreur! please enter a number");
 			}
-		} while (erreur);
-		return valeur;
-	}
-
-	public static int getIntInput() {
-		boolean erreur;
-		int valeur = 0;
-		Scanner sc = getScannerInstance();
-
-		do {
-			erreur = false;
-			try {
-				String valeurString = sc.nextLine();
-				if (isSkip(valeurString))
-					return RESULT_SKIP;
-				valeur = Integer.parseInt(valeurString);
-				return valeur;
-			} catch (Exception e) {
-				erreur = true;
-				errorInput(sc, "Erreur! please enter a number");
-			}
+				
 		} while (erreur);
 		return valeur;
 	}
@@ -94,19 +83,31 @@ public class Utils {
 			if (isSkip(dateInString))
 				return null;
 
-			try {
-				LocalDateTime dateTime = LocalDateTime.parse(dateInString,
-						formatter);
-				return dateTime;
-
-			} catch (Exception e) {
+			if(isMatch(DATE_REGEX, dateInString)){
+				try {
+					LocalDateTime dateTime = LocalDateTime.parse(dateInString,
+							formatter);
+					return dateTime;
+	
+				} catch (Exception e) {
+					e.printStackTrace(); 
+				    System.exit(1);
+				}
+			} 
+			else{
 				erreur = true;
-				errorInput(sc, "invalid date! retry :");
+				errorInput(sc, "invalid date format! retry :");			
 			}
+			
 		} while (erreur);
 		return null;
 	}
 
+	private static Boolean isMatch(String regex, String input){
+		Pattern p = Pattern.compile(regex);
+		return p.matcher(input).matches();	
+	}
+	
 	private static void errorInput(Scanner sc, String msg) {
 		System.out.println(msg);
 	}

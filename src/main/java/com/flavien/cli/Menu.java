@@ -1,9 +1,7 @@
 package com.flavien.cli;
 
-public enum Menu {
-	INSTANCE;
-	private Menu(){};
-	private final String MENU_TEMPLATE= "\t%d] %s";
+public class Menu {
+	private static final String MENU_TEMPLATE= "\t%d] %s";
 	
 	public enum MenuEntries {
 		  SHOW_COMPANY ("Show all the company."),
@@ -25,32 +23,44 @@ public enum Menu {
 		  }
 	}
 	
-	public void run(){
+	/**
+	 * 
+	 * Main entry of the menu class.
+	 * @author flavien
+	 * 
+	 */
+	public static void run(){
 		while(true){
 			display();
 		}
 	}
 	
-	public void redirectUser(int choice){	
+	/**
+	 * 
+	 * Permit to redirect the user using the choice made by the user in the menu.
+	 * @author flavien
+	 * 
+	 */
+	public static void redirectUser(int choice){	
 		MenuEntries selection = MenuEntries.values()[choice];
 		
 		switch (selection) {
-	        case SHOW_COMPANY: CompanyCli.INSTANCE.showCompany();
+	        case SHOW_COMPANY: CompanyCli.showCompany();
             	break;
 	                 
-	        case SHOW_COMPUTERS: ComputerCli.INSTANCE.showComputers();
+	        case SHOW_COMPUTERS: ComputerCli.showComputers();
             	break;
             	
-	        case SHOW_COMPUTERS_PAGINATION: ComputerCli.INSTANCE.showComputersPage();
+	        case SHOW_COMPUTERS_PAGINATION: ComputerCli.showComputersPage();
         		break;
             
-	        case UPDATE_COMPUTERS: ComputerCli.INSTANCE.updateComputer();
+	        case UPDATE_COMPUTERS: ComputerCli.updateComputer();
 	        	break;
             
-	        case DELETE_COMPUTERS: ComputerCli.INSTANCE.deleteComputer();
+	        case DELETE_COMPUTERS: ComputerCli.deleteComputer();
             	break;
             
-	        case CREATE_COMPUTERS: ComputerCli.INSTANCE.createComputer();
+	        case CREATE_COMPUTERS: ComputerCli.createComputer();
             	break;  
             
 	        case QUIT: 	System.exit(0);
@@ -62,7 +72,13 @@ public enum Menu {
 		}	
 	}
 	
-	public void display(){
+	/**
+	 * 
+	 * Show the menu and wait the input of the user.
+	 * @author flavien
+	 * 
+	 */
+	public static void display(){
 		System.out.println("\n\n*********************** MENU ************************\n");
 		
 		for (MenuEntries entry : MenuEntries.values()){

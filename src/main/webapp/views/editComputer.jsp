@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <div class="label label-default pull-right">
-                        id: 0
+                        id: ${computer.id}
                     </div>
                     <h1>Edit Computer</h1>
 
@@ -30,27 +30,42 @@
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" placeholder="Computer name">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Computer name" value="${computer.name}">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" placeholder="Introduced date">
+                                <input type="datetime-local" class="form-control" id="introduced" name="introduced" placeholder="Introduced date" value="${computer.introduced}">
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" placeholder="Discontinued date">
+                                <input type="datetime-local" class="form-control" id="discontinued" name="discontinued" placeholder="Discontinued date" value="${computer.discontinued}">
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>
-                                <select class="form-control" id="companyId" >
-                                    <option value="0">--</option>
+                                <select class="form-control" id="companyId" name="companyId" >
+                                    <c:forEach items="${companies}" var="company">
+	                                    <c:choose>
+	                                    	<c:when test="${computer.company.id == 0}">
+                                    			<option value="${company.id}" selected>${company.name}</option> 
+										    </c:when>
+										    <c:when test="${company.id == computer.company.id}">
+                                    			<option value="${company.id}" selected>${company.name}</option> 
+										    </c:when>
+										    <c:otherwise>
+                                    			<option value="${company.id}">${company.name}</option> 
+										    </c:otherwise>
+										</c:choose>
+                                    </c:forEach>    
+                                    <c:if test="${computer.company.id == 0}">
+                                		<option value="${company.id}" selected>No company</option> 
+								    </c:if>                                 
                                 </select>
                             </div>            
                         </fieldset>
                         <div class="actions pull-right">
                             <input type="submit" value="Edit" class="btn btn-primary">
                             or
-                            <a href="dashboard.jsp" class="btn btn-default">Cancel</a>
+                            <a href="<c:url value="dashboard"/>" class="btn btn-default">Cancel</a>
                         </div>
                     </form>
                 </div>

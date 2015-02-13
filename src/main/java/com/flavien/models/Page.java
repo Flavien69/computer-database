@@ -7,7 +7,7 @@ public class Page {
 	private int nbTotalPage;
 	private int nbTotalComputer;
 	private int index;
-	public static final int NB_ENTITY_BY_PAGE = 10;
+	public static final int NB_ENTITY_BY_PAGE = 100;
 	
 	public Page() {}
 		

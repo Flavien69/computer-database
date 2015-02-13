@@ -3,7 +3,7 @@ package com.flavien.models;
 import java.time.LocalDateTime;
 
 
-public class Computer {
+public class Computer{
 	private int id;
 	private String name;
 	private LocalDateTime introduced;

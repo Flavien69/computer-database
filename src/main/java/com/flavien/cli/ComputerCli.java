@@ -8,11 +8,12 @@ import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.impl.CompanyServiceImpl;
 import com.flavien.service.impl.ComputerServiceImpl;
+import com.flavien.service.impl.ServiceManager;
 
 public class ComputerCli {
 	
-	private static CompanyServiceImpl companyService = CompanyServiceImpl.INSTANCE;
-	private static ComputerServiceImpl computerService = ComputerServiceImpl.INSTANCE;	
+	private static CompanyServiceImpl companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
+	private static ComputerServiceImpl computerService = ServiceManager.INSTANCE.getComputerServiceImpl();	
 
 	/**
 	 * 

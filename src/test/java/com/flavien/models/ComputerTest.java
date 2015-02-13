@@ -1,5 +1,7 @@
 package com.flavien.models;
 
+import static org.mockito.Mockito.when;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,11 +17,17 @@ public class ComputerTest {
 	 
 	 @Before
 	 public void setUp(){
+		 when(company.getName()).thenReturn("excylis");
+		 when(company.getId()).thenReturn(2);
+
 		 cut = new Computer(0,"computerTest",null,null,company);
 	 }
 	 
 	 @Test
-	 public void testComputerName(){
+	 public void testCompute(){
+		 Assert.assertEquals(cut.getId(), 0);
 		 Assert.assertEquals(cut.getName(), "computerTest");
+		 Assert.assertEquals(cut.getCompany().getName(), "excylis");
+		 Assert.assertEquals(cut.getCompany().getId(), 2);
 	 }
 }

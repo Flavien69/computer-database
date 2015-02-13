@@ -13,8 +13,8 @@ public enum DbConnection {
 	public static final String DB_NAME = PropertyValues.INSTANCE.getDbName();
 	private static final String DB_ARGUMENT = "?zeroDateTimeBehavior=convertToNull";
 	private static final String DB_PATH = DB_NAME+DB_ARGUMENT;
-	private static final String DB_USER = "admincdb";
-	private static final String DB_PWD = "qwerty1234";
+	public static final String DB_USER = "admincdb";
+	public static final String DB_PWD = "qwerty1234";
 	
 	private DbConnection(){
 		try {

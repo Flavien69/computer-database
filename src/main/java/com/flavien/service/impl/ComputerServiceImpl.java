@@ -3,13 +3,16 @@ package com.flavien.service.impl;
 import java.util.List;
 
 import com.flavien.dao.impl.ComputerDaoImpl;
+import com.flavien.dao.impl.DaoManager;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.ComputerService;
 
-public enum ComputerServiceImpl implements ComputerService{
-	INSTANCE;
-	private ComputerDaoImpl computerDao = ComputerDaoImpl.INSTANCE;
+public class ComputerServiceImpl implements ComputerService{
+	public ComputerDaoImpl computerDao = DaoManager.INSTANCE.getComputerDaoImpl();
+	
+	public ComputerServiceImpl() {
+	}
 	
 	@Override
 	public boolean add(Computer computer) {

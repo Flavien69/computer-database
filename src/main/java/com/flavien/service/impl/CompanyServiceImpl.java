@@ -3,14 +3,14 @@ package com.flavien.service.impl;
 import java.util.List;
 
 import com.flavien.dao.impl.CompanyDaoImpl;
+import com.flavien.dao.impl.DaoManager;
 import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 
-public enum CompanyServiceImpl implements CompanyService{
-	INSTANCE;
-	private CompanyDaoImpl companyDao = CompanyDaoImpl.INSTANCE;
+public class CompanyServiceImpl implements CompanyService{
+	private CompanyDaoImpl companyDao = DaoManager.INSTANCE.getCompanyDaoImpl();
 	
-	private CompanyServiceImpl() {}
+	public CompanyServiceImpl() {}
 	
 	@Override
 	public List<Company> getAll() {

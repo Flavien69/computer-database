@@ -16,8 +16,7 @@ import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.utils.PropertyValues;
 
-public enum ComputerDaoImpl implements ComputerDao {
-	INSTANCE;
+public class ComputerDaoImpl implements ComputerDao {
 	private Connection connection;
 
 	public static final String DB_NAME = PropertyValues.INSTANCE.getDbName();
@@ -61,10 +60,14 @@ public enum ComputerDaoImpl implements ComputerDao {
 	
 	private final static String REQUEST_COUNT = "SELECT COUNT(*) AS "+DB_COLUMN_COUNT+" FROM "+DB_COMPUTER_TABLE;
 
-	private ComputerDaoImpl() {
+	public ComputerDaoImpl() {
 	}
 
 	public boolean add(Computer computer) {
+		
+		if(computer == null)
+			return false;
+		
 		PreparedStatement preparedStatement = null;
 		boolean isSuccess = false;
 
@@ -105,6 +108,10 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	public Computer getByID(int computerId) {
+		
+		if(computerId < 0)
+			return null;
+		
 		PreparedStatement preparedStatement = null;
 		Computer computer = null;
 		ResultSet rs = null;
@@ -171,6 +178,10 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	public boolean deleteById(int computerId) {
+		
+		if(computerId < 0)
+			return false;
+		
 		boolean isSuccess = false;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -204,6 +215,10 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	public List<Computer> getByPage(int index) {
 		List<Computer> computerList = new ArrayList<Computer>();
+		
+		if(index < 0)
+			return computerList;
+		
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 

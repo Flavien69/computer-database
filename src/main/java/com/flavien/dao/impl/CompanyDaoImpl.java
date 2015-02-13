@@ -11,8 +11,7 @@ import com.flavien.dao.utils.DbConnection;
 import com.flavien.dao.utils.DbUtils;
 import com.flavien.models.Company;
 
-public enum CompanyDaoImpl {
-	INSTANCE;
+public class CompanyDaoImpl {
 
 	private Connection connection;
 
@@ -26,7 +25,7 @@ public enum CompanyDaoImpl {
 	private final static String REQUEST_GET_BY_ID = "SELECT * FROM "
 			+ DB_COMPANY_TABLE + " WHERE id=?";
 
-	private CompanyDaoImpl() {
+	public CompanyDaoImpl() {
 	}
 
 	public List<Company> getAll() {
@@ -51,6 +50,10 @@ public enum CompanyDaoImpl {
 	}
 
 	public Company getByID(int companyId) {
+		
+		if(companyId < 0)
+			return null;
+		
 		PreparedStatement preparedStatement = null;
 		Company company = null;
 		java.sql.ResultSet rs = null;

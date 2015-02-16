@@ -33,8 +33,15 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int index = Utils.getInt(request.getParameter("index"));
-		Page page = this.computerService.getByPage(index);
+		int nbEntityByPage = Utils.getInt(request.getParameter("nbEntityByPage"));
+		String name = request.getParameter("search");
+		
+		if( nbEntityByPage == Utils.ERROR)
+			nbEntityByPage = Page.DEFAULT_NB_ENTITY_BY_PAGE;
+		
+		Page page = this.computerService.getByPage(index, nbEntityByPage, name);
 		request.setAttribute("page", page);
+		request.setAttribute("search", name);
 		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/views/dashboard.jsp");
 		dispatch.forward(request, response);
 	}
@@ -43,6 +50,23 @@ public class DashboardServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String idsToDelete = request.getParameter("selection");
+		//boolean isSuccess = this.computerService.deleteMultipleById(idsToDelete);
+		String[] array = idsToDelete.split(",");
+		for (String idString : array){
+			int id = Utils.getInt(idString);
+			if (id != Utils.ERROR)
+				this.computerService.deleteById(id);
+		}
+		RequestDispatcher dispatch;
+		/*if (isSuccess)
+			dispatch = getServletContext().getRequestDispatcher("/views/dashboard.jsp");
+		else
+			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");*/
+
+		dispatch = getServletContext().getRequestDispatcher("/views/dashboard.jsp");
+		dispatch.forward(request, response);
+
 	}
 
 }

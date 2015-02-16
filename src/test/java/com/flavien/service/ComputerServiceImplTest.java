@@ -34,7 +34,7 @@ public class ComputerServiceImplTest {
 		 when(computerDao.getByID(3)).thenReturn(computer);
 		 when(computerDao.add(computer)).thenReturn(true);
 		 when(computerDao.deleteById(1)).thenReturn(true);
-		 when(computerDao.getByPage(1)).thenReturn(computers);
+		 when(computerDao.getByPage(1,10,"")).thenReturn(computers);
 	 }
 	 
 	 @Test

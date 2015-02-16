@@ -28,6 +28,9 @@
                     <form action="editComputer" method="POST">
                         <input type="hidden" value="0"/>
                         <fieldset>
+                        	<div class="form-group" >
+                                <input type="hidden" class="form-control" id="id" name="id" value="${computer.id}">
+                            </div>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Computer name" value="${computer.name}">
@@ -55,10 +58,16 @@
                                     			<option value="${company.id}">${company.name}</option> 
 										    </c:otherwise>
 										</c:choose>
-                                    </c:forEach>    
-                                    <c:if test="${computer.company.id == 0}">
-                                		<option value="${company.id}" selected>No company</option> 
-								    </c:if>                                 
+                                    </c:forEach>   
+                                    <c:choose>
+									    <c:when test="${computer.company.id == 0}">
+                                			<option value="${company.id}" selected>No company</option> 
+									    </c:when>
+									    <c:otherwise>
+                                			<option value="${company.id}">No company</option> 
+									    </c:otherwise>
+									</c:choose>
+                                
                                 </select>
                             </div>            
                         </fieldset>

@@ -1,5 +1,6 @@
 package com.flavien.dao.impl;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,12 +9,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.flavien.dao.ComputerDao;
 import com.flavien.dao.utils.ComputerMapper;
 import com.flavien.dao.utils.DbConnection;
 import com.flavien.dao.utils.DbUtils;
-import com.flavien.dao.ComputerDao;
 import com.flavien.models.Computer;
-import com.flavien.models.Page;
 import com.flavien.utils.PropertyValues;
 
 public class ComputerDaoImpl implements ComputerDao {
@@ -31,13 +31,14 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	private final static String REQUEST_GET_ALL = "SELECT "
 			+ ComputerDaoImpl.DB_COMPUTER_TABLE + ".*, "
-			+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME
-			+ " AS " + DB_COLUMN_COMPANY_NAME + " FROM "
-			+ ComputerDaoImpl.DB_COMPUTER_TABLE + " LEFT JOIN "
+			+ CompanyDaoImpl.DB_COMPANY_TABLE + "."
+			+ CompanyDaoImpl.DB_COLUMN_NAME + " AS " + DB_COLUMN_COMPANY_NAME
+			+ " FROM " + ComputerDaoImpl.DB_COMPUTER_TABLE + " LEFT JOIN "
 			+ CompanyDaoImpl.DB_COMPANY_TABLE + " ON "
 			+ ComputerDaoImpl.DB_COMPUTER_TABLE + "."
 			+ ComputerDaoImpl.DB_COLUMN_COMPANY_ID + "="
-			+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_ID;
+			+ CompanyDaoImpl.DB_COMPANY_TABLE + "."
+			+ CompanyDaoImpl.DB_COLUMN_ID;
 
 	private final static String REQUEST_GET_BY_ID = REQUEST_GET_ALL + " WHERE "
 			+ ComputerDaoImpl.DB_COMPUTER_TABLE + ".id=?";
@@ -53,21 +54,27 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	private final static String REQUEST_DELETE = "DELETE FROM "
 			+ DB_COMPUTER_TABLE + " WHERE " + DB_COLUMN_ID + " =?";
-
-	private final static String REQUEST_GET_BY_PAGE = REQUEST_GET_ALL
-			+ " ORDER BY " + DB_COLUMN_ID + " LIMIT ?,"
-			+ Page.NB_ENTITY_BY_PAGE;
 	
-	private final static String REQUEST_COUNT = "SELECT COUNT(*) AS "+DB_COLUMN_COUNT+" FROM "+DB_COMPUTER_TABLE;
+	private final static String REQUEST_MULTIPLE_DELETE = "DELETE FROM "
+			+ DB_COMPUTER_TABLE + " WHERE " + DB_COLUMN_ID + " in (?)";
+	
+	private final static String REQUEST_GET_BY_PAGE = REQUEST_GET_ALL
+			+ " WHERE computer."+DB_COLUMN_NAME+" LIKE ? ORDER BY " + DB_COLUMN_ID + " LIMIT ?,?";
+
+	private final static String REQUEST_FILTER_BY_NAME = REQUEST_GET_ALL
+			+ " WHERE " + DB_COLUMN_NAME + "?";
+
+	private final static String REQUEST_COUNT = "SELECT COUNT(*) AS "
+			+ DB_COLUMN_COUNT + " FROM " + DB_COMPUTER_TABLE +" WHERE name like ?";
 
 	public ComputerDaoImpl() {
 	}
 
 	public boolean add(Computer computer) {
-		
-		if(computer == null)
+
+		if (computer == null)
 			return false;
-		
+
 		PreparedStatement preparedStatement = null;
 		boolean isSuccess = false;
 
@@ -88,7 +95,8 @@ public class ComputerDaoImpl implements ComputerDao {
 				preparedStatement.setTimestamp(3,
 						Timestamp.valueOf(computer.getDiscontinued()));
 
-			if (computer.getCompany() != null && computer.getCompany().getId() != 0)
+			if (computer.getCompany() != null
+					&& computer.getCompany().getId() != 0)
 				preparedStatement.setInt(4, computer.getCompany().getId());
 			else
 				preparedStatement.setNull(4, java.sql.Types.BIGINT);
@@ -108,10 +116,10 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	public Computer getByID(int computerId) {
-		
-		if(computerId < 0)
+
+		if (computerId < 0)
 			return null;
-		
+
 		PreparedStatement preparedStatement = null;
 		Computer computer = null;
 		ResultSet rs = null;
@@ -155,11 +163,12 @@ public class ComputerDaoImpl implements ComputerDao {
 			else
 				preparedStatement.setTimestamp(3,
 						Timestamp.valueOf(computer.getDiscontinued()));
-			if (computer.getCompany() != null && computer.getCompany().getId() != 0)
+			if (computer.getCompany() != null
+					&& computer.getCompany().getId() != 0)
 				preparedStatement.setInt(4, computer.getCompany().getId());
 			else
 				preparedStatement.setNull(4, java.sql.Types.BIGINT);
-			
+
 			preparedStatement.setInt(5, computer.getId());
 
 			int rs = preparedStatement.executeUpdate();
@@ -178,10 +187,10 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	public boolean deleteById(int computerId) {
-		
-		if(computerId < 0)
+
+		if (computerId < 0)
 			return false;
-		
+
 		boolean isSuccess = false;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -213,12 +222,12 @@ public class ComputerDaoImpl implements ComputerDao {
 		return isSuccess;
 	}
 
-	public List<Computer> getByPage(int index) {
+	public List<Computer> getByPage(int index, int nbEntityByPage, String name) {
 		List<Computer> computerList = new ArrayList<Computer>();
-		
-		if(index < 0)
+
+		if (index < 0)
 			return computerList;
-		
+
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 
@@ -226,7 +235,11 @@ public class ComputerDaoImpl implements ComputerDao {
 			connection = DbConnection.INSTANCE.getConnection();
 			preparedStatement = connection
 					.prepareStatement(REQUEST_GET_BY_PAGE);
-			preparedStatement.setInt(1, index * Page.NB_ENTITY_BY_PAGE);
+			if (name == null)
+				name = "";
+			preparedStatement.setString(1, "%" + name + "%");
+			preparedStatement.setInt(2, index * nbEntityByPage);
+			preparedStatement.setInt(3, nbEntityByPage);
 			rs = preparedStatement.executeQuery();
 			computerList = ComputerMapper.INSTANCE.getList(rs);
 
@@ -235,7 +248,6 @@ public class ComputerDaoImpl implements ComputerDao {
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
-			DbUtils.closeResultSet(rs);
 		}
 		return computerList;
 	}
@@ -261,17 +273,42 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public int getCount() {
+	public int getCount(String name) {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		int count = 0;
 		try {
 			connection = DbConnection.INSTANCE.getConnection();
 			preparedStatement = connection.prepareStatement(REQUEST_COUNT);
+			if(name == null)
+				name = "";
+			preparedStatement.setString(1, "%"+ name + "%");
 			rs = preparedStatement.executeQuery();
-			while(rs.next()){
-			    count = rs.getInt(DB_COLUMN_COUNT);
-		    }
+			while (rs.next()) {
+				count = rs.getInt(DB_COLUMN_COUNT);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
+		}
+		return count;
+	}
+
+	@Override
+	public List<Computer> getByName(String name) {
+		List<Computer> computerList = new ArrayList<Computer>();
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		try {
+			connection = DbConnection.INSTANCE.getConnection();
+			preparedStatement = connection
+					.prepareStatement(REQUEST_FILTER_BY_NAME);
+			preparedStatement.setString(1, name);
+			rs = preparedStatement.executeQuery();
+			computerList = ComputerMapper.INSTANCE.getList(rs);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -280,6 +317,37 @@ public class ComputerDaoImpl implements ComputerDao {
 			DbUtils.closePreparedStatement(preparedStatement);
 			DbUtils.closeResultSet(rs);
 		}
-		return count;
+		return computerList;
 	}
+
+	@Override
+	public boolean deleteMultipleById(String computersId) {	
+		boolean isSuccess = false;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = DbConnection.INSTANCE.getConnection();
+
+			preparedStatement = connection.prepareStatement(REQUEST_MULTIPLE_DELETE);
+			preparedStatement.setString(1, computersId);
+			int rs = preparedStatement.executeUpdate();
+			switch (rs) {
+			case 0:
+				isSuccess = false;
+				break;
+
+			case 1:
+				isSuccess = true;
+				break;
+			default:
+				isSuccess = false;
+				break;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DbConnection.INSTANCE.closeConnection(connection);
+			DbUtils.closePreparedStatement(preparedStatement);
+		}
+		return isSuccess;	}
 }

@@ -24,19 +24,26 @@ public interface ComputerDao {
 	 * @param index represent the actual page.
 	 * @return a List<Computer> that is the page[index].
 	 */
-	public List<Computer> getByPage(int index);
+	public List<Computer> getByPage(int index, int nbEntityByPage, String name);
 	
 	/**
 	 * Delete a computer in the database.
 	 * @param computerId, the id of the computer to delete.
-	 * @return true if the delete is sucessful or false if it isn't.
+	 * @return true if the delete is successful or false if it isn't.
 	 */
 	public boolean deleteById(int computerId);
 	
 	/**
+	 * Delete few computers in the database.
+	 * @param computersId, all the ids of the computers to delete.
+	 * @return true if the delete is successful or false if it isn't.
+	 */
+	public boolean deleteMultipleById(String computersId);
+	
+	/**
 	 * Update a computer in the database.
 	 * @param computer that is the computer to update.
-	 * @return true if the update is sucessful of false if it isn't.
+	 * @return true if the update is successful of false if it isn't.
 	 */
 	public boolean update(Computer computer);
 	
@@ -49,7 +56,15 @@ public interface ComputerDao {
 	
 	/**
 	 * Get the total number of computers in the database.
+	 * @param name of the computer to match
 	 * @return the number of computer find in the database.
 	 */
-	public int getCount();
+	public int getCount(String name);
+	
+	/**
+	 * Get all computers in the database that match the name.
+	 * @param name of the computer to match.
+	 * @return all the computers matching the name find in the database.
+	 */
+	public List<Computer> getByName(String name);
 }

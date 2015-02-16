@@ -24,6 +24,25 @@ public class Computer{
 		this.company = company;
 	}
 	
+	public Computer( String name, LocalDateTime introduced,
+			LocalDateTime discontinued, int companyId) {
+		super();
+		this.name = name;
+		this.introduced = introduced;
+		this.discontinued = discontinued;
+		this.company = new Company(companyId);
+	}
+	
+	public Computer(int id, String name, LocalDateTime introduced,
+			LocalDateTime discontinued, int companyId) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.introduced = introduced;
+		this.discontinued = discontinued;
+		this.company = new Company(companyId);
+	}
+	
 	public int getId() {
 		return id;
 	}

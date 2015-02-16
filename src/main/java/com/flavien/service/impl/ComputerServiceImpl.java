@@ -25,11 +25,11 @@ public class ComputerServiceImpl implements ComputerService{
 	}
 
 	@Override
-	public Page getByPage(int index) {
-		int count = computerDao.getCount();
+	public Page getByPage(int index, int nbEntityByPage, String name) {
+		int count = computerDao.getCount(name);
 		if (count > 0){
-			List<Computer> computerList = computerDao.getByPage(index);		
-			return new Page(computerList, index,count);
+			List<Computer> computerList = computerDao.getByPage(index, nbEntityByPage, name);		
+			return new Page(computerList, index,nbEntityByPage,count);
 		}
 		return null;
 	}
@@ -49,4 +49,14 @@ public class ComputerServiceImpl implements ComputerService{
 		return computerDao.getByID(computerId);
 	}
 
+	@Override
+	public List<Computer> getByName(String name){
+		return computerDao.getByName(name);
+		
+	}
+
+	@Override
+	public boolean deleteMultipleById(String computersId) {	
+		return computerDao.deleteMultipleById(computersId);
+	}
 }

@@ -41,14 +41,14 @@ public class ComputerDaoImplTest {
 	 
 	 @Test
 	 public void testGetCount(){
-		 int count = cut.getCount();		 
+		 int count = cut.getCount("");		 
 		 Assert.assertEquals(count, COUNT_TOTAL);
 	 }
 	 
 	 @Test
 	 public void testDelete(){
 		 cut.deleteById(3);
-		 int count = cut.getCount();	
+		 int count = cut.getCount("");	
 		 Assert.assertEquals(count, COUNT_TOTAL-1);
 	 }
 	 
@@ -57,17 +57,17 @@ public class ComputerDaoImplTest {
 		 boolean isSuccess = cut.add(new Computer());
 		 Assert.assertEquals(isSuccess, true);
 		 
-		 int count = cut.getCount();		 
+		 int count = cut.getCount("");		 
 		 Assert.assertEquals(count, COUNT_TOTAL+1);
 	 }
 	 
 	 @Test
 	 public void testGetByPage(){
-		 List<Computer> computers = cut.getByPage(10000);
+		 List<Computer> computers = cut.getByPage(10000,10,"");
 		 Assert.assertEquals(computers.size(), 0);
 		 
-		 computers = cut.getByPage(0);
-		 Assert.assertEquals(computers.size(), Page.NB_ENTITY_BY_PAGE);
+		 computers = cut.getByPage(0,10,"");
+		 Assert.assertEquals(computers.size(), Page.DEFAULT_NB_ENTITY_BY_PAGE);
 	 }
 	 
 	 @Test

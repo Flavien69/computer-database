@@ -36,14 +36,14 @@ public class ComputerCli {
 		String input;
 		Page page = new Page(-1);
 		do {
-			page = computerService.getByPage(page.getIndex() + 1);
+			page = computerService.getByPage(page.getIndex() + 1, Page.DEFAULT_NB_ENTITY_BY_PAGE, "");
 			displayComputer(page.getComputerList());
 
 			System.out.println("\npage "+page.getIndex()+"/"+page.getNbTotalPage());
 			System.out.println("\n'enter' to search the next or 'exit' to return in the menu\n");
 			input = Utils.getStringInput();
 		} while (input == null
-				&& page.getComputerList().size() == Page.NB_ENTITY_BY_PAGE);
+				&& page.getComputerList().size() == Page.DEFAULT_NB_ENTITY_BY_PAGE);
 	}
 
 	/**

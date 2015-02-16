@@ -19,71 +19,51 @@ import com.flavien.service.impl.ServiceManager;
 import com.flavien.utils.Utils;
 
 /**
- * Servlet implementation class editComputerServlet
+ * Servlet implementation class addComputerServlet
  */
-@WebServlet("/editComputer")
-public class editComputerServlet extends HttpServlet {
+@WebServlet("/addComputer")
+public class addComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ComputerServiceImpl computerService;
-	private CompanyServiceImpl companyService;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public editComputerServlet() {
+	private CompanyServiceImpl companyService;    
+	
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public addComputerServlet() {
 		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
 		this.companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
-	}
+    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int computerId = Utils.getInt(request.getParameter("id"));
-		String redirectView = "/views/editComputer.jsp";
-		RequestDispatcher dispatch;
-		
+		String redirectView = "/views/addComputer.jsp";
 		List<Company> companies = this.companyService.getAll();
-		if(computerId != Utils.ERROR){
-			Computer computer = this.computerService.getByID(computerId);
-			if(computer != null){
-				request.setAttribute("computer", computer);
-				request.setAttribute("companies", companies);
-			}
-			else
-				redirectView = "/views/404.jsp";
-		}
-		else
-			redirectView = "/views/404.jsp";
-		
+		request.setAttribute("companies", companies);
+		RequestDispatcher dispatch;	
 		dispatch = getServletContext().getRequestDispatcher(redirectView);
-		dispatch.forward(request, response);
-
-	}
+		dispatch.forward(request, response);	
+		}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String redirectView = "/views/editComputer.jsp";
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String redirectView = "/views/dashboard.jsp";
 		RequestDispatcher dispatch;
 		Boolean isSuccess = false;
 
 		String name = request.getParameter("name");
 		LocalDateTime introduced = Utils.getLocalDateTime(request.getParameter("introduced"));
 		LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
-		int id = Utils.getInt(request.getParameter("id"));
 		int companyId = Utils.getInt(request.getParameter("companyId"));		
-		isSuccess = this.computerService.update(new Computer(id,name, introduced, discontinued, companyId));
+		isSuccess = this.computerService.add(new Computer(name, introduced, discontinued, companyId));
 		if (!isSuccess)
 			redirectView = "/views/500.jsp";
 
 		dispatch = getServletContext().getRequestDispatcher(redirectView);
-		dispatch.forward(request, response);
-
-	}
+		dispatch.forward(request, response);	}
 
 }

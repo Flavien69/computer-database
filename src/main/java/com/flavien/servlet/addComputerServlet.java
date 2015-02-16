@@ -60,10 +60,12 @@ public class addComputerServlet extends HttpServlet {
 		LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
 		int companyId = Utils.getInt(request.getParameter("companyId"));		
 		isSuccess = this.computerService.add(new Computer(name, introduced, discontinued, companyId));
-		if (!isSuccess)
-			redirectView = "/views/500.jsp";
-
-		dispatch = getServletContext().getRequestDispatcher(redirectView);
-		dispatch.forward(request, response);	}
+		if (!isSuccess){
+			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");
+			dispatch.forward(request, response);
+		}
+		else
+			response.sendRedirect(request.getContextPath()+"/dashboard");	
+		}
 
 }

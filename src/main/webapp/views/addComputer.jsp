@@ -1,22 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>Computer Database</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Bootstrap -->
-<link href="<c:url value="css/bootstrap.min.css"/>" rel="stylesheet" media="screen">
-<link href="<c:url value="css/font-awesome.css"/>" rel="stylesheet" media="screen">
-<link href="<c:url value="css/main.css"/>" rel="stylesheet" media="screen">
-</head>
-<body>
-    <header class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="dashboard.jsp"> Application - Computer Database </a>
-        </div>
-    </header>
-
+<jsp:include page="/views/include/header.jsp"/>
     <section id="main">
         <div class="container">
             <div class="row">
@@ -26,7 +9,7 @@
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Computer name">
+                                <input required type="text" class="form-control" id="name" name="name" placeholder="Computer name">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
@@ -67,7 +50,7 @@
                         <div class="actions pull-right">
                             <input type="submit" value="Add" class="btn btn-primary">
                             or
-                            <a href="dashboard.jsp" class="btn btn-default">Cancel</a>
+                            <a href="<c:url value="dashboard"/>" class="btn btn-default">Cancel</a>
                         </div>
                     </form>
                 </div>

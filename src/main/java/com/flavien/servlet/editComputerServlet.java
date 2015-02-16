@@ -68,7 +68,6 @@ public class editComputerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String redirectView = "/views/editComputer.jsp";
 		RequestDispatcher dispatch;
 		Boolean isSuccess = false;
 
@@ -78,11 +77,12 @@ public class editComputerServlet extends HttpServlet {
 		int id = Utils.getInt(request.getParameter("id"));
 		int companyId = Utils.getInt(request.getParameter("companyId"));		
 		isSuccess = this.computerService.update(new Computer(id,name, introduced, discontinued, companyId));
-		if (!isSuccess)
-			redirectView = "/views/500.jsp";
-
-		dispatch = getServletContext().getRequestDispatcher(redirectView);
-		dispatch.forward(request, response);
+		if (!isSuccess){
+			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");
+			dispatch.forward(request, response);
+		}
+		else
+			response.sendRedirect(request.getContextPath()+"/dashboard");
 
 	}
 

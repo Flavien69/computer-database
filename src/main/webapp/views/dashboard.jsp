@@ -1,26 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>Computer Database</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="utf-8">
-<!-- Bootstrap -->
-<link href="<c:url value="css/bootstrap.min.css"/>" rel="stylesheet"
-	media="screen">
-<link href="<c:url value="css/font-awesome.css"/>" rel="stylesheet"
-	media="screen">
-<link href="<c:url value="css/main.css"/>" rel="stylesheet"
-	media="screen">
-</head>
-<body>
-	<header class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="dashboard.html"> Application -
-				Computer Database </a>
-		</div>
-	</header>
+<jsp:include page="/views/include/header.jsp"/>
 
 	<section id="main">
 		<div class="container">
@@ -95,7 +75,7 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-                <li <c:if test="${page.index == 0}">class="disabled"</c:if>><a href="dashboard?index=${page.index -1}&nbEntityByPage=${page.entityByPage}" aria-label="Previous"> <span
+                <li <c:if test="${page.index == 0}">style="display:none"</c:if>><a href="dashboard?index=${page.index -1}&nbEntityByPage=${page.entityByPage}" aria-label="Previous"> <span
                         aria-hidden="true">&laquo;</span>
                 </a></li>
 				<c:forEach var="i" begin="${page.range[0]}" end="${page.range[1]}">
@@ -111,7 +91,7 @@
 					</c:choose>
 				</c:forEach>
 				<li
-					<c:if test="${page.index == page.nbTotalPage}">class="disabled"</c:if>><a
+					<c:if test="${page.index == page.nbTotalPage}"> style="display:none"</c:if>><a
 					href="dashboard?index=${page.index +1}&nbEntityByPage=${page.entityByPage}"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
@@ -150,9 +130,6 @@
 				</c:choose>
 			</div>
 	</footer>
-	<script src="<c:url value="js/jquery.min.js"/>"></script>
-	<script src="<c:url value="js/bootstrap.min.js"/>"></script>
-	<script src="<c:url value="js/dashboard.js"/>"></script>
 
-</body>
-</html>
+	<jsp:include page="/views/include/footer.jsp" />
+	

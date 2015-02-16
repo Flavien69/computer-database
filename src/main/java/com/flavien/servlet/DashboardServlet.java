@@ -51,22 +51,13 @@ public class DashboardServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idsToDelete = request.getParameter("selection");
-		//boolean isSuccess = this.computerService.deleteMultipleById(idsToDelete);
 		String[] array = idsToDelete.split(",");
 		for (String idString : array){
 			int id = Utils.getInt(idString);
 			if (id != Utils.ERROR)
 				this.computerService.deleteById(id);
 		}
-		RequestDispatcher dispatch;
-		/*if (isSuccess)
-			dispatch = getServletContext().getRequestDispatcher("/views/dashboard.jsp");
-		else
-			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");*/
-
-		dispatch = getServletContext().getRequestDispatcher("/views/dashboard.jsp");
-		dispatch.forward(request, response);
-
+		response.sendRedirect(request.getContextPath()+"/dashboard");
 	}
 
 }

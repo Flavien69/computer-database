@@ -75,42 +75,46 @@ public class ComputerDaoImpl implements ComputerDao {
 		if (computer == null)
 			return false;
 
-		PreparedStatement preparedStatement = null;
 		boolean isSuccess = false;
 
-		try {
-			connection = DbConnection.INSTANCE.getConnection();
-			preparedStatement = connection.prepareStatement(REQUEST_ADD);
+		if (computer.getName() != null && !computer.getName().isEmpty()){
 
-			preparedStatement.setString(1, computer.getName());
-			if (computer.getIntroduced() == null)
-				preparedStatement.setNull(2, java.sql.Types.TIMESTAMP);
-			else
-				preparedStatement.setTimestamp(2,
-						Timestamp.valueOf(computer.getIntroduced()));
-
-			if (computer.getDiscontinued() == null)
-				preparedStatement.setNull(3, java.sql.Types.TIMESTAMP);
-			else
-				preparedStatement.setTimestamp(3,
-						Timestamp.valueOf(computer.getDiscontinued()));
-
-			if (computer.getCompany() != null
-					&& computer.getCompany().getId() != 0)
-				preparedStatement.setInt(4, computer.getCompany().getId());
-			else
-				preparedStatement.setNull(4, java.sql.Types.BIGINT);
-
-			int rs = preparedStatement.executeUpdate();
-
-			if (rs > 0)
-				isSuccess = true;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DbConnection.INSTANCE.closeConnection(connection);
-			DbUtils.closePreparedStatement(preparedStatement);
+			PreparedStatement preparedStatement = null;
+	
+			try {
+				connection = DbConnection.INSTANCE.getConnection();
+				preparedStatement = connection.prepareStatement(REQUEST_ADD);
+	
+				preparedStatement.setString(1, computer.getName());
+				if (computer.getIntroduced() == null)
+					preparedStatement.setNull(2, java.sql.Types.TIMESTAMP);
+				else
+					preparedStatement.setTimestamp(2,
+							Timestamp.valueOf(computer.getIntroduced()));
+	
+				if (computer.getDiscontinued() == null)
+					preparedStatement.setNull(3, java.sql.Types.TIMESTAMP);
+				else
+					preparedStatement.setTimestamp(3,
+							Timestamp.valueOf(computer.getDiscontinued()));
+	
+				if (computer.getCompany() != null
+						&& computer.getCompany().getId() != 0)
+					preparedStatement.setInt(4, computer.getCompany().getId());
+				else
+					preparedStatement.setNull(4, java.sql.Types.BIGINT);
+	
+				int rs = preparedStatement.executeUpdate();
+	
+				if (rs > 0)
+					isSuccess = true;
+	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DbConnection.INSTANCE.closeConnection(connection);
+				DbUtils.closePreparedStatement(preparedStatement);
+			}
 		}
 		return isSuccess;
 	}
@@ -144,43 +148,45 @@ public class ComputerDaoImpl implements ComputerDao {
 	}
 
 	public boolean update(Computer computer) {
-
 		boolean isSuccess = false;
-		PreparedStatement preparedStatement = null;
-		try {
-			connection = DbConnection.INSTANCE.getConnection();
-			preparedStatement = connection.prepareStatement(REQUEST_UPDATE);
-			preparedStatement.setString(1, computer.getName());
 
-			if (computer.getIntroduced() == null)
-				preparedStatement.setNull(2, java.sql.Types.TIMESTAMP);
-			else
-				preparedStatement.setTimestamp(2,
-						Timestamp.valueOf(computer.getIntroduced()));
-
-			if (computer.getDiscontinued() == null)
-				preparedStatement.setNull(3, java.sql.Types.TIMESTAMP);
-			else
-				preparedStatement.setTimestamp(3,
-						Timestamp.valueOf(computer.getDiscontinued()));
-			if (computer.getCompany() != null
-					&& computer.getCompany().getId() != 0)
-				preparedStatement.setInt(4, computer.getCompany().getId());
-			else
-				preparedStatement.setNull(4, java.sql.Types.BIGINT);
-
-			preparedStatement.setInt(5, computer.getId());
-
-			int rs = preparedStatement.executeUpdate();
-
-			if (rs > 0) {
-				isSuccess = true;
+		if (computer.getName() != null && !computer.getName().isEmpty()){
+			PreparedStatement preparedStatement = null;
+			try {
+				connection = DbConnection.INSTANCE.getConnection();
+				preparedStatement = connection.prepareStatement(REQUEST_UPDATE);
+				preparedStatement.setString(1, computer.getName());
+	
+				if (computer.getIntroduced() == null)
+					preparedStatement.setNull(2, java.sql.Types.TIMESTAMP);
+				else
+					preparedStatement.setTimestamp(2,
+							Timestamp.valueOf(computer.getIntroduced()));
+	
+				if (computer.getDiscontinued() == null)
+					preparedStatement.setNull(3, java.sql.Types.TIMESTAMP);
+				else
+					preparedStatement.setTimestamp(3,
+							Timestamp.valueOf(computer.getDiscontinued()));
+				if (computer.getCompany() != null
+						&& computer.getCompany().getId() != 0)
+					preparedStatement.setInt(4, computer.getCompany().getId());
+				else
+					preparedStatement.setNull(4, java.sql.Types.BIGINT);
+	
+				preparedStatement.setInt(5, computer.getId());
+	
+				int rs = preparedStatement.executeUpdate();
+	
+				if (rs > 0) {
+					isSuccess = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DbConnection.INSTANCE.closeConnection(connection);
+				DbUtils.closePreparedStatement(preparedStatement);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			DbConnection.INSTANCE.closeConnection(connection);
-			DbUtils.closePreparedStatement(preparedStatement);
 		}
 
 		return isSuccess;

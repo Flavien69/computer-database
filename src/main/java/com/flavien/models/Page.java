@@ -2,12 +2,14 @@ package com.flavien.models;
 
 import java.util.List;
 
+import com.flavien.dto.ComputerDTO;
+
 public class Page {
 	
 	public static final int DEFAULT_NB_ENTITY_BY_PAGE = 100;
 	public static final int MAX_PAGE = 10;
 
-	private List<Computer> computerList;
+	private List<ComputerDTO> computerList;
 	private int nbTotalPage;
 	private int nbTotalComputer;
 	private int index;
@@ -21,7 +23,7 @@ public class Page {
 		this.index = index;
 	}
 
-	public Page(List<Computer> computerList, int index, int entityByPage, int nbTotalComputer) {
+	public Page(List<ComputerDTO> computerList, int index, int entityByPage, int nbTotalComputer) {
 		this.computerList = computerList;
 		this.index = index;
 		this.entityByPage = entityByPage;
@@ -29,22 +31,22 @@ public class Page {
 		this.nbTotalPage = Math.round(nbTotalComputer/entityByPage);
 	}
 	
-	public Page(List<Computer> computerList, int index, int nbTotalComputer) {
+	public Page(List<ComputerDTO> computerList, int index, int nbTotalComputer) {
 		this.computerList = computerList;
 		this.index = index;
 		this.nbTotalComputer = nbTotalComputer;
 		this.nbTotalPage = Math.round(nbTotalComputer/entityByPage);
 	}
 
-	public Page(List<Computer> computerList, int index) {
+	public Page(List<ComputerDTO> computerList, int index) {
 		this.computerList = computerList;
 		this.index = index;
 	}
 	
-	public List<Computer> getComputerList() {
+	public List<ComputerDTO> getComputerList() {
 		return computerList;
 	}
-	public void setComputerList(List<Computer> computerList) {
+	public void setComputerList(List<ComputerDTO> computerList) {
 		this.computerList = computerList;
 	}
 	public int getIndex() {

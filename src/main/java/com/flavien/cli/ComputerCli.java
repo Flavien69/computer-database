@@ -3,6 +3,8 @@ package com.flavien.cli;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.flavien.dto.ComputerDTO;
+import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
@@ -23,7 +25,7 @@ public class ComputerCli {
 	 */
 	public static void showComputers() {
 		List<Computer> computerList = computerService.getAll();
-		displayComputer(computerList);
+		displayComputer(ComputerMapperDTO.listToDto(computerList));
 	}
 
 	/**
@@ -52,9 +54,9 @@ public class ComputerCli {
 	 * @author flavien
 	 * 
 	 */
-	public static void displayComputer(List<Computer> computerList) {
-		for (Computer computer : computerList) {
-			System.out.println(computer.toString());
+	public static void displayComputer(List<ComputerDTO> computerList) {
+		for (ComputerDTO computerDTO : computerList) {
+			System.out.println(computerDTO.toString());
 		}
 	}
 

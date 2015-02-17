@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flavien.dto.ComputerDTO;
+import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.service.impl.CompanyServiceImpl;
@@ -47,8 +49,9 @@ public class editComputerServlet extends HttpServlet {
 		List<Company> companies = this.companyService.getAll();
 		if(computerId != Utils.ERROR){
 			Computer computer = this.computerService.getByID(computerId);
+			ComputerDTO computerDTO = ComputerMapperDTO.toDto(computer);
 			if(computer != null){
-				request.setAttribute("computer", computer);
+				request.setAttribute("computer", computerDTO);
 				request.setAttribute("companies", companies);
 			}
 			else
@@ -73,13 +76,16 @@ public class editComputerServlet extends HttpServlet {
 
 		// Get all the parameters from the view.
 		String name = request.getParameter("name");
-		LocalDateTime introduced = Utils.getLocalDateTime(request.getParameter("introduced"));
-		LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
+		String introducedString = request.getParameter("introduced");
+		String discontinuedStirng = request.getParameter("discontinued");
 		int id = Utils.getInt(request.getParameter("id"));
 		int companyId = Utils.getInt(request.getParameter("companyId"));		
+		//LocalDateTime introduced = Utils.getLocalDateTime(request.getParameter("introduced"));
+		//LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
 		
 		// Edit the computer in the database.
-		isSuccess = this.computerService.update(new Computer(id,name, introduced, discontinued, companyId));
+		ComputerDTO computerDTO = new ComputerDTO(id, name, introducedString, discontinuedStirng, companyId);
+		isSuccess = this.computerService.update(ComputerMapperDTO.fromDto(computerDTO));
 		if (!isSuccess){
 			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");
 			dispatch.forward(request, response);

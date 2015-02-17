@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flavien.dto.ComputerDTO;
+import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.service.impl.CompanyServiceImpl;
@@ -58,12 +60,16 @@ public class addComputerServlet extends HttpServlet {
 
 		// Get all the parameters from the view.
 		String name = request.getParameter("name");
-		LocalDateTime introduced = Utils.getLocalDateTime(request.getParameter("introduced"));
-		LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
+		String introducedString = request.getParameter("introduced");
+		String discontinuedStirng = request.getParameter("discontinued");
 		int companyId = Utils.getInt(request.getParameter("companyId"));
 		
+		//LocalDateTime introduced = Utils.getLocalDateTime(request.getParameter("introduced"));
+		//LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
+		
 		// Add the computer in the database.
-		isSuccess = this.computerService.add(new Computer(name, introduced, discontinued, companyId));
+		ComputerDTO computerDTO = new ComputerDTO(name, introducedString, discontinuedStirng, companyId);
+		isSuccess = this.computerService.add(ComputerMapperDTO.fromDto(computerDTO));
 		if (!isSuccess){
 			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");
 			dispatch.forward(request, response);

@@ -12,6 +12,10 @@ public class CompanyServiceImpl implements CompanyService{
 	
 	public CompanyServiceImpl() {}
 	
+	public CompanyServiceImpl(CompanyDaoImpl companyDao) {
+		this.companyDao = companyDao;
+	}
+	
 	@Override
 	public List<Company> getAll() {
 		return companyDao.getAll();		

@@ -13,20 +13,25 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.flavien.dao.impl.ComputerDaoImpl;
+import com.flavien.dto.ComputerMapperDTO;
+import com.flavien.models.Company;
 import com.flavien.models.Computer;
+import com.flavien.models.Page;
 import com.flavien.service.impl.ComputerServiceImpl;
-import com.flavien.service.impl.ServiceManager;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ComputerServiceImplTest {
-	private ComputerServiceImpl cut = ServiceManager.INSTANCE.getComputerServiceImpl();
+	private ComputerServiceImpl cut;
 	@Mock private ComputerDaoImpl computerDao;
-	@Mock private Computer computer;
-	private static final int COUNT_TOTAL = 15;
+	private Computer computer;
+	List<Computer> computers;
+	private static final int COUNT_TOTAL = 20;
 
 	 @Before
 	 public void setUp(){
-		 List<Computer> computers = new ArrayList<>();
+		 computer = new Computer(2,"test",null,null,new Company(2, "super company"));
+		 
+		 computers = new ArrayList<>();
 		 for(int i = 0; i< COUNT_TOTAL; i++)
 			 computers.add(computer);
 		 
@@ -34,24 +39,41 @@ public class ComputerServiceImplTest {
 		 when(computerDao.getByID(3)).thenReturn(computer);
 		 when(computerDao.add(computer)).thenReturn(true);
 		 when(computerDao.deleteById(1)).thenReturn(true);
-		 when(computerDao.getByPage(1,10,"")).thenReturn(computers);
+		 
+		 when(computerDao.getByPage(1,10,"test")).thenReturn(computers);
+		 when(computerDao.getCount("test")).thenReturn(10);
+
+		 cut = new ComputerServiceImpl(computerDao);
 	 }
 	 
 	 @Test
 	 public void TestGetAll(){
 		 List<Computer> computers = cut.getAll();
-		 //Assert.assertEquals(computers.size(), COUNT_TOTAL);
+		 Assert.assertEquals(computers.size(), COUNT_TOTAL);
 	 }
 	 
-//	 @Test
-//	 public void TestDeleteById(){
-//		 boolean isSuccess = cut.deleteById(1);
-//		 Assert.assertEquals(isSuccess, true);
-//	 }
+	 @Test
+	 public void TestDeleteById(){
+		 boolean isSuccess = cut.deleteById(1);
+		 Assert.assertEquals(isSuccess, true);
+		 
+		 boolean isFailed = cut.deleteById(100);
+		 Assert.assertEquals(isFailed, false);
+	 }
 	 
-//	 @Test
-//	 public void TestGetById(){
-//		 Computer computerReturn = cut.getByID(3);
-//		 Assert.assertEquals(computerReturn, computer);
-//	 }
+	 @Test
+	 public void TestGetById(){
+		 Computer computerReturn = cut.getByID(3);
+		 Assert.assertEquals(computerReturn, computer);
+		 
+		 computerReturn = cut.getByID(300);
+		 Assert.assertNull(computerReturn);
+	 }
+	 
+	 @Test
+	 public void TestGetPage(){
+		 Page p = cut.getByPage(1, 10, "test");
+		 Assert.assertEquals(p.getComputerList().size(), ComputerMapperDTO.listToDto(computers).size());
+		 
+	 }
 }

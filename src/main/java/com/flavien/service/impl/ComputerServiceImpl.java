@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.flavien.dao.impl.ComputerDaoImpl;
 import com.flavien.dao.impl.DaoManager;
+import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.ComputerService;
@@ -12,6 +13,10 @@ public class ComputerServiceImpl implements ComputerService{
 	public ComputerDaoImpl computerDao = DaoManager.INSTANCE.getComputerDaoImpl();
 	
 	public ComputerServiceImpl() {
+	}
+	
+	public ComputerServiceImpl(ComputerDaoImpl computerDao) {
+		this.computerDao = computerDao;
 	}
 	
 	@Override
@@ -28,8 +33,8 @@ public class ComputerServiceImpl implements ComputerService{
 	public Page getByPage(int index, int nbEntityByPage, String name) {
 		int count = computerDao.getCount(name);
 		if (count > 0){
-			List<Computer> computerList = computerDao.getByPage(index, nbEntityByPage, name);		
-			return new Page(computerList, index,nbEntityByPage,count);
+			List<Computer> computerList = computerDao.getByPage(index, nbEntityByPage, name);
+			return new Page(ComputerMapperDTO.listToDto(computerList), index,nbEntityByPage,count);
 		}
 		return null;
 	}

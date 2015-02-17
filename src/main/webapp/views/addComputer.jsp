@@ -25,13 +25,13 @@
                                     <c:forEach items="${companies}" var="company">
 	                                    <c:choose>
 	                                    	<c:when test="${computer.company.id == 0}">
-                                    			<option value="${company.id}" selected>${company.name}</option> 
+                                    			<option value="${company.id}" selected><c:out value="${company.name}"/></option> 
 										    </c:when>
 										    <c:when test="${company.id == computer.company.id}">
-                                    			<option value="${company.id}" selected>${company.name}</option> 
+                                    			<option value="${company.id}" selected><c:out value="${company.name}"/></option> 
 										    </c:when>
 										    <c:otherwise>
-                                    			<option value="${company.id}">${company.name}</option> 
+                                    			<option value="${company.id}"><c:out value="${company.name}"/></option> 
 										    </c:otherwise>
 										</c:choose>
                                     </c:forEach>   
@@ -48,7 +48,7 @@
                             </div>                
                         </fieldset>
                         <div class="actions pull-right">
-                            <input type="submit" value="Add" class="btn btn-primary">
+                            <input type="submit" value="Add" class="btn btn-primary validation">
                             or
                             <a href="<c:url value="dashboard"/>" class="btn btn-default">Cancel</a>
                         </div>
@@ -57,5 +57,8 @@
             </div>
         </div>
     </section>
+    
+    <script src="<c:url value="/js/jquery.min.js"/>"></script>
+	<script src="<c:url value="/js/verify.js"/>"></script>    
 </body>
 </html>

@@ -20,6 +20,7 @@ import com.flavien.utils.Utils;
 
 /**
  * Servlet implementation class addComputerServlet
+ * Using this servlet to add a computer in the database.
  */
 @WebServlet("/addComputer")
 public class addComputerServlet extends HttpServlet {
@@ -28,7 +29,7 @@ public class addComputerServlet extends HttpServlet {
 	private CompanyServiceImpl companyService;    
 	
     /**
-     * @see HttpServlet#HttpServlet()
+     * Initialization of the services.
      */
     public addComputerServlet() {
 		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
@@ -36,7 +37,7 @@ public class addComputerServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Using to redirect the user in the addComputer page with the companies initialisation.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String redirectView = "/views/addComputer.jsp";
@@ -48,17 +49,20 @@ public class addComputerServlet extends HttpServlet {
 		}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Using to add a computer in the database.
+	 * Redirect to the dashboard if success or to the 500 error page.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String redirectView = "/views/dashboard.jsp";
 		RequestDispatcher dispatch;
 		Boolean isSuccess = false;
 
+		// Get all the parameters from the view.
 		String name = request.getParameter("name");
 		LocalDateTime introduced = Utils.getLocalDateTime(request.getParameter("introduced"));
 		LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
-		int companyId = Utils.getInt(request.getParameter("companyId"));		
+		int companyId = Utils.getInt(request.getParameter("companyId"));
+		
+		// Add the computer in the database.
 		isSuccess = this.computerService.add(new Computer(name, introduced, discontinued, companyId));
 		if (!isSuccess){
 			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");

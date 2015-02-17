@@ -16,22 +16,27 @@ import com.flavien.utils.Utils;
 
 /**
  * Servlet implementation class DashboardServlet
+ * Using this servlet list the computers filtering by name and per page.
+ * Using to delete computers from the database.
  */
 @WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ComputerServiceImpl computerService;
+
     /**
-     * @see HttpServlet#HttpServlet()
+     * Initialization of the services.
      */
     public DashboardServlet() {
 		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Using to get a page of computers filtering by name.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// Get all the parameters from the view.
 		int index = Utils.getInt(request.getParameter("index"));
 		int nbEntityByPage = Utils.getInt(request.getParameter("nbEntityByPage"));
 		String name = request.getParameter("search");
@@ -39,6 +44,7 @@ public class DashboardServlet extends HttpServlet {
 		if( nbEntityByPage == Utils.ERROR)
 			nbEntityByPage = Page.DEFAULT_NB_ENTITY_BY_PAGE;
 		
+		// Get a page and send back to user to the view
 		Page page = this.computerService.getByPage(index, nbEntityByPage, name);
 		request.setAttribute("page", page);
 		request.setAttribute("search", name);
@@ -47,7 +53,8 @@ public class DashboardServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Using to delete computers from the database.
+	 * Redirect to the dashboard.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idsToDelete = request.getParameter("selection");

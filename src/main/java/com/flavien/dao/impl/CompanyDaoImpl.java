@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.flavien.dao.utils.CompanyMapper;
 import com.flavien.dao.utils.DbConnection;
 import com.flavien.dao.utils.DbUtils;
@@ -14,7 +17,7 @@ import com.flavien.models.Company;
 public class CompanyDaoImpl {
 
 	private Connection connection;
-
+    private final static Logger logger = LoggerFactory.getLogger(CompanyDaoImpl.class);
 	public final static String DB_COMPANY_TABLE = "company";
 	public final static String DB_COLUMN_ID = "id";
 	public final static String DB_COLUMN_NAME = "name";
@@ -40,12 +43,13 @@ public class CompanyDaoImpl {
 			companyList = CompanyMapper.INSTANCE.getList(rs);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
 			DbUtils.closeResultSet(rs);
 		}
+		logger.info("Retrieve all the companies.");
 		return companyList;
 	}
 
@@ -69,12 +73,14 @@ public class CompanyDaoImpl {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
 			DbUtils.closeResultSet(rs);
 		}
+		
+		logger.info("Retrieve one company by ID.");
 		return company;
 	}
 }

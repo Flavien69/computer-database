@@ -19,7 +19,8 @@ import com.flavien.service.impl.ServiceManager;
 import com.flavien.utils.Utils;
 
 /**
- * Servlet implementation class editComputerServlet
+ * Servlet implementation class editComputerServlet.
+ * Using this servlet to edit a computer in the database.
  */
 @WebServlet("/editComputer")
 public class editComputerServlet extends HttpServlet {
@@ -28,7 +29,7 @@ public class editComputerServlet extends HttpServlet {
 	private CompanyServiceImpl companyService;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * Initialization of the services.
 	 */
 	public editComputerServlet() {
 		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
@@ -36,8 +37,7 @@ public class editComputerServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Using to redirect the user in the editComputer page with the companies initialisation.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int computerId = Utils.getInt(request.getParameter("id"));
@@ -63,19 +63,22 @@ public class editComputerServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Using to edit a computer in the database.
+	 * Redirect to the dashboard if success or to the 500 error page.
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatch;
 		Boolean isSuccess = false;
 
+		// Get all the parameters from the view.
 		String name = request.getParameter("name");
 		LocalDateTime introduced = Utils.getLocalDateTime(request.getParameter("introduced"));
 		LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
 		int id = Utils.getInt(request.getParameter("id"));
 		int companyId = Utils.getInt(request.getParameter("companyId"));		
+		
+		// Edit the computer in the database.
 		isSuccess = this.computerService.update(new Computer(id,name, introduced, discontinued, companyId));
 		if (!isSuccess){
 			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");

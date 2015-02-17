@@ -3,7 +3,6 @@ package com.flavien.service;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.flavien.dao.impl.CompanyDaoImpl;
 import com.flavien.service.impl.CompanyServiceImpl;
 
 public class CompanyServiceImplTest {

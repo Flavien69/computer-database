@@ -19,6 +19,10 @@ public class ComputerDaoImplTest {
 	 private static final int COUNT_TOTAL = 20;
 	 @Mock private Company company;
 	 
+	 
+	 /**
+	  * Permit to clean the test database before each test.
+	  */
 	 @Before
 	 public void setUp(){
 		 ScriptRunner.runScript();
@@ -54,10 +58,18 @@ public class ComputerDaoImplTest {
 	 
 	 @Test
 	 public void testAdd(){
-		 boolean isSuccess = cut.add(new Computer());
-		 Assert.assertEquals(isSuccess, true);
+		 Computer computer = new Computer();
+		 boolean isSuccess = false;
 		 
-		 int count = cut.getCount("");		 
+		 isSuccess = cut.add(computer);
+		 Assert.assertEquals(isSuccess, false);
+		 
+		 computer.setName("mac");
+		 
+		 isSuccess = cut.add(computer);
+		 Assert.assertEquals(isSuccess, true);		 
+		 
+		 int count = cut.getCount(null);		 
 		 Assert.assertEquals(count, COUNT_TOTAL+1);
 	 }
 	 
@@ -67,7 +79,7 @@ public class ComputerDaoImplTest {
 		 Assert.assertEquals(computers.size(), 0);
 		 
 		 computers = cut.getByPage(0,10,"");
-		 Assert.assertEquals(computers.size(), Page.DEFAULT_NB_ENTITY_BY_PAGE);
+		 Assert.assertEquals(computers.size(), 10);
 	 }
 	 
 	 @Test

@@ -1,6 +1,5 @@
 package com.flavien.dao.impl;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.flavien.dao.ComputerDao;
 import com.flavien.dao.utils.ComputerMapper;
@@ -18,6 +20,7 @@ import com.flavien.utils.PropertyValues;
 
 public class ComputerDaoImpl implements ComputerDao {
 	private Connection connection;
+    private final static Logger logger = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
 	public static final String DB_NAME = PropertyValues.INSTANCE.getDbName();
 	public final static String DB_COMPUTER_TABLE = "computer";
@@ -110,7 +113,7 @@ public class ComputerDaoImpl implements ComputerDao {
 					isSuccess = true;
 	
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			} finally {
 				DbConnection.INSTANCE.closeConnection(connection);
 				DbUtils.closePreparedStatement(preparedStatement);
@@ -138,7 +141,7 @@ public class ComputerDaoImpl implements ComputerDao {
 				computer = ComputerMapper.INSTANCE.getObject(rs);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
@@ -182,7 +185,7 @@ public class ComputerDaoImpl implements ComputerDao {
 					isSuccess = true;
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error(e.getMessage());
 			} finally {
 				DbConnection.INSTANCE.closeConnection(connection);
 				DbUtils.closePreparedStatement(preparedStatement);
@@ -220,7 +223,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
@@ -250,7 +253,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			computerList = ComputerMapper.INSTANCE.getList(rs);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
@@ -269,7 +272,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			computerList = ComputerMapper.INSTANCE.getList(rs);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
@@ -295,7 +298,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
@@ -317,7 +320,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			computerList = ComputerMapper.INSTANCE.getList(rs);
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);
@@ -350,7 +353,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		} finally {
 			DbConnection.INSTANCE.closeConnection(connection);
 			DbUtils.closePreparedStatement(preparedStatement);

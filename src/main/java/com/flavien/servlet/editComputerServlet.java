@@ -73,18 +73,38 @@ public class editComputerServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatch;
 		Boolean isSuccess = false;
+		String error = null;
 
 		// Get all the parameters from the view.
 		String name = request.getParameter("name");
 		String introducedString = request.getParameter("introduced");
-		String discontinuedStirng = request.getParameter("discontinued");
+		String discontinuedString = request.getParameter("discontinued");
 		int id = Utils.getInt(request.getParameter("id"));
 		int companyId = Utils.getInt(request.getParameter("companyId"));		
-		//LocalDateTime introduced = Utils.getLocalDateTime(request.getParameter("introduced"));
-		//LocalDateTime discontinued = Utils.getLocalDateTime(request.getParameter("discontinued"));
+
+		if( !introducedString.isEmpty() && Utils.getLocalDateTime(introducedString) == null ){
+			error = "invalid introduced date format";
+			request.setAttribute("error", error);
+			doGet(request, response);
+			return;
+		}
+		
+		if( !discontinuedString.isEmpty() && Utils.getLocalDateTime(discontinuedString) == null ){
+			error = "invalid discontinued date format";
+			request.setAttribute("error", error);
+			doGet(request, response);
+			return;
+		}
+		
+		if( name.isEmpty() ){
+			error = "field name is required";
+			request.setAttribute("error", error);
+			doGet(request, response);
+			return;
+		}
 		
 		// Edit the computer in the database.
-		ComputerDTO computerDTO = new ComputerDTO(id, name, introducedString, discontinuedStirng, companyId);
+		ComputerDTO computerDTO = new ComputerDTO(id, name, introducedString, discontinuedString, companyId);
 		isSuccess = this.computerService.update(ComputerMapperDTO.fromDto(computerDTO));
 		if (!isSuccess){
 			dispatch = getServletContext().getRequestDispatcher("/views/500.jsp");

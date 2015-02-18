@@ -6,12 +6,14 @@ import java.io.InputStreamReader;
 
 public class ScriptRunner {
 
+	public static final int COUNT_TOTAL_COMPUTER = 20;
+	public static final int COUNT_TOTAL_COMPANY = 5;
 
 	public static void runScript() {
 		String line;
 		try {
-			Process p = Runtime.getRuntime()
-					.exec("./src/test/resources/sql/script.sh");
+			Process p = Runtime.getRuntime().exec(
+					"./src/test/resources/sql/script.sh");
 
 			BufferedReader input = new BufferedReader(new InputStreamReader(
 					p.getInputStream()));

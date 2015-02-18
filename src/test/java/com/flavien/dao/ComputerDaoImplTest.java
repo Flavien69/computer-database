@@ -11,12 +11,11 @@ import com.flavien.dao.impl.ComputerDaoImpl;
 import com.flavien.dao.impl.DaoManager;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
-import com.flavien.models.Page;
 import com.flavien.utils.ScriptRunner;
+import com.flavien.utils.Utils;
  
 public class ComputerDaoImplTest {
 	 private ComputerDaoImpl cut = DaoManager.INSTANCE.getComputerDaoImpl();
-	 private static final int COUNT_TOTAL = 20;
 	 @Mock private Company company;
 	 
 	 
@@ -46,14 +45,21 @@ public class ComputerDaoImplTest {
 	 @Test
 	 public void testGetCount(){
 		 int count = cut.getCount("");		 
-		 Assert.assertEquals(count, COUNT_TOTAL);
+		 Assert.assertEquals(count, ScriptRunner.COUNT_TOTAL_COMPUTER);
+		 
+		 count = cut.getCount("dsf dsf");		 
+		 Assert.assertEquals(count, 0);
 	 }
 	 
 	 @Test
-	 public void testDelete(){
-		 cut.deleteById(3);
+	 public void testDelete(){		 
+		 boolean isSuccess = cut.deleteById(3);
 		 int count = cut.getCount("");	
-		 Assert.assertEquals(count, COUNT_TOTAL-1);
+		 Assert.assertEquals(count, ScriptRunner.COUNT_TOTAL_COMPUTER-1);
+		 Assert.assertEquals(true, isSuccess);
+		 
+		 isSuccess = cut.deleteById(-1);
+		 Assert.assertEquals(false, isSuccess);
 	 }
 	 
 	 @Test
@@ -70,7 +76,7 @@ public class ComputerDaoImplTest {
 		 Assert.assertEquals(isSuccess, true);		 
 		 
 		 int count = cut.getCount(null);		 
-		 Assert.assertEquals(count, COUNT_TOTAL+1);
+		 Assert.assertEquals(count, ScriptRunner.COUNT_TOTAL_COMPUTER+1);
 	 }
 	 
 	 @Test
@@ -85,6 +91,6 @@ public class ComputerDaoImplTest {
 	 @Test
 	 public void testGetAll(){
 		 List<Computer> computers = cut.getAll();
-		 Assert.assertEquals(computers.size(), COUNT_TOTAL);
+		 Assert.assertEquals(computers.size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
 	 }	 
 }

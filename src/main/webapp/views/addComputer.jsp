@@ -4,13 +4,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-8 col-xs-offset-2 box">
-				<c:if test="${error != null}">
-					<div class="alert alert-danger">
-						Error: ${error} <br />
-					</div>
-				</c:if>
+				<jsp:include page="/views/include/errorMessage.jsp" />
+
 				<h1>Add Computer</h1>
-				<form action="addComputer" method="POST">
+				<form action="add-computer" method="POST">
 					<fieldset>
 						<div class="form-group">
 							<label for="computerName">Computer name</label> <input required

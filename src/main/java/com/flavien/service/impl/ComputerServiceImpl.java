@@ -20,8 +20,8 @@ public class ComputerServiceImpl implements ComputerService{
 	}
 	
 	@Override
-	public boolean add(Computer computer) {
-		return computerDao.add(computer);
+	public void add(Computer computer) {
+		computerDao.add(computer);
 	}
 
 	@Override
@@ -30,23 +30,23 @@ public class ComputerServiceImpl implements ComputerService{
 	}
 
 	@Override
-	public Page getByPage(int index, int nbEntityByPage, String name) {
+	public Page getByPage(Page page, String name) {
 		int count = computerDao.getCount(name);
 		if (count > 0){
-			List<Computer> computerList = computerDao.getByPage(index, nbEntityByPage, name);
-			return new Page(ComputerMapperDTO.listToDto(computerList), index,nbEntityByPage,count);
+			page = computerDao.getByPage(page, name);
+			page.setNbTotalComputer(count);
 		}
-		return null;
+		return page;
 	}
 
 	@Override
-	public boolean deleteById(int computerId) {
-		return computerDao.deleteById(computerId);
+	public void deleteById(int computerId) {
+		computerDao.deleteById(computerId);
 	}
 
 	@Override
-	public boolean update(Computer computer) {
-		return computerDao.update(computer);
+	public void update(Computer computer) {
+		computerDao.update(computer);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class ComputerServiceImpl implements ComputerService{
 	}
 
 	@Override
-	public boolean deleteMultipleById(String computersId) {	
-		return computerDao.deleteMultipleById(computersId);
+	public void deleteMultipleById(String computersId) {	
+		computerDao.deleteMultipleById(computersId);
 	}
 }

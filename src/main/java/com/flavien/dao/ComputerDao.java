@@ -3,15 +3,15 @@ package com.flavien.dao;
 import java.util.List;
 
 import com.flavien.models.Computer;
+import com.flavien.models.Page;
 
 public interface ComputerDao {
 	
 	/**
 	 * Permit to add a computer in the database.
 	 * @param Computer
-	 * @return true if it is successful or false if it's not.
 	 */
-	public boolean add(Computer computer);
+	public void add(Computer computer);
 	
 	/**
 	 * Get a list of Computer from the database.
@@ -21,31 +21,28 @@ public interface ComputerDao {
 	
 	/**
 	 * Get a page of Computer from the database.
-	 * @param index represent the actual page.
-	 * @return a List<Computer> that is the page[index].
+	 * @param page represent the actual page without any computers.
+	 * @return a page that is the page[index].
 	 */
-	public List<Computer> getByPage(int index, int nbEntityByPage, String name);
+	public Page getByPage(Page page, String name);
 	
 	/**
 	 * Delete a computer in the database.
 	 * @param computerId, the id of the computer to delete.
-	 * @return true if the delete is successful or false if it isn't.
 	 */
-	public boolean deleteById(int computerId);
+	public void deleteById(int computerId);
 	
 	/**
 	 * Delete few computers in the database.
 	 * @param computersId, all the ids of the computers to delete.
-	 * @return true if the delete is successful or false if it isn't.
 	 */
-	public boolean deleteMultipleById(String computersId);
+	public void deleteMultipleById(String computersId);
 	
 	/**
 	 * Update a computer in the database.
 	 * @param computer that is the computer to update.
-	 * @return true if the update is successful of false if it isn't.
 	 */
-	public boolean update(Computer computer);
+	public void update(Computer computer);
 	
 	/**
 	 * Get a computer by id from the database

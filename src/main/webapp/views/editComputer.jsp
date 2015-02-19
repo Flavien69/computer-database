@@ -11,14 +11,11 @@
 					id:
 					<c:out value="${computer.id}" />
 				</div><br/>
-				<c:if test="${error != null}">
-					<div class="alert alert-danger">
-						Error: ${error} <br />
-					</div>
-				</c:if>
+				<jsp:include page="/views/include/errorMessage.jsp" />
+
 				<h1>Edit Computer</h1>
 
-				<form action="editComputer" method="POST">
+				<form action="edit-computer" method="POST">
 					<input type="hidden" value="0" />
 					<fieldset>
 						<div class="form-group">

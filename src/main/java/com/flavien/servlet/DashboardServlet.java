@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.flavien.models.Page;
 import com.flavien.service.impl.ComputerServiceImpl;
 import com.flavien.service.impl.ServiceManager;
@@ -22,6 +25,7 @@ import com.flavien.utils.Utils;
 @WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static Logger logger = LoggerFactory.getLogger(DashboardServlet.class);
 	private ComputerServiceImpl computerService;
 
     /**
@@ -40,31 +44,23 @@ public class DashboardServlet extends HttpServlet {
 		int index = Utils.getInt(request.getParameter("index"));
 		int nbEntityByPage = Utils.getInt(request.getParameter("nbEntityByPage"));
 		String name = request.getParameter("search");
+		if (name == null)
+			name = "";
 		
 		if( nbEntityByPage == Utils.ERROR)
 			nbEntityByPage = Page.DEFAULT_NB_ENTITY_BY_PAGE;
 		
 		// Get a page and send back to user to the view
-		Page page = this.computerService.getByPage(index, nbEntityByPage, name);
+		Page page = new Page();
+		page.setIndex(index);
+		page.setEntityByPage(nbEntityByPage);
+		page = this.computerService.getByPage(page, name);
+		
 		request.setAttribute("page", page);
 		request.setAttribute("search", name);
+		
+		logger.info("return the page to the dashboard");
 		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/views/dashboard.jsp");
 		dispatch.forward(request, response);
 	}
-
-	/**
-	 * Using to delete computers from the database.
-	 * Redirect to the dashboard.
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idsToDelete = request.getParameter("selection");
-		String[] array = idsToDelete.split(",");
-		for (String idString : array){
-			int id = Utils.getInt(idString);
-			if (id != Utils.ERROR)
-				this.computerService.deleteById(id);
-		}
-		response.sendRedirect(request.getContextPath()+"/dashboard");
-	}
-
 }

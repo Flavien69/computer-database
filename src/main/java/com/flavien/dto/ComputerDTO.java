@@ -1,14 +1,20 @@
 package com.flavien.dto;
 
 
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.flavien.dto.validators.Date;
 import com.flavien.models.Company;
-import com.flavien.models.Computer;
-import com.flavien.utils.Utils;
 
 public class ComputerDTO {
 	private int id;
+	@NotBlank
 	private String name;
+	
+	@Date
 	private String introduced;
+	
+	@Date
 	private String discontinued;
 	private Company company;
 	

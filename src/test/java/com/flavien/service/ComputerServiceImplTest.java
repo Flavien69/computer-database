@@ -24,23 +24,26 @@ public class ComputerServiceImplTest {
 	private ComputerServiceImpl cut;
 	@Mock private ComputerDaoImpl computerDao;
 	private Computer computer;
-	List<Computer> computers;
+	private List<Computer> computers;
+	private Page page;
 	private static final int COUNT_TOTAL = 20;
 
 	 @Before
 	 public void setUp(){
 		 computer = new Computer(2,"test",null,null,new Company(2, "super company"));
+		 page = new Page();
 		 
 		 computers = new ArrayList<>();
 		 for(int i = 0; i< COUNT_TOTAL; i++)
 			 computers.add(computer);
 		 
-		 when(computerDao.getAll()).thenReturn(computers);
-		 when(computerDao.getByID(3)).thenReturn(computer);
-		 when(computerDao.add(computer)).thenReturn(true);
-		 when(computerDao.deleteById(1)).thenReturn(true);
+		 page.setIndex(1);
+		 page.setEntityByPage(10);
+		 page.setComputerList(ComputerMapperDTO.listToDto(computers));
 		 
-		 when(computerDao.getByPage(1,10,"test")).thenReturn(computers);
+		 when(computerDao.getAll()).thenReturn(computers);
+		 when(computerDao.getByID(3)).thenReturn(computer);	 
+		 when(computerDao.getByPage(page,"test")).thenReturn(page);
 		 when(computerDao.getCount("test")).thenReturn(10);
 
 		 cut = new ComputerServiceImpl(computerDao);
@@ -50,15 +53,6 @@ public class ComputerServiceImplTest {
 	 public void TestGetAll(){
 		 List<Computer> computers = cut.getAll();
 		 Assert.assertEquals(computers.size(), COUNT_TOTAL);
-	 }
-	 
-	 @Test
-	 public void TestDeleteById(){
-		 boolean isSuccess = cut.deleteById(1);
-		 Assert.assertEquals(isSuccess, true);
-		 
-		 boolean isFailed = cut.deleteById(100);
-		 Assert.assertEquals(isFailed, false);
 	 }
 	 
 	 @Test
@@ -72,7 +66,8 @@ public class ComputerServiceImplTest {
 	 
 	 @Test
 	 public void TestGetPage(){
-		 Page p = cut.getByPage(1, 10, "test");
+		 
+		 Page p = cut.getByPage(page, "test");
 		 Assert.assertEquals(p.getComputerList().size(), ComputerMapperDTO.listToDto(computers).size());
 		 
 	 }

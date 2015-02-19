@@ -66,6 +66,7 @@ public class Page {
 
 	public void setNbTotalComputer(int nbTotalComputer) {
 		this.nbTotalComputer = nbTotalComputer;
+		this.nbTotalPage = Math.round(nbTotalComputer/entityByPage);
 	}
 
 	public int getNbTotalComputer() {

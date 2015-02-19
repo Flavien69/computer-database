@@ -9,9 +9,8 @@ public interface ComputerService {
 	/**
 	 * Permit to add a computer in the database.
 	 * @param Computer
-	 * @return true if it is successful or false if it's not.
 	 */
-	public boolean add(Computer computer);
+	public void add(Computer computer);
 	
 	/**
 	 * Get a list of Computer from the database.
@@ -21,33 +20,29 @@ public interface ComputerService {
 	
 	/**
 	 * Get a page of Computer from the database.
-	 * @param index represent the actual page.
-	 * @param nbEntityByPage represent the number of entity per page
+	 * @param page that is the actual page.
 	 * @param name is the name of the computer
-	 * @return a List<Computer> that is the page[index].
+	 * @return a Page that is the page[index].
 	 */
-	public Page getByPage(int index,  int nbEntityByPage, String name);
+	public Page getByPage(Page page, String name);
 	
 	/**
 	 * Delete a computer in the database.
 	 * @param computerId, the id of the computer to delete.
-	 * @return true if the delete is successful or false if it isn't.
 	 */
-	public boolean deleteById(int computerId);
+	public void deleteById(int computerId);
 		
 	/**
 	 * Delete few computers in the database.
 	 * @param computersId, all the ids of the computers to delete.
-	 * @return true if the delete is successful or false if it isn't.
 	 */
-	public boolean deleteMultipleById(String computersId);
+	public void deleteMultipleById(String computersId);
 	
 	/**
 	 * Update a computer in the database.
 	 * @param computer that is the computer to update.
-	 * @return true if the update is successful of false if it isn't.
 	 */
-	public boolean update(Computer computer);
+	public void update(Computer computer);
 	
 	/**
 	 * Get a computer by id from the database

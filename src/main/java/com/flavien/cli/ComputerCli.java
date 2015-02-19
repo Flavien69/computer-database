@@ -13,13 +13,14 @@ import com.flavien.service.impl.ComputerServiceImpl;
 import com.flavien.service.impl.ServiceManager;
 
 public class ComputerCli {
-	
+
 	private static CompanyServiceImpl companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
-	private static ComputerServiceImpl computerService = ServiceManager.INSTANCE.getComputerServiceImpl();	
+	private static ComputerServiceImpl computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
 
 	/**
 	 * 
-	 * Show a list of computers 
+	 * Show a list of computers
+	 * 
 	 * @author flavien
 	 * 
 	 */
@@ -31,6 +32,7 @@ public class ComputerCli {
 	/**
 	 * 
 	 * Show a list of computer page by page using a Page object
+	 * 
 	 * @author flavien
 	 * 
 	 */
@@ -38,19 +40,20 @@ public class ComputerCli {
 		String input;
 		Page page = new Page(-1);
 		do {
-			page = computerService.getByPage(page.getIndex() + 1, Page.DEFAULT_NB_ENTITY_BY_PAGE, "");
+			page.setIndex(page.getIndex()+1);
+			page = computerService.getByPage(page, "");
 			displayComputer(page.getComputerList());
 
-			System.out.println("\npage "+page.getIndex()+"/"+page.getNbTotalPage());
+			System.out.println("\npage " + page.getIndex() + "/" + page.getNbTotalPage());
 			System.out.println("\n'enter' to search the next or 'exit' to return in the menu\n");
 			input = Utils.getStringInput();
-		} while (input == null
-				&& page.getComputerList().size() == Page.DEFAULT_NB_ENTITY_BY_PAGE);
+		} while (input == null && page.getComputerList().size() == Page.DEFAULT_NB_ENTITY_BY_PAGE);
 	}
 
 	/**
 	 * 
-	 * Display a list of computer 
+	 * Display a list of computer
+	 * 
 	 * @author flavien
 	 * 
 	 */
@@ -62,7 +65,8 @@ public class ComputerCli {
 
 	/**
 	 * 
-	 * Create a computer using the cli interface 
+	 * Create a computer using the cli interface
+	 * 
 	 * @author flavien
 	 * 
 	 */
@@ -70,8 +74,7 @@ public class ComputerCli {
 
 		Computer computer = new Computer();
 
-		System.out
-				.println("\n***************** CREATE A COMPUTER ***********************************\n");
+		System.out.println("\n***************** CREATE A COMPUTER ***********************************\n");
 		String name = null;
 		do {
 			System.out.println("choose a name (field needed)");
@@ -79,12 +82,10 @@ public class ComputerCli {
 			computer.setName(name);
 		} while (name == null);
 
-		System.out.println("Vchoose a date of introduced ("
-				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
+		System.out.println("Vchoose a date of introduced (" + Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		computer.setIntroduced(Utils.getDateInput());
 
-		System.out.println("choose a date of discontinued ("
-				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
+		System.out.println("choose a date of discontinued (" + Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		computer.setDiscontinued(Utils.getDateInput());
 
 		CompanyCli.showCompany();
@@ -93,11 +94,9 @@ public class ComputerCli {
 		Company company = null;
 		do {
 			if (!isCompanyIdError)
-				System.out
-						.println("\nchoose the company (ID of the company or 'enter' to skip):");
+				System.out.println("\nchoose the company (ID of the company or 'enter' to skip):");
 			else
-				System.out
-						.println("\nERREUR: choose the company (ID of the company or 'enter' to skip):");
+				System.out.println("\nERREUR: choose the company (ID of the company or 'enter' to skip):");
 
 			int computerId = Utils.getIntInput(Utils.NO_MAX_VALUE);
 			if (computerId != Utils.RESULT_SKIP) {
@@ -108,16 +107,14 @@ public class ComputerCli {
 				break;
 			isCompanyIdError = true;
 		} while (company == null);
-
-		if (computerService.add(computer))
-			System.out.println("Computer added!\n");
-		else
-			System.out.println("Fail to add the computer!\n");
+		
+		computerService.add(computer);
 	}
 
 	/**
 	 * 
-	 * Update a computer using the cli interface 
+	 * Update a computer using the cli interface
+	 * 
 	 * @author flavien
 	 * 
 	 */
@@ -132,30 +129,25 @@ public class ComputerCli {
 
 		do {
 			if (!isComputerIdError)
-				System.out
-						.println("\nchoose the computer to update (ID of the computer):");
+				System.out.println("\nchoose the computer to update (ID of the computer):");
 			else
-				System.out
-						.println("\nERREUR: choose the computer to update (ID of the computer):");
+				System.out.println("\nERREUR: choose the computer to update (ID of the computer):");
 
 			computer = computerService.getByID(Utils.getIntInput(Utils.NO_MAX_VALUE));
 			isComputerIdError = true;
 		} while (computer == null);
 
-		System.out
-				.println("Choose a name or 'enter' to skip: ");
+		System.out.println("Choose a name or 'enter' to skip: ");
 		String name = Utils.getStringInput();
 		if (name != null)
 			computer.setName(name);
 
-		System.out.println("Choose a date of introduced ("
-				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
+		System.out.println("Choose a date of introduced (" + Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		LocalDateTime introducedDate = Utils.getDateInput();
 		if (introducedDate != null)
 			computer.setIntroduced(introducedDate);
 
-		System.out.println("Choose a date of discontinued ("
-				+ Utils.DATE_FORMAT + " or 'enter' to skip) :");
+		System.out.println("Choose a date of discontinued (" + Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		LocalDateTime discontinued = Utils.getDateInput();
 		if (introducedDate != null)
 			computer.setDiscontinued(discontinued);
@@ -164,11 +156,9 @@ public class ComputerCli {
 		Company company = null;
 		do {
 			if (!isCompanyIdError)
-				System.out
-						.println("\nchoose your company (ID of the company or 'enter' to skip):");
+				System.out.println("\nchoose your company (ID of the company or 'enter' to skip):");
 			else
-				System.out
-						.println("\nERREUR: choose your company (ID of the company or 'enter' to skip):");
+				System.out.println("\nERREUR: choose your company (ID of the company or 'enter' to skip):");
 
 			int computerId = Utils.getIntInput(Utils.NO_MAX_VALUE);
 			if (computerId != Utils.RESULT_SKIP) {
@@ -179,37 +169,30 @@ public class ComputerCli {
 				break;
 			isCompanyIdError = true;
 		} while (company == null);
-
-		if (computerService.update(computer))
-			System.out.println("Computer updated!\n");
-		else
-			System.out.println("Fail to update the computer!\n");
+		
+		computerService.update(computer);
 	}
 
 	/**
 	 * 
-	 * Delete a computer using the cli interface 
+	 * Delete a computer using the cli interface
+	 * 
 	 * @author flavien
 	 * 
 	 */
 	public static void deleteComputer() {
 
-		System.out
-				.println("\n***************** DELETE A COMPUTER ***********************************\n");
+		System.out.println("\n***************** DELETE A COMPUTER ***********************************\n");
 		showComputers();
 
-		Boolean isComputerIdError = false;
+		System.out.println("\nchoose a computer to delete (ID of the computer):");
+		int id = Utils.getIntInput(Utils.NO_MAX_VALUE);
+		while (id == Utils.RESULT_SKIP) {
 
-		do {
-			if (isComputerIdError)
-				System.out
-						.println("\nchoose a computer to delete (ID of the computer):");
-			else
-				System.out
-						.println("\nERREUR: choose a computer to delete (ID of the computer):");
+			System.out.println("\nERREUR: choose a computer to delete (ID of the computer):");
+		}
 
-			isComputerIdError = computerService.deleteById(Utils.getIntInput(Utils.NO_MAX_VALUE));
-		} while (!isComputerIdError);
+		computerService.deleteById(id);
 		System.out.println("Computer deleted!\n");
 	}
 

@@ -56,7 +56,7 @@ public class DashboardTest {
 		resultTab = driver.findElement(By.id("results"));
 		results = resultTab.findElements(By.tagName("tr"));
 		
-		Assert.assertEquals(5, results.size());
+		Assert.assertEquals(6, results.size());
 	}
 	
 	@Test

@@ -17,4 +17,11 @@ public interface CompanyService {
      * @return the company find or null if not found.
      */
 	public Company getByID(int companyId);
+	
+	/**
+     * delete a company by ID
+     * @param companyId the ID of the company to delete.
+     * @return the company find or null if not found.
+     */
+	public void deleteByID(int companyId);
 }

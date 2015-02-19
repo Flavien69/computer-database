@@ -1,5 +1,6 @@
 package com.flavien.dao;
 
+import java.sql.Connection;
 import java.util.List;
 
 import com.flavien.models.Computer;
@@ -31,6 +32,13 @@ public interface ComputerDao {
 	 * @param computerId, the id of the computer to delete.
 	 */
 	public void deleteById(int computerId);
+	
+	/**
+	 * Delete all the computers where the company match in the database.
+	 * @param companyId, the id of the company that's all computers need to be deleted.
+	 * @param connection, the connection uses to the transaction.
+	 */
+	public void deleteByCompanyId(int companyId, Connection connection);
 	
 	/**
 	 * Delete few computers in the database.

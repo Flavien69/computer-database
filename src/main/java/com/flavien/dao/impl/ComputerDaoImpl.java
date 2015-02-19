@@ -15,7 +15,6 @@ import com.flavien.dao.ComputerDao;
 import com.flavien.dao.utils.ComputerMapper;
 import com.flavien.dao.utils.DbConnection;
 import com.flavien.dao.utils.DbUtils;
-import com.flavien.dto.ComputerDTO;
 import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
@@ -59,12 +58,16 @@ public class ComputerDaoImpl implements ComputerDao {
 			+ DB_COLUMN_ID + " in (?)";
 
 	private final static String REQUEST_GET_BY_PAGE = REQUEST_GET_ALL + " WHERE computer." + DB_COLUMN_NAME
-			+ " LIKE ? ORDER BY " + DB_COLUMN_ID + " LIMIT ?,?";
+			+ " LIKE ? OR "+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME + " LIKE ? ORDER BY " + DB_COLUMN_ID + " LIMIT ?,?";
 
 	private final static String REQUEST_FILTER_BY_NAME = REQUEST_GET_ALL + " WHERE " + DB_COLUMN_NAME + "?";
 
 	private final static String REQUEST_COUNT = "SELECT COUNT(*) AS " + DB_COLUMN_COUNT + " FROM "
-			+ DB_COMPUTER_TABLE + " WHERE name like ?";
+			+ ComputerDaoImpl.DB_COMPUTER_TABLE + " LEFT JOIN " + CompanyDaoImpl.DB_COMPANY_TABLE + " ON "
+			+ ComputerDaoImpl.DB_COMPUTER_TABLE + "." + ComputerDaoImpl.DB_COLUMN_COMPANY_ID + "="
+			+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_ID + " WHERE "
+			+ ComputerDaoImpl.DB_COMPUTER_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME + " like ? or "
+			+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME + " like ?";
 
 	public ComputerDaoImpl() {
 	}
@@ -198,8 +201,9 @@ public class ComputerDaoImpl implements ComputerDao {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_PAGE);
 
 			preparedStatement.setString(1, "%" + name + "%");
-			preparedStatement.setInt(2, page.getIndex() * page.getEntityByPage());
-			preparedStatement.setInt(3, page.getEntityByPage());
+			preparedStatement.setString(2, "%" + name + "%");
+			preparedStatement.setInt(3, page.getIndex() * page.getEntityByPage());
+			preparedStatement.setInt(4, page.getEntityByPage());
 			rs = preparedStatement.executeQuery();
 			computerList = ComputerMapper.INSTANCE.getList(rs);
 
@@ -248,6 +252,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_COUNT);
 			preparedStatement.setString(1, "%" + name + "%");
+			preparedStatement.setString(2, "%" + name + "%");
 			rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				count = rs.getInt(DB_COLUMN_COUNT);

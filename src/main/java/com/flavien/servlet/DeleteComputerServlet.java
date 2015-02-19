@@ -39,7 +39,7 @@ public class DeleteComputerServlet extends HttpServlet {
 	 * Redirect to the dashboard.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idsToDelete = request.getParameter("selection");
+		final String idsToDelete = request.getParameter("selection");
 		String[] array = idsToDelete.split(",");
 		for (String idString : array){
 			int id = Utils.getInt(idString);

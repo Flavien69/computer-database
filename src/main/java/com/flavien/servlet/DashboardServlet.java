@@ -41,7 +41,7 @@ public class DashboardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Get all the parameters from the view.
-		int index = Utils.getInt(request.getParameter("index"));
+		final int index = Utils.getInt(request.getParameter("index"));
 		int nbEntityByPage = Utils.getInt(request.getParameter("nbEntityByPage"));
 		String name = request.getParameter("search");
 		if (name == null)

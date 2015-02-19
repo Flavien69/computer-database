@@ -1,7 +1,7 @@
 package com.flavien.dto;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.flavien.models.Computer;
 import com.flavien.utils.Utils;
@@ -38,10 +38,10 @@ public class ComputerMapperDTO {
 	}
 	
 	public static List<ComputerDTO> listToDto(List<Computer> computers){
-		List<ComputerDTO> computerDTOs = new ArrayList<>();
-		for(Computer computer : computers){
-			computerDTOs.add(toDto(computer));
-		}
-		return computerDTOs;
+		return  computers.stream().map(c -> toDto(c)).collect(Collectors.toList());
 	}
+	
+	public static List<Computer> listFromDto(List<ComputerDTO> computerDTOs){
+		return  computerDTOs.stream().map(c -> fromDto(c)).collect(Collectors.toList());
+	}	
 }

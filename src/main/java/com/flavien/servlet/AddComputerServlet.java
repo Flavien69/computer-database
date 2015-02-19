@@ -72,10 +72,10 @@ public class AddComputerServlet extends HttpServlet {
 			IOException {
 
 		// Get all the parameters from the view.
-		String name = request.getParameter("name");
-		String introducedString = request.getParameter("introduced");
-		String discontinuedString = request.getParameter("discontinued");
-		int companyId = Utils.getInt(request.getParameter("companyId"));
+		final String name = request.getParameter("name");
+		final String introducedString = request.getParameter("introduced");
+		final String discontinuedString = request.getParameter("discontinued");
+		final int companyId = Utils.getInt(request.getParameter("companyId"));
 
 		ComputerDTO computerDTO = new ComputerDTO(name, introducedString, discontinuedString, companyId);
 

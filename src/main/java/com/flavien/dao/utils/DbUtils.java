@@ -21,6 +21,7 @@ public final class DbUtils {
 
 	public static void closeResultSet(ResultSet rs) {
 		try {
+			if(rs != null)
 			rs.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -30,7 +31,8 @@ public final class DbUtils {
 
 	public static void closePreparedStatement(PreparedStatement preparedStatement) {
 		try {
-			preparedStatement.close();
+			if(preparedStatement != null)
+				preparedStatement.close();
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
 			throw new RuntimeException(e);

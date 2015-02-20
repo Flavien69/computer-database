@@ -28,6 +28,9 @@ public class ConnectionManager {
 	private static int minConnectionsPerPartition = PropertyValues.INSTANCE.getMinConnectionsPerPartition();
 	private static int partitionCount = PropertyValues.INSTANCE.getPartitionCount();
 	
+	/**
+	 * Initialize the connection pool once.
+	 */
 	static{
 
 		try {
@@ -37,7 +40,7 @@ public class ConnectionManager {
 			config.setUsername(DB_USER);
 			config.setPassword(DB_PWD);
 
-			// 2*10 = 20 connection will be available
+			// 1*5 = 5 connection will be available
 			config.setMinConnectionsPerPartition(minConnectionsPerPartition);
 			config.setMaxConnectionsPerPartition(maxConnectionsPerPartition);
 			config.setPartitionCount(partitionCount);
@@ -80,7 +83,7 @@ public class ConnectionManager {
 
 		Connection connection = null;
 		try {
-			connection = getConnectionPool().getConnection();
+			connection = connectionPool.getConnection();
 			if (isTransaction)
 				connection.setAutoCommit(false);
 			

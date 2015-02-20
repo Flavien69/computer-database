@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import com.flavien.dao.ComputerDao;
 import com.flavien.dao.utils.ComputerMapper;
-import com.flavien.dao.utils.DbConnection;
-import com.flavien.dao.utils.DbUtils;
+import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.exception.PersistenceException;
 import com.flavien.models.Computer;
@@ -80,7 +79,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void add(Computer computer) {
 
 		PreparedStatement preparedStatement = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_ADD);
@@ -107,8 +106,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 
 	}
@@ -118,7 +117,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		PreparedStatement preparedStatement = null;
 		Computer computer = null;
 		ResultSet rs = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
@@ -132,9 +131,9 @@ public class ComputerDaoImpl implements ComputerDao {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
-			DbUtils.closeResultSet(rs);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeResultSet(rs);
 		}
 		return computer;
 	}
@@ -142,7 +141,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void update(Computer computer) {
 
 		PreparedStatement preparedStatement = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_UPDATE);
@@ -170,8 +169,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 
 	}
@@ -179,7 +178,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void deleteById(int computerId) {
 
 		PreparedStatement preparedStatement = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_DELETE);
@@ -191,8 +190,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 	}
 
@@ -200,8 +199,9 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
+		
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_PAGE);
 
@@ -217,8 +217,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 		page.setComputerList(ComputerMapperDTO.listToDto(computerList));
 		return page;
@@ -228,8 +228,8 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
-
+		connection = ConnectionManager.getConnection(false);
+		
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
 			rs = preparedStatement.executeQuery();
@@ -240,9 +240,9 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new RuntimeException(e);
 
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
-			DbUtils.closeResultSet(rs);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeResultSet(rs);
 		}
 		return computerList;
 	}
@@ -252,7 +252,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		int count = 0;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_COUNT);
@@ -268,8 +268,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 		return count;
 	}
@@ -279,7 +279,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_FILTER_BY_NAME);
@@ -292,9 +292,9 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
-			DbUtils.closeResultSet(rs);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeResultSet(rs);
 		}
 		return computerList;
 	}
@@ -302,7 +302,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	@Override
 	public void deleteMultipleById(String computersId) {
 		PreparedStatement preparedStatement = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_MULTIPLE_DELETE);
@@ -314,8 +314,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 	}
 
@@ -333,7 +333,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			DbUtils.closePreparedStatement(preparedStatement);
+			ConnectionManager.closePreparedStatement(preparedStatement);
 		}		
 	}
 }

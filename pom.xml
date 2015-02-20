@@ -20,6 +20,7 @@
 		<selenium-version>2.44.0</selenium-version>
 		<hibernate-validator-version>5.1.3.Final</hibernate-validator-version>
 		<servlet-api-version>2.5</servlet-api-version>
+		<bonecp-version>0.8.0.RELEASE</bonecp-version>
 		<maven-compiler-plugin-version>3.1</maven-compiler-plugin-version>
 		<selenium-maven-plugin-version>1.0.1</selenium-maven-plugin-version>
 		<maven-surefire-plugin-version>2.5</maven-surefire-plugin-version>
@@ -55,6 +56,7 @@
 			<scope>provided</scope>
 		</dependency>
 
+
 		<!-- test librairy -->
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -86,7 +88,14 @@
 			<artifactId>jstl</artifactId>
 			<version>${jstl-version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>${bonecp-version}</version>
+		</dependency>
 	</dependencies>
+	
+	
 	<build>
 		<plugins>
 			<plugin>

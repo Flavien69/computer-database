@@ -35,7 +35,7 @@ public class CompanyServiceImplTest {
 		 when(companyDao.getAll()).thenReturn(companies);
 		 when(companyDao.getByID(2)).thenReturn(company);
 
-		 cut = new CompanyServiceImpl(companyDao);
+		 cut = new CompanyServiceImpl(companyDao,null);
 	 }
 	 
 	 @Test

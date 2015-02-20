@@ -11,8 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.flavien.dao.CompanyDao;
 import com.flavien.dao.utils.CompanyMapper;
-import com.flavien.dao.utils.DbConnection;
-import com.flavien.dao.utils.DbUtils;
+import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.exception.PersistenceException;
 import com.flavien.models.Company;
 
@@ -40,7 +39,7 @@ public class CompanyDaoImpl implements CompanyDao{
 		List<Company> companyList = new ArrayList<Company>();
 		PreparedStatement preparedStatement = null;
 		java.sql.ResultSet rs = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
@@ -52,9 +51,9 @@ public class CompanyDaoImpl implements CompanyDao{
 			throw new PersistenceException(e);
 
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
-			DbUtils.closeResultSet(rs);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeResultSet(rs);
 		}
 		logger.info("Retrieve all the companies.");
 		return companyList;
@@ -65,7 +64,7 @@ public class CompanyDaoImpl implements CompanyDao{
 		PreparedStatement preparedStatement = null;
 		Company company = null;
 		java.sql.ResultSet rs = null;
-		connection = DbConnection.INSTANCE.getConnection(false);
+		connection = ConnectionManager.getConnection(false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
@@ -81,9 +80,9 @@ public class CompanyDaoImpl implements CompanyDao{
 			throw new PersistenceException(e);
 
 		} finally {
-			DbConnection.INSTANCE.closeConnection(connection, false);
-			DbUtils.closePreparedStatement(preparedStatement);
-			DbUtils.closeResultSet(rs);
+			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closePreparedStatement(preparedStatement);
+			ConnectionManager.closeResultSet(rs);
 		}
 
 		logger.info("Retrieve one company by ID.");
@@ -104,7 +103,7 @@ public class CompanyDaoImpl implements CompanyDao{
 			throw new PersistenceException(e);
 
 		} finally {
-			DbUtils.closePreparedStatement(preparedStatement);
+			ConnectionManager.closePreparedStatement(preparedStatement);
 		}		
 	}
 }

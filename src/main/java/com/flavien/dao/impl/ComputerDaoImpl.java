@@ -20,6 +20,11 @@ import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.utils.PropertyValues;
 
+/**
+ * 
+ * Interface to handle database requests for computer object.
+ *
+ */
 public class ComputerDaoImpl implements ComputerDao {
 	private Connection connection;
 	private final static Logger logger = LoggerFactory.getLogger(ComputerDaoImpl.class);

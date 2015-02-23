@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Singleton to get properties values from outside file.
+ *
+ */
 public enum PropertyValues {
 	INSTANCE;
 

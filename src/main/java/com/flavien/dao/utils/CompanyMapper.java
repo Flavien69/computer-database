@@ -8,6 +8,11 @@ import java.util.List;
 import com.flavien.dao.impl.CompanyDaoImpl;
 import com.flavien.models.Company;
 
+/**
+ * 
+ * Singleton to convert a resultset to a company object
+ *
+ */
 public enum CompanyMapper implements RowMappable<Company>{
 	INSTANCE;	
 	private CompanyMapper(){};

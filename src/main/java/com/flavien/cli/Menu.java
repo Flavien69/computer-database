@@ -1,5 +1,10 @@
 package com.flavien.cli;
 
+/**
+ * 
+ * Command line interface to handle the main menu interaction.
+ * 
+ */
 public class Menu {
 	private static final String MENU_TEMPLATE = "\t%d] %s";
 
@@ -24,8 +29,6 @@ public class Menu {
 	 * 
 	 * Main entry of the menu class.
 	 * 
-	 * @author flavien
-	 * 
 	 */
 	public static void run() {
 		while (true) {
@@ -37,8 +40,6 @@ public class Menu {
 	 * 
 	 * Permit to redirect the user using the choice made by the user in the
 	 * menu.
-	 * 
-	 * @author flavien
 	 * 
 	 */
 	public static void redirectUser(int choice) {
@@ -87,8 +88,6 @@ public class Menu {
 	/**
 	 * 
 	 * Show the menu and wait the input of the user.
-	 * 
-	 * @author flavien
 	 * 
 	 */
 	public static void display() {

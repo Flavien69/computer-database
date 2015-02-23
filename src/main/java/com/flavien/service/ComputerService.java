@@ -5,10 +5,15 @@ import java.util.List;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 
+/**
+ * 
+ * API to handle the business layer for the Computer object.
+ * 
+ */
 public interface ComputerService {
 	/**
 	 * Permit to add a computer in the database.
-	 * @param Computer
+	 * @param computer
 	 */
 	public void add(Computer computer);
 	
@@ -28,13 +33,13 @@ public interface ComputerService {
 	
 	/**
 	 * Delete a computer in the database.
-	 * @param computerId, the id of the computer to delete.
+	 * @param computerId , the id of the computer to delete.
 	 */
 	public void deleteById(int computerId);
 		
 	/**
 	 * Delete few computers in the database.
-	 * @param computersId, all the ids of the computers to delete.
+	 * @param computersId , all the ids of the computers to delete.
 	 */
 	public void deleteMultipleById(String computersId);
 	
@@ -46,7 +51,7 @@ public interface ComputerService {
 	
 	/**
 	 * Get a computer by id from the database
-	 * @param computerId, the id of the computer to find
+	 * @param computerId , the id of the computer to find
 	 * @return the computer find in the database or null if not found.
 	 */
 	public Computer getByID(int computerId);

@@ -8,6 +8,11 @@ import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.ComputerService;
 
+/**
+ * 
+ * Class that implement the computer service API.
+ * 
+ */
 public class ComputerServiceImpl implements ComputerService{
 	private ComputerDao computerDao = DaoManager.INSTANCE.getComputerDaoImpl();
 	

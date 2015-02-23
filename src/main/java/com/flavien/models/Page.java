@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.flavien.dto.ComputerDTO;
 
+/**
+ * 
+ * Object model that represent a Page.
+ * 
+ */
 public class Page {
 	
 	public static final int DEFAULT_NB_ENTITY_BY_PAGE = 100;
@@ -13,6 +18,7 @@ public class Page {
 	private int nbTotalPage;
 	private int nbTotalComputer;
 	private int index;
+	@SuppressWarnings("unused")
 	private int[] range;
 	private int entityByPage = DEFAULT_NB_ENTITY_BY_PAGE;
 	

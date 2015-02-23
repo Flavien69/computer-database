@@ -12,6 +12,11 @@ import com.flavien.service.impl.CompanyServiceImpl;
 import com.flavien.service.impl.ComputerServiceImpl;
 import com.flavien.service.impl.ServiceManager;
 
+/**
+ * 
+ * Command line interface to handle company interaction.
+ * 
+ */
 public class ComputerCli {
 
 	private static CompanyServiceImpl companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
@@ -20,8 +25,6 @@ public class ComputerCli {
 	/**
 	 * 
 	 * Show a list of computers
-	 * 
-	 * @author flavien
 	 * 
 	 */
 	public static void showComputers() {
@@ -32,8 +35,6 @@ public class ComputerCli {
 	/**
 	 * 
 	 * Show a list of computer page by page using a Page object
-	 * 
-	 * @author flavien
 	 * 
 	 */
 	public static void showComputersPage() {
@@ -54,8 +55,6 @@ public class ComputerCli {
 	 * 
 	 * Display a list of computer
 	 * 
-	 * @author flavien
-	 * 
 	 */
 	public static void displayComputer(List<ComputerDTO> computerList) {
 		for (ComputerDTO computerDTO : computerList) {
@@ -66,8 +65,6 @@ public class ComputerCli {
 	/**
 	 * 
 	 * Create a computer using the cli interface
-	 * 
-	 * @author flavien
 	 * 
 	 */
 	public static void createComputer() {
@@ -114,8 +111,6 @@ public class ComputerCli {
 	/**
 	 * 
 	 * Update a computer using the cli interface
-	 * 
-	 * @author flavien
 	 * 
 	 */
 	public static void updateComputer() {
@@ -176,8 +171,6 @@ public class ComputerCli {
 	/**
 	 * 
 	 * Delete a computer using the cli interface
-	 * 
-	 * @author flavien
 	 * 
 	 */
 	public static void deleteComputer() {

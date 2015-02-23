@@ -11,6 +11,11 @@ import com.flavien.exception.PersistenceException;
 import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 
+/**
+ * 
+ * Class that implement the company service API.
+ * 
+ */
 public class CompanyServiceImpl implements CompanyService {
 	private CompanyDao companyDao = DaoManager.INSTANCE.getCompanyDaoImpl();
 	private ComputerDao computerDao = DaoManager.INSTANCE.getComputerDaoImpl();

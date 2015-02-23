@@ -1,6 +1,11 @@
 package com.flavien.service.impl;
 
 
+/**
+ * 
+ * Singleton that instanciate service objects.
+ * 
+ */
 public enum ServiceManager {
 	INSTANCE;
 	
@@ -14,10 +19,18 @@ public enum ServiceManager {
 		companyService = new CompanyServiceImpl();
 	}
 		
+	/**
+	 * Instanciate a companyServiceImpl object.
+	 * @return CompanyServiceImpl
+	 */
 	public CompanyServiceImpl getCompanyServiceImpl(){
 		return companyService;
 	}
 	
+	/**
+	 * Instanciate a ComputerServiceImpl object.
+	 * @return ComputerServiceImpl
+	 */
 	public ComputerServiceImpl getComputerServiceImpl(){
 		return computerService;
 	}

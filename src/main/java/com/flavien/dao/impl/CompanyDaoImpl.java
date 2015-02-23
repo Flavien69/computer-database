@@ -15,6 +15,11 @@ import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.exception.PersistenceException;
 import com.flavien.models.Company;
 
+/**
+ * 
+ * Implementation to handle database requests for company object.
+ *
+ */
 public class CompanyDaoImpl implements CompanyDao{
 
 	private Connection connection;

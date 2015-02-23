@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 import com.flavien.models.Computer;
 import com.flavien.utils.Utils;
 
+/**
+ * 
+ * Convert an Computer object to ComputerDTO object and the opposite.
+ * 
+ */
 public class ComputerMapperDTO {
 	
 	public static ComputerDTO toDto(Computer computer){

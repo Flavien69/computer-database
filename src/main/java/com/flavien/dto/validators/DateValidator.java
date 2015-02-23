@@ -5,6 +5,11 @@ import javax.validation.ConstraintValidatorContext;
 
 import com.flavien.utils.Utils;
 
+/**
+ * 
+ * Implementation of the custom date annotation to validate a date.
+ * 
+ */
 public class DateValidator implements ConstraintValidator<Date, String>{
 
 	@Override

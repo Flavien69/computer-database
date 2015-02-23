@@ -1,5 +1,10 @@
 package com.flavien.models;
 
+/**
+ * 
+ * Object model that represent a Company.
+ * 
+ */
 public class Company {
 	private int id;
 	private String name;

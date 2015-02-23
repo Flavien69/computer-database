@@ -13,6 +13,11 @@ import com.flavien.utils.PropertyValues;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
+/**
+ * 
+ * Class that enable to get a database connection.
+ *
+ */
 public class ConnectionManager {
 	private final static Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
 	
@@ -99,7 +104,7 @@ public class ConnectionManager {
 	/**
 	 * Close the PreparedStatement in params if not null
 	 * 
-	 * @param PreparedStatement
+	 * @param stmt
 	 */
 	public static void closePreparedStatement(PreparedStatement stmt) {
 		try {
@@ -115,7 +120,7 @@ public class ConnectionManager {
 	/**
 	 * Close the rseultset in params if not null
 	 * 
-	 * @param ResultSet
+	 * @param rSet
 	 */
 	public static void closeResultSet(ResultSet rSet) {
 		try {
@@ -132,7 +137,8 @@ public class ConnectionManager {
 	 * release the connection - The connection is not closed it is released and
 	 * it will stay in pool.
 	 * 
-	 * @param Connection
+	 * @param connection
+	 * @param isTransaction
 	 */
 	public static void closeConnection(Connection connection, boolean isTransaction) {
 		try {

@@ -1,5 +1,10 @@
 package com.flavien.dao.impl;
 
+/**
+ * 
+ * Singleton manager to instanciate DAO objects
+ *
+ */
 public enum DaoManager {
 	INSTANCE;
 	private static CompanyDaoImpl companyDao;

@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Generic interface that map the result from de database to a java object
  * 
- * @author flavien
  * @param <T>
  *
  */
@@ -15,7 +14,7 @@ public interface RowMappable<T> {
 	
 	/**
 	 * Permit to convert a ResultSet to a list<T>
-	 * @param ResultSet
+	 * @param rs
 	 * @return List<T>
 	 * @throws SQLException
 	 */
@@ -23,7 +22,7 @@ public interface RowMappable<T> {
 	
 	/**
 	 * Permit to convert a ResultSet to a java object 
-	 * @param ResultSet
+	 * @param rs
 	 * @return T
 	 * @throws SQLException
 	 */

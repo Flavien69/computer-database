@@ -5,6 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * 
+ * Utils class to help CLI classes.
+ * 
+ */
 public class Utils {
 
 	private static Scanner scannerInstance = null;

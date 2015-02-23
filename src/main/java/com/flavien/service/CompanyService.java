@@ -4,24 +4,28 @@ import java.util.List;
 
 import com.flavien.models.Company;
 
+/**
+ * 
+ * API to handle the business layer for the Company object.
+ * 
+ */
 public interface CompanyService {
 	/**
-     * get all company present in the database
-     * @return a list of companies or an empty List if there is no companies.
+     * Get all company present in the database
+     * @return List<Company>.
      */
 	public List<Company> getAll();
 	
 	/**
-     * get a company by ID
-     * @param companyId the ID of the company needed.
-     * @return the company find or null if not found.
+     * Get a company by ID
+     * @param companyId
+     * @return Company
      */
 	public Company getByID(int companyId);
 	
 	/**
-     * delete a company by ID
-     * @param companyId the ID of the company to delete.
-     * @return the company find or null if not found.
+     * Delete a company by ID
+     * @param companyId 
      */
 	public void deleteByID(int companyId);
 }

@@ -11,6 +11,11 @@ import javax.validation.Validator;
 import com.flavien.dto.ComputerDTO;
 import com.flavien.utils.Utils;
 
+/**
+ * 
+ * Validate the computerDTO object.
+ * 
+ */
 public class ComputerDtoValidator {
 
 	public static List<String> validate(ComputerDTO computerDTO){

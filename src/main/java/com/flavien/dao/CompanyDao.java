@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.flavien.models.Company;
-
+/**
+ * 
+ * API to handle database requests for company object.
+ *
+ */
 public interface CompanyDao {
 	
 	/**
@@ -24,7 +28,6 @@ public interface CompanyDao {
      * delete a company by ID
      * @param companyId the ID of the company to delete.
      * @param connection because it s a transaction.
-     * @return the company find or null if not found.
      */
 	public void deleteByID(int companyId, Connection connection);
 }

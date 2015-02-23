@@ -31,7 +31,6 @@ public class DeleteComputerServlet extends HttpServlet {
      */
 	public DeleteComputerServlet(){
 		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
-
 	}
 	
 	/**

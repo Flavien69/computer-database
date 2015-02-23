@@ -23,6 +23,7 @@
 		<jsp-api-version>2.0</jsp-api-version>
 		<bonecp-version>0.8.0.RELEASE</bonecp-version>
 		<maven-compiler-plugin-version>3.1</maven-compiler-plugin-version>
+		<maven-javadoc-plugin-version>2.10.1</maven-javadoc-plugin-version>
 		<selenium-maven-plugin-version>1.0.1</selenium-maven-plugin-version>
 		<maven-surefire-plugin-version>2.5</maven-surefire-plugin-version>
 	</properties>
@@ -112,6 +113,16 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin-version}</version>
+				<configuration>
+					<show>private</show>
+					<additionalparam>-Xdoclint:none</additionalparam>
+					<nohelp>true</nohelp>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>selenium-maven-plugin</artifactId>
 				<version>${selenium-maven-plugin-version}</version>
@@ -166,4 +177,17 @@
 			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.1</version>
+        <configuration>
+          <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+          <show>public</show>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

@@ -9,7 +9,10 @@ import javax.validation.ConstraintViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+/**
+ * Utils class to help implementing classes.
+ *
+ */
 public class Utils {
 	private final static Logger logger = LoggerFactory.getLogger(Utils.class);
 	public static final String INT_REGEX = "^[0-9]*$";
@@ -17,6 +20,12 @@ public class Utils {
 	public static final String DATE_REGEX = "^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])[\\s||T][0-9][0-9]:[0-9][0-9]$";
 	public static final int ERROR = 0;
 
+	/**
+	 * Convert a string to int. 
+	 * @param valeurString
+	 * @return Int
+	 * @throws RuntimeException
+	 */
 	public static int getInt(String valeurString) {
 		int valeur = 0;
 
@@ -35,6 +44,12 @@ public class Utils {
 		return valeur;
 	}
 
+	/**
+	 * Convert a string to LocalDateTime. 
+	 * @param dateInString
+	 * @return LocalDateTime
+	 * @throws RuntimeException
+	 */
 	public static LocalDateTime getLocalDateTime(String dateInString) {
 		if(dateInString.isEmpty())
 			return null;
@@ -51,7 +66,7 @@ public class Utils {
 		}
 	}
 
-	public static String getErrorFromViolation(ConstraintViolation constraintViolation){
+	public static String getErrorFromViolation(@SuppressWarnings("rawtypes") ConstraintViolation constraintViolation){
 		return "Value '" + constraintViolation.getInvalidValue() + "' is invalid for the field '"
 				+ constraintViolation.getPropertyPath() + "' : " + constraintViolation.getMessage();
 	}

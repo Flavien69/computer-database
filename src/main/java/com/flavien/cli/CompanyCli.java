@@ -4,16 +4,19 @@ import java.util.List;
 
 import com.flavien.models.Company;
 import com.flavien.service.impl.CompanyServiceImpl;
-import com.flavien.service.impl.ComputerServiceImpl;
 import com.flavien.service.impl.ServiceManager;
 
+/**
+ * 
+ * Command line interface to handle company interaction.
+ * 
+ */
 public class CompanyCli {
 	
 	private static CompanyServiceImpl companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
 	/**
 	 * 
 	 * Show a list of company 
-	 * @author flavien
 	 * 
 	 */
 	public static void showCompany(){
@@ -27,7 +30,6 @@ public class CompanyCli {
 	/**
 	 * 
 	 * Delete a company 
-	 * @author flavien
 	 * 
 	 */
 	public static void deleteCompany(){

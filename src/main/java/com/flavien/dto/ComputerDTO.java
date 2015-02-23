@@ -6,6 +6,11 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.flavien.dto.validators.Date;
 import com.flavien.models.Company;
 
+/**
+ * 
+ * Class that represente a computerDTO object. Light computer object to use in the view.
+ * 
+ */
 public class ComputerDTO {
 	private int id;
 	@NotBlank

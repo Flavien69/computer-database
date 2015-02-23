@@ -3,15 +3,20 @@ package com.flavien.dao.utils;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * 
+ *  Enable to convert a Timestamp date into a LocalDateTime
+ *
+ */
 public final class DateUtils {
 
 	private DateUtils() {}
 
 	/**
-	 * Permit to convert a Timestamp date into a LocalDateTime
+	 * Enable to convert a Timestamp date into a LocalDateTime
 	 * 
-	 * @param Timestamp
-	 * @return LocalDateTime from the jodatime library
+	 * @param timestamp
+	 * @return LocalDateTime 
 	 */
 	public static LocalDateTime getLocalDate(Timestamp timestamp) {
 		if (timestamp != null)

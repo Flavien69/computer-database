@@ -9,6 +9,11 @@ import com.flavien.dao.impl.ComputerDaoImpl;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 
+/**
+ * 
+ * Singleton to convert a resultset to a computer object
+ *
+ */
 public enum ComputerMapper implements RowMappable<Computer>{
 	INSTANCE;	
 	private ComputerMapper(){};

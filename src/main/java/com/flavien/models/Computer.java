@@ -2,7 +2,11 @@ package com.flavien.models;
 
 import java.time.LocalDateTime;
 
-
+/**
+ * 
+ * Object model that represent a Computer.
+ * 
+ */
 public class Computer{
 	private int id;
 	private String name;

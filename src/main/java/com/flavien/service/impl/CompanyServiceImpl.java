@@ -3,8 +3,8 @@ package com.flavien.service.impl;
 import java.sql.Connection;
 import java.util.List;
 
-import com.flavien.dao.impl.CompanyDaoImpl;
-import com.flavien.dao.impl.ComputerDaoImpl;
+import com.flavien.dao.CompanyDao;
+import com.flavien.dao.ComputerDao;
 import com.flavien.dao.impl.DaoManager;
 import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.exception.PersistenceException;
@@ -12,13 +12,13 @@ import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 
 public class CompanyServiceImpl implements CompanyService {
-	private CompanyDaoImpl companyDao = DaoManager.INSTANCE.getCompanyDaoImpl();
-	private ComputerDaoImpl computerDao = DaoManager.INSTANCE.getComputerDaoImpl();
+	private CompanyDao companyDao = DaoManager.INSTANCE.getCompanyDaoImpl();
+	private ComputerDao computerDao = DaoManager.INSTANCE.getComputerDaoImpl();
 
 	public CompanyServiceImpl() {
 	}
 
-	public CompanyServiceImpl(CompanyDaoImpl companyDao, ComputerDaoImpl computerDao) {
+	public CompanyServiceImpl(CompanyDao companyDao, ComputerDao computerDao) {
 		this.companyDao = companyDao;
 		this.computerDao = computerDao;
 	}
@@ -36,6 +36,7 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public void deleteByID(int companyId) {
 		Connection connection = ConnectionManager.getConnection(true);
+		
 		try {
 			computerDao.deleteByCompanyId(companyId, connection);
 			companyDao.deleteByID(companyId, connection);

@@ -1,5 +1,6 @@
 package com.flavien.dao;
 
+import java.sql.Connection;
 import java.util.List;
 
 import org.junit.Assert;
@@ -7,15 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import com.flavien.dao.impl.ComputerDaoImpl;
 import com.flavien.dao.impl.DaoManager;
+import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.utils.ScriptRunner;
 
-public class ComputerDaoImplTest {
-	private ComputerDaoImpl cut = DaoManager.INSTANCE.getComputerDaoImpl();
+public class ComputerDaoTest {
+	private ComputerDao cut = DaoManager.INSTANCE.getComputerDaoImpl();
 	@Mock
 	private Company company;
 
@@ -60,11 +61,11 @@ public class ComputerDaoImplTest {
 
 	@Test
 	public void testAdd() {
-		Computer computer = new Computer();
+		Computer computer = new Computer("test",null,null,1);
 
 		cut.add(computer);
 		int count = cut.getCount("");
-		//Assert.assertEquals(count, ScriptRunner.COUNT_TOTAL_COMPUTER + 1);
+		Assert.assertEquals(count, ScriptRunner.COUNT_TOTAL_COMPUTER + 1);
 	}
 
 	@Test
@@ -84,5 +85,15 @@ public class ComputerDaoImplTest {
 	public void testGetAll() {
 		List<Computer> computers = cut.getAll();
 		Assert.assertEquals(computers.size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
+	}
+	
+	@Test
+	public void testDeleteByCompany() {
+		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
+
+		Connection connection = ConnectionManager.getConnection(true);
+		cut.deleteByCompanyId(3, connection);
+		ConnectionManager.closeConnection(connection, true);
+		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER -2);
 	}
 }

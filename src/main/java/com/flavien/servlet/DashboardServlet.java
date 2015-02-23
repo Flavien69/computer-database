@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.flavien.models.Page;
-import com.flavien.service.impl.ComputerServiceImpl;
+import com.flavien.service.ComputerService;
 import com.flavien.service.impl.ServiceManager;
 import com.flavien.utils.Utils;
 
@@ -26,7 +26,7 @@ import com.flavien.utils.Utils;
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LoggerFactory.getLogger(DashboardServlet.class);
-	private ComputerServiceImpl computerService;
+	private ComputerService computerService;
 
     /**
      * Initialization of the services.

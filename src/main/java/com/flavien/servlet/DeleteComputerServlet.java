@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.flavien.service.impl.ComputerServiceImpl;
+import com.flavien.service.ComputerService;
 import com.flavien.service.impl.ServiceManager;
 import com.flavien.utils.Utils;
 
@@ -24,7 +24,7 @@ public class DeleteComputerServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -6224096912496986500L;
 	private final static Logger logger = LoggerFactory.getLogger(DeleteComputerServlet.class);
-	private ComputerServiceImpl computerService;
+	private ComputerService computerService;
 
     /**
      * Initialization of the services.

@@ -1,10 +1,7 @@
 package com.flavien.servlet;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,9 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +18,8 @@ import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.dto.validators.ComputerDtoValidator;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
-import com.flavien.service.impl.CompanyServiceImpl;
-import com.flavien.service.impl.ComputerServiceImpl;
+import com.flavien.service.CompanyService;
+import com.flavien.service.ComputerService;
 import com.flavien.service.impl.ServiceManager;
 import com.flavien.utils.Utils;
 
@@ -38,8 +32,8 @@ public class EditComputerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LoggerFactory.getLogger(EditComputerServlet.class);
 
-	private ComputerServiceImpl computerService;
-	private CompanyServiceImpl companyService;
+	private ComputerService computerService;
+	private CompanyService companyService;
 
 	/**
 	 * Initialization of the services.

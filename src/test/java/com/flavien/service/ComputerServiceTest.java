@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.flavien.dao.impl.ComputerDaoImpl;
+import com.flavien.dao.ComputerDao;
 import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
@@ -20,9 +20,9 @@ import com.flavien.models.Page;
 import com.flavien.service.impl.ComputerServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ComputerServiceImplTest {
-	private ComputerServiceImpl cut;
-	@Mock private ComputerDaoImpl computerDao;
+public class ComputerServiceTest {
+	private ComputerService cut;
+	@Mock private ComputerDao computerDao;
 	private Computer computer;
 	private List<Computer> computers;
 	private Page page;

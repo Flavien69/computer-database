@@ -39,6 +39,7 @@ public class ConnectionManager {
 			config.setJdbcUrl("jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/"+ DB_PATH);
 			config.setUsername(DB_USER);
 			config.setPassword(DB_PWD);
+			config.setDisableConnectionTracking(true);
 
 			// 1*5 = 5 connection will be available
 			config.setMinConnectionsPerPartition(minConnectionsPerPartition);

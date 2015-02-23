@@ -1,13 +1,13 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="/views/include/header.jsp"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:include page="/views/include/header.jsp" />
 
-	<section id="main">
-		<div class="container">
-			<div class="alert alert-danger">
-				Error 500: An error has occured! <br />
-				<!-- stacktrace -->
-			</div>
+<section id="main">
+	<div class="container">
+		<div class="alert alert-danger">
+			Error 500: An error has occured! <br />
+			<!-- stacktrace -->
 		</div>
-	</section>
+	</div>
+</section>
 
-	<jsp:include page="/views/include/footer.jsp" />
+<jsp:include page="/views/include/footer.jsp" />

@@ -43,9 +43,7 @@ public class DashboardServlet extends HttpServlet {
 		// Get all the parameters from the view.
 		final int index = Utils.getInt(request.getParameter("index"));
 		int nbEntityByPage = Utils.getInt(request.getParameter("nbEntityByPage"));
-		String name = request.getParameter("search");
-		if (name == null)
-			name = "";
+		final String name = request.getParameter("search") == null? "":request.getParameter("search");
 		
 		if( nbEntityByPage == Utils.ERROR)
 			nbEntityByPage = Page.DEFAULT_NB_ENTITY_BY_PAGE;

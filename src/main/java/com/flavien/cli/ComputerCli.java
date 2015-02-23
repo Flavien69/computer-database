@@ -69,7 +69,7 @@ public class ComputerCli {
 	 */
 	public static void createComputer() {
 
-		Computer computer = new Computer();
+		Computer computer = new Computer.Builder().build();
 
 		System.out.println("\n***************** CREATE A COMPUTER ***********************************\n");
 		String name = null;

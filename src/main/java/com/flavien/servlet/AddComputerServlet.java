@@ -71,7 +71,12 @@ public class AddComputerServlet extends HttpServlet {
 		final String discontinuedString = request.getParameter("discontinued");
 		final int companyId = Utils.getInt(request.getParameter("companyId"));
 
-		ComputerDTO computerDTO = new ComputerDTO(name, introducedString, discontinuedString, companyId);
+		ComputerDTO computerDTO = new ComputerDTO.Builder()
+			.name(name)
+			.introduced(introducedString)
+			.discontinued(discontinuedString)
+			.company(new Company.Builder().id(companyId).build())
+			.build();
 
 		// validate the DTO
 		List<String> errors = ComputerDtoValidator.validate(computerDTO);

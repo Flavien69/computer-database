@@ -31,7 +31,7 @@ public class ComputerDaoTest {
 	@Test
 	public void testGetById() {
 		Computer computer = cut.getByID(2);
-		Computer computerMatcher = new Computer(2, "CM-2a", null, null, null);
+		Computer computerMatcher = new Computer.Builder().id(2).name("CM-2a").build();
 
 		Assert.assertEquals(computer.getId(), 2);
 		Assert.assertEquals(computer.getName(), computerMatcher.getName());
@@ -61,7 +61,7 @@ public class ComputerDaoTest {
 
 	@Test
 	public void testAdd() {
-		Computer computer = new Computer("test",null,null,1);
+		Computer computer =new Computer.Builder().name("test").build(); 
 
 		cut.add(computer);
 		int count = cut.getCount("");
@@ -86,7 +86,7 @@ public class ComputerDaoTest {
 		List<Computer> computers = cut.getAll();
 		Assert.assertEquals(computers.size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
 	}
-	
+
 	@Test
 	public void testDeleteByCompany() {
 		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
@@ -94,6 +94,6 @@ public class ComputerDaoTest {
 		Connection connection = ConnectionManager.getConnection(true);
 		cut.deleteByCompanyId(3, connection);
 		ConnectionManager.closeConnection(connection, true);
-		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER -2);
+		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER - 2);
 	}
 }

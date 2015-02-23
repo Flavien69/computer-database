@@ -23,33 +23,7 @@ public class ComputerDTO {
 	private String discontinued;
 	private Company company;
 	
-	public ComputerDTO() {}
-	
-	public ComputerDTO(int id, String name, String introduced,
-			String discontinued, Company company) {
-		this.id = id;
-		this.name = name;
-		this.introduced = introduced;
-		this.discontinued = discontinued;
-		this.company = company;
-	}
-	
-	public ComputerDTO(int id, String name, String introduced,
-			String discontinued, int companyId) {
-		this.id = id;
-		this.name = name;
-		this.introduced = introduced;
-		this.discontinued = discontinued;
-		this.company = new Company(companyId);
-	}	
-	
-	public ComputerDTO( String name, String introduced,
-			String discontinued, int companyId) {
-		this.name = name;
-		this.introduced = introduced;
-		this.discontinued = discontinued;
-		this.company = new Company(companyId);
-	}		
+	private ComputerDTO() {}	
 	
 	public int getId() {
 		return id;
@@ -105,5 +79,77 @@ public class ComputerDTO {
 		return str;
 	}
 	
-	
+	/**
+	 * Builder class for a ComputerDTO object
+	 *
+	 */
+	public static class Builder {
+		private ComputerDTO computerDTO;
+
+		public Builder() {
+			computerDTO = new ComputerDTO();
+		}
+
+		/**
+		 * Set the id attribute 
+		 * @param id
+		 * @return Builder A reference to the current instance of Builder
+		 */
+		public Builder id(int id) {
+			computerDTO.setId(id);
+			return this;
+		}
+
+		/**
+		 * Set the name attribute
+		 * @param name
+		 * @return Builder A reference to the current instance of Builder
+		 */
+		public Builder name(String name) {
+			computerDTO.setName(name);
+			return this;
+		}
+
+		/**
+		 * Sets the introduced attribute 
+		 *
+		 * @param introduced
+		 * @return Builder A reference to the current instance of Builder
+		 */
+		public Builder introduced(String introduced) {
+			computerDTO.setIntroduced(introduced);
+			return this;
+		}
+
+		/**
+		 * Sets the discontinued attribute 
+		 *
+		 * @param discontinued        
+		 * @return Builder A reference to the current instance of Builder
+		 */
+		public Builder discontinued(String discontinued) {
+			computerDTO.setDiscontinued(discontinued);
+			return this;
+		}
+
+		/**
+		 * Sets the company attribute
+		 *
+		 * @param company           
+		 * @return Builder A reference to the current instance of Builder
+		 */
+		public Builder company(Company company) {
+			computerDTO.setCompany(company);
+			return this;
+		}
+
+		/**
+		 * Creates an instance of ComputerDTO
+		 *
+		 * @return An instance of ComputerDTO
+		 */
+		public ComputerDTO build() {
+			return computerDTO;
+		}
+	}
 }

@@ -31,14 +31,18 @@ public enum ComputerMapper implements RowMappable<Computer>{
 	@Override
 	public Computer getObject(ResultSet rs) throws SQLException {
 		
-		Company company = new Company(rs.getInt(ComputerDaoImpl.DB_COLUMN_COMPANY_ID),rs.getString(ComputerDaoImpl.DB_COLUMN_COMPANY_NAME));
+		Company company = new Company.Builder()
+				.id(rs.getInt(ComputerDaoImpl.DB_COLUMN_COMPANY_ID))
+				.name(rs.getString(ComputerDaoImpl.DB_COLUMN_COMPANY_NAME))
+				.build();
 		
-		return new Computer(
-			rs.getInt(ComputerDaoImpl.DB_COLUMN_ID),
-			rs.getString(ComputerDaoImpl.DB_COLUMN_NAME),
-			DateUtils.getLocalDate(rs.getTimestamp(ComputerDaoImpl.DB_COLUMN_INTRODUCED)),
-			DateUtils.getLocalDate(rs.getTimestamp(ComputerDaoImpl.DB_COLUMN_DISCONTINUED)),
-			company);
+		return new Computer.Builder()
+			.id(rs.getInt(ComputerDaoImpl.DB_COLUMN_ID))
+			.name(rs.getString(ComputerDaoImpl.DB_COLUMN_NAME))
+			.introduced(DateUtils.getLocalDate(rs.getTimestamp(ComputerDaoImpl.DB_COLUMN_INTRODUCED)))
+			.discontinued(DateUtils.getLocalDate(rs.getTimestamp(ComputerDaoImpl.DB_COLUMN_DISCONTINUED)))
+			.company(company)
+			.build();
 	}
 
 }

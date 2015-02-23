@@ -9,26 +9,15 @@ public class Company {
 	private int id;
 	private String name;
 
-	public Company() {
-	}
-
-	public Company(int id, String name) {
-		this.id = id;
-		this.name = name;
-	}
-
-	public Company(int id) {
-		this.id = id;
-	}
-	
-	public int getId() {
-		return id;
-	}
+	private Company() {}
 
 	public String getName() {
 		return name;
 	}
 
+	public int getId() {
+		return id;
+	}
 	
 	public void setId(int id) {
 		this.id = id;
@@ -71,6 +60,44 @@ public class Company {
 		return true;
 	}
 	
-	
+	/**
+	 * Builder class for a Company object
+	 *
+	 */
+	public static class Builder {
+		private Company company;
 
+		public Builder() {
+			company = new Company();
+		}
+
+		/**
+		 * Set the id attribute 
+		 * @param id
+		 * @return Builder A reference to the current instance of Builder
+		 */
+		public Builder id(int id) {
+			company.setId(id);
+			return this;
+		}
+
+		/**
+		 * Set the name attribute
+		 * @param name
+		 * @return Builder A reference to the current instance of Builder
+		 */
+		public Builder name(String name) {
+			company.setName(name);
+			return this;
+		}
+		
+		/**
+		 * Creates an instance of Company
+		 *
+		 * @return Company An instance of Company
+		 */
+		public Company build() {
+			return company;
+		}
+	}
 }

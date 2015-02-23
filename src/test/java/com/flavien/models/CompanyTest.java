@@ -9,7 +9,7 @@ public class CompanyTest{
 	 
 	 @Before
 	 public void setUp(){
-		 cut = new Company(0,"companyTest");
+		 cut = new Company.Builder().id(0).name("companyTest").build();
 	 }
 
 	@Test

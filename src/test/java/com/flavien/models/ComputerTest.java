@@ -20,7 +20,12 @@ public class ComputerTest {
 		 when(company.getName()).thenReturn("excylis");
 		 when(company.getId()).thenReturn(2);
 
-		 cut = new Computer(0,"computerTest",null,null,company);
+		 cut = new Computer.Builder()
+		 	.id(0)
+		 	.name("computerTest")
+		 	.company(company)
+		 	.build();
+				 
 	 }
 	 
 	 @Test

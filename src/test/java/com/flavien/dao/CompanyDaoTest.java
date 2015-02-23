@@ -26,7 +26,7 @@ public class CompanyDaoTest {
 	@Test
 	public void testGetById() {
 		Company company = cut.getByID(2);
-		Company companyMatcher = new Company(2, "Thinking Machines");
+		Company companyMatcher = new Company.Builder().id(2).name("Thinking Machines").build();
 
 		Assert.assertEquals(company.getId(), 2);
 		Assert.assertEquals(company.getName(), companyMatcher.getName());

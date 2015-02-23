@@ -40,8 +40,8 @@ public class CompanyServiceTest {
 
 	@Before
 	public void setUp() {
-		company = new Company(2, "super company");
-		computer = new Computer(10, "test", null, null, 2);
+		company = new Company.Builder().id(2).name("super company").build();
+		computer = new Computer.Builder().id(10).name("test").build();
 
 		for (int i = 0; i < ScriptRunner.COUNT_TOTAL_COMPANY; i++)
 			companies.add(company);

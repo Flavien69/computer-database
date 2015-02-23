@@ -85,7 +85,13 @@ public class EditComputerServlet extends HttpServlet {
 		final int id = Utils.getInt(request.getParameter("id"));
 		final int companyId = Utils.getInt(request.getParameter("companyId"));	
 		
-		ComputerDTO computerDTO = new ComputerDTO(id,name, introducedString, discontinuedString, companyId);
+		ComputerDTO computerDTO = new ComputerDTO.Builder()
+			.id(id)
+			.name(name)
+			.introduced(introducedString)
+			.discontinued(discontinuedString)
+			.company(new Company.Builder().id(companyId).build())
+			.build();
 		
 		// validate the DTO
 		List<String> errors = ComputerDtoValidator.validate(computerDTO);

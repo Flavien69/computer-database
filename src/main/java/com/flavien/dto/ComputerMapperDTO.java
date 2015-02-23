@@ -14,32 +14,24 @@ import com.flavien.utils.Utils;
 public class ComputerMapperDTO {
 	
 	public static ComputerDTO toDto(Computer computer){
-		ComputerDTO computerDTO = new ComputerDTO();
-		computerDTO.setId(computer.getId());
-		computerDTO.setName(computer.getName());
-		computerDTO.setCompany(computer.getCompany());
+		return  new ComputerDTO.Builder()
+			.id(computer.getId())
+			.name(computer.getName())
+			.company(computer.getCompany())
+			.introduced(computer.getIntroduced() == null? null :computer.getIntroduced().toString())
+			.discontinued(computer.getDiscontinued() == null? null :computer.getDiscontinued().toString())
+			.build();	
 		
-		if(computer.getIntroduced() != null)
-			computerDTO.setIntroduced(computer.getIntroduced().toString());
-		else
-			computerDTO.setIntroduced(null);
-		
-		if(computer.getDiscontinued() != null)
-			computerDTO.setDiscontinued(computer.getDiscontinued().toString());
-		else
-			computerDTO.setDiscontinued(null);		
-		
-		return computerDTO;
 	}
 	
 	public static Computer fromDto(ComputerDTO computerDTO){
-		Computer computer = new Computer();
-		computer.setId(computerDTO.getId());
-		computer.setName(computerDTO.getName());
-		computer.setCompany(computerDTO.getCompany());
-		computer.setDiscontinued(Utils.getLocalDateTime(computerDTO.getDiscontinued()));
-		computer.setIntroduced(Utils.getLocalDateTime(computerDTO.getIntroduced()));
-		return computer;
+		return new Computer.Builder()
+			.id(computerDTO.getId())
+			.name(computerDTO.getName())
+			.introduced(Utils.getLocalDateTime(computerDTO.getIntroduced()))
+			.discontinued(Utils.getLocalDateTime(computerDTO.getDiscontinued()))
+			.company(computerDTO.getCompany())
+			.build();		
 	}
 	
 	public static List<ComputerDTO> listToDto(List<Computer> computers){

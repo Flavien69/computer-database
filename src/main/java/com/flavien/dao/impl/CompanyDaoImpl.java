@@ -40,6 +40,10 @@ public class CompanyDaoImpl implements CompanyDao{
 	public CompanyDaoImpl() {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.CompanyDao#getAll()
+	 */
+	@Override
 	public List<Company> getAll() {
 		List<Company> companyList = new ArrayList<Company>();
 		PreparedStatement preparedStatement = null;
@@ -64,6 +68,10 @@ public class CompanyDaoImpl implements CompanyDao{
 		return companyList;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.CompanyDao#getByID(int)
+	 */
+	@Override
 	public Company getByID(int companyId) {
 
 		PreparedStatement preparedStatement = null;
@@ -94,6 +102,9 @@ public class CompanyDaoImpl implements CompanyDao{
 		return company;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.CompanyDao#deleteByID(int, java.sql.Connection)
+	 */
 	@Override
 	public void deleteByID(int companyId, Connection connection) {
 		PreparedStatement preparedStatement = null;

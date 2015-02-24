@@ -35,9 +35,10 @@ public class DashboardServlet extends HttpServlet {
 		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
     }
 
-	/**
-	 * Using to get a page of computers filtering by name.
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Get all the parameters from the view.

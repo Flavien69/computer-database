@@ -43,6 +43,7 @@ public class CompanyCli {
 		}
 
 		companyService.deleteByID(id);
+	
 		System.out.println("company deleted!\n");
 	}
 }

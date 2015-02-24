@@ -18,10 +18,18 @@ public enum DaoManager {
 	private DaoManager() {
 	}
 
+	/**
+	 * Instanciate a CompanyDaoImpl
+	 * @return CompanyDaoImpl
+	 */
 	public CompanyDaoImpl getCompanyDaoImpl() {
 		return companyDao;
 	}
 
+	/**
+	 * Instanciate a ComputerDaoImpl
+	 * @return ComputerDaoImpl
+	 */
 	public ComputerDaoImpl getComputerDaoImpl() {
 		return computerDao;
 	}

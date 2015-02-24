@@ -18,6 +18,9 @@ public enum ComputerMapper implements RowMappable<Computer>{
 	INSTANCE;	
 	private ComputerMapper(){};
 	
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.utils.RowMappable#getList(java.sql.ResultSet)
+	 */
 	@Override
 	public List<Computer> getList(ResultSet rs) throws SQLException {
 		List<Computer> computerList = new ArrayList<>();
@@ -28,6 +31,9 @@ public enum ComputerMapper implements RowMappable<Computer>{
 		return computerList; 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.utils.RowMappable#getObject(java.sql.ResultSet)
+	 */
 	@Override
 	public Computer getObject(ResultSet rs) throws SQLException {
 		

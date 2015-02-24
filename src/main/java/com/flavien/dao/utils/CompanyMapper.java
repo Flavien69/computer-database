@@ -17,6 +17,10 @@ public enum CompanyMapper implements RowMappable<Company>{
 	INSTANCE;	
 	private CompanyMapper(){};
 	
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.utils.RowMappable#getList(java.sql.ResultSet)
+	 */
+	@Override
 	public List<Company> getList(ResultSet rs) throws SQLException {
 		List<Company> companyList = new ArrayList<>();
 		while (rs.next()) {
@@ -25,7 +29,11 @@ public enum CompanyMapper implements RowMappable<Company>{
 		}
 		return companyList;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.utils.RowMappable#getObject(java.sql.ResultSet)
+	 */
+	@Override
 	public Company getObject(ResultSet rs) throws SQLException {
 		return new Company.Builder()
 			.id(rs.getInt(CompanyDaoImpl.DB_COLUMN_ID))

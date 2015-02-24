@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.flavien.dto.ComputerDTO;
 import com.flavien.dto.ComputerMapperDTO;
-import com.flavien.dto.validators.ComputerDtoValidator;
+import com.flavien.dto.validators.DtoValidator;
 import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 import com.flavien.service.ComputerService;
@@ -42,10 +42,11 @@ public class AddComputerServlet extends HttpServlet {
 		this.companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
 	}
 
-	/**
-	 * Using to redirect the user in the addComputer page with the companies
-	 * initialisation.
+	
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 		String redirectView = "/views/addComputer.jsp";
@@ -58,10 +59,10 @@ public class AddComputerServlet extends HttpServlet {
 		dispatch.forward(request, response);
 	}
 
-	/**
-	 * Using to add a computer in the database. Redirect to the dashboard if
-	 * success or to the 500 error page.
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 
@@ -79,7 +80,7 @@ public class AddComputerServlet extends HttpServlet {
 			.build();
 
 		// validate the DTO
-		List<String> errors = ComputerDtoValidator.validate(computerDTO);
+		List<String> errors = DtoValidator.validate(computerDTO);
 		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
 			doGet(request, response);

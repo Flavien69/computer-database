@@ -81,6 +81,10 @@ public class ComputerDaoImpl implements ComputerDao {
 	public ComputerDaoImpl() {
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#add(com.flavien.models.Computer)
+	 */
+	@Override
 	public void add(Computer computer) {
 
 		PreparedStatement preparedStatement = null;
@@ -117,6 +121,10 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#getByID(int)
+	 */
+	@Override
 	public Computer getByID(int computerId) {
 
 		PreparedStatement preparedStatement = null;
@@ -143,6 +151,11 @@ public class ComputerDaoImpl implements ComputerDao {
 		return computer;
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#update(com.flavien.models.Computer)
+	 */
+	@Override
 	public void update(Computer computer) {
 
 		PreparedStatement preparedStatement = null;
@@ -180,6 +193,10 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#deleteById(int)
+	 */
+	@Override
 	public void deleteById(int computerId) {
 
 		PreparedStatement preparedStatement = null;
@@ -200,6 +217,11 @@ public class ComputerDaoImpl implements ComputerDao {
 		}
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#getByPage(com.flavien.models.Page, java.lang.String)
+	 */
+	@Override
 	public Page getByPage(Page page, String name) {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
@@ -229,6 +251,11 @@ public class ComputerDaoImpl implements ComputerDao {
 		return page;
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#getAll()
+	 */
+	@Override
 	public List<Computer> getAll() {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
@@ -252,6 +279,9 @@ public class ComputerDaoImpl implements ComputerDao {
 		return computerList;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#getCount(java.lang.String)
+	 */
 	@Override
 	public int getCount(String name) {
 		PreparedStatement preparedStatement = null;
@@ -279,6 +309,9 @@ public class ComputerDaoImpl implements ComputerDao {
 		return count;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#getByName(java.lang.String)
+	 */
 	@Override
 	public List<Computer> getByName(String name) {
 		List<Computer> computerList = new ArrayList<Computer>();
@@ -304,6 +337,9 @@ public class ComputerDaoImpl implements ComputerDao {
 		return computerList;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#deleteMultipleById(java.lang.String)
+	 */
 	@Override
 	public void deleteMultipleById(String computersId) {
 		PreparedStatement preparedStatement = null;
@@ -324,6 +360,9 @@ public class ComputerDaoImpl implements ComputerDao {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.flavien.dao.ComputerDao#deleteByCompanyId(int, java.sql.Connection)
+	 */
 	@Override
 	public void deleteByCompanyId(int companyId, Connection connection) {
 

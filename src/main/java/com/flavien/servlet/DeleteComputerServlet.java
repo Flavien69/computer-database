@@ -33,10 +33,10 @@ public class DeleteComputerServlet extends HttpServlet {
 		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
 	}
 	
-	/**
-	 * Using to delete computers from the database.
-	 * Redirect to the dashboard.
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final String idsToDelete = request.getParameter("selection");
 		String[] array = idsToDelete.split(",");

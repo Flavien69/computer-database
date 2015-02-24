@@ -173,8 +173,7 @@ public class ConnectionManager {
 	 * @param isTransaction
 	 */
 	public static void closeConnection(boolean isTransaction) {
-
-		if (isTransaction){
+		if (isTransaction) {
 			try {
 				connectionThreadLocal.get().commit();
 				connectionThreadLocal.get().close();
@@ -208,7 +207,7 @@ public class ConnectionManager {
 			throw new PersistenceException(e);
 		}
 	}
-	
+
 	/**
 	 * Use to rollback a transaction if an exception is throw
 	 * 

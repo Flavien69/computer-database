@@ -2,8 +2,6 @@ package com.flavien.dao.utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.flavien.dao.impl.ComputerDaoImpl;
 import com.flavien.models.Company;
@@ -18,18 +16,6 @@ public enum ComputerMapper implements RowMappable<Computer>{
 	INSTANCE;	
 	private ComputerMapper(){};
 	
-	/* (non-Javadoc)
-	 * @see com.flavien.dao.utils.RowMappable#getList(java.sql.ResultSet)
-	 */
-	@Override
-	public List<Computer> getList(ResultSet rs) throws SQLException {
-		List<Computer> computerList = new ArrayList<>();
-		while (rs.next()) {
-			Computer computer = getObject(rs);
-			computerList.add(computer);
-		}
-		return computerList; 
-	}
 
 	/* (non-Javadoc)
 	 * @see com.flavien.dao.utils.RowMappable#getObject(java.sql.ResultSet)

@@ -20,7 +20,7 @@ import com.jolbox.bonecp.BoneCPConfig;
  */
 public class ConnectionManager {
 	private final static Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
-	
+
 	private static BoneCP connectionPool = null;
 	private static final String DB_HOST = "localhost";
 	private static final String DB_PORT = "3306";
@@ -32,16 +32,17 @@ public class ConnectionManager {
 	private static int maxConnectionsPerPartition = PropertyValues.INSTANCE.getMaxConnectionsPerPartition();
 	private static int minConnectionsPerPartition = PropertyValues.INSTANCE.getMinConnectionsPerPartition();
 	private static int partitionCount = PropertyValues.INSTANCE.getPartitionCount();
-	
+	private static ThreadLocal<Connection> connectionThreadLocal = new ThreadLocal<Connection>();
+
 	/**
 	 * Initialize the connection pool once.
 	 */
-	static{
+	static {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			BoneCPConfig config = new BoneCPConfig();
-			config.setJdbcUrl("jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/"+ DB_PATH);
+			config.setJdbcUrl("jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_PATH);
 			config.setUsername(DB_USER);
 			config.setPassword(DB_PWD);
 			config.setDisableConnectionTracking(true);
@@ -62,8 +63,9 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * This method must be called only once when the application stops. 
-	 * Don't need to call it every time when you get a connection from the Connection Pool
+	 * This method must be called only once when the application stops. Don't
+	 * need to call it every time when you get a connection from the Connection
+	 * Pool
 	 */
 	public static void shutdownConnPool() {
 		try {
@@ -81,18 +83,29 @@ public class ConnectionManager {
 	}
 
 	/**
-	 * Get a thread-safe connection from the BoneCP connection pool. 
+	 * Get a thread-safe connection from the BoneCP connection pool.
 	 * Synchronization of the method will be done inside BoneCP source
+	 * 
 	 * @return connection
 	 */
-	public static Connection getConnection(boolean isTransaction) {
+	public static Connection getConnection(boolean isTransaction, boolean isFromThreadLocal) {
 
 		Connection connection = null;
+		if (isFromThreadLocal && connectionThreadLocal.get() != null) {
+			logger.debug("get a connection from the threadlocal " + connectionThreadLocal.get().hashCode());
+			return connectionThreadLocal.get();
+		}
+
 		try {
 			connection = connectionPool.getConnection();
 			if (isTransaction)
 				connection.setAutoCommit(false);
-			
+
+			if (isFromThreadLocal) {
+				connectionThreadLocal.set(connection);
+				logger.debug("put a connection to the threadlocal " + connectionThreadLocal.get().hashCode());
+			}
+
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
@@ -142,7 +155,7 @@ public class ConnectionManager {
 	 */
 	public static void closeConnection(Connection connection, boolean isTransaction) {
 		try {
-			if (connection != null){
+			if (connection != null) {
 				if (isTransaction)
 					connection.commit();
 				connection.close();
@@ -151,7 +164,26 @@ public class ConnectionManager {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
 		}
+	}
 
+	/**
+	 * release the connection - The connection is not closed it is released and
+	 * it will stay in pool.
+	 * 
+	 * @param isTransaction
+	 */
+	public static void closeConnection(boolean isTransaction) {
+
+		if (isTransaction){
+			try {
+				connectionThreadLocal.get().commit();
+				connectionThreadLocal.get().close();
+				connectionThreadLocal.remove();
+			} catch (SQLException e) {
+				logger.error(e.getMessage());
+				throw new PersistenceException(e);
+			}
+		}
 	}
 
 	public static BoneCP getConnectionPool() {
@@ -161,15 +193,29 @@ public class ConnectionManager {
 	public static void setConnectionPool(BoneCP connectionPool) {
 		ConnectionManager.connectionPool = connectionPool;
 	}
-	
+
 	/**
-	 * Use to rollback a transactio if an exception is throw
+	 * Use to rollback a transaction if an exception is throw
+	 * 
 	 * @param connection
 	 */
 	public static void rollback(Connection connection) {
 		try {
-			if(connection != null)
+			if (connection != null)
 				connection.rollback();
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			throw new PersistenceException(e);
+		}
+	}
+	
+	/**
+	 * Use to rollback a transaction if an exception is throw
+	 * 
+	 */
+	public static void rollback() {
+		try {
+			connectionThreadLocal.get().rollback();
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);

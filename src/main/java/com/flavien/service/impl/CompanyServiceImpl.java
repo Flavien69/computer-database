@@ -1,6 +1,5 @@
 package com.flavien.service.impl;
 
-import java.sql.Connection;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -53,18 +52,16 @@ public class CompanyServiceImpl implements CompanyService{
 	 * @see com.flavien.service.CompanyService#deleteByID(int)
 	 */
 	@Override
-	public void deleteByID(int companyId) {
-		Connection connection = ConnectionManager.getConnection(true);
-		
+	public void deleteByID(int companyId) {		
 		try {
-			computerDao.deleteByCompanyId(companyId, connection);
-			companyDao.deleteByID(companyId, connection);
+			computerDao.deleteByCompanyId(companyId);
+			companyDao.deleteByID(companyId);
 		} catch (PersistenceException e) {
 			logger.debug("rollback the transaction");
-			ConnectionManager.rollback(connection);
+			ConnectionManager.rollback();
 			throw new ServiceException(e);
 		} finally {
-			ConnectionManager.closeConnection(connection, true);
+			ConnectionManager.closeConnection(true);
 		}
 	}
 

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.flavien.dto.ComputerDTO;
 import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.dto.validators.DtoValidator;
@@ -93,5 +92,4 @@ public class AddComputerServlet extends HttpServlet {
 
 		response.sendRedirect(request.getContextPath() + "/dashboard");
 	}
-
 }

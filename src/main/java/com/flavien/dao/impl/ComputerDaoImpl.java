@@ -88,7 +88,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void add(Computer computer) {
 
 		PreparedStatement preparedStatement = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_ADD);
@@ -130,7 +130,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		PreparedStatement preparedStatement = null;
 		Computer computer = null;
 		ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
@@ -159,7 +159,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void update(Computer computer) {
 
 		PreparedStatement preparedStatement = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_UPDATE);
@@ -200,7 +200,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void deleteById(int computerId) {
 
 		PreparedStatement preparedStatement = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_DELETE);
@@ -226,7 +226,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		
 		try {
@@ -260,7 +260,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 		
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
@@ -287,7 +287,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		int count = 0;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_COUNT);
@@ -317,7 +317,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_FILTER_BY_NAME);
@@ -343,7 +343,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	@Override
 	public void deleteMultipleById(String computersId) {
 		PreparedStatement preparedStatement = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_MULTIPLE_DELETE);
@@ -364,10 +364,11 @@ public class ComputerDaoImpl implements ComputerDao {
 	 * @see com.flavien.dao.ComputerDao#deleteByCompanyId(int, java.sql.Connection)
 	 */
 	@Override
-	public void deleteByCompanyId(int companyId, Connection connection) {
+	public void deleteByCompanyId(int companyId) {
 
 		PreparedStatement preparedStatement = null;
 		try {
+			connection = ConnectionManager.getConnection(true, true);
 			preparedStatement = connection.prepareStatement(REQUEST_DELETE_BY_COMPANY_ID);
 			preparedStatement.setInt(1, companyId);
 			preparedStatement.executeUpdate();

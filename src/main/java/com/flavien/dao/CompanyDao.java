@@ -1,6 +1,5 @@
 package com.flavien.dao;
 
-import java.sql.Connection;
 import java.util.List;
 
 import com.flavien.models.Company;
@@ -27,7 +26,6 @@ public interface CompanyDao {
 	/**
      * delete a company by ID
      * @param companyId the ID of the company to delete.
-     * @param connection because it s a transaction.
      */
-	public void deleteByID(int companyId, Connection connection);
+	public void deleteByID(int companyId);
 }

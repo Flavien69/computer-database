@@ -1,6 +1,5 @@
 package com.flavien.dao;
 
-import java.sql.Connection;
 import java.util.List;
 
 import com.flavien.models.Computer;
@@ -49,9 +48,8 @@ public interface ComputerDao {
 	 * the connection uses to the transaction to this function.
 	 * 
 	 * @param companyId
-	 * @param connection
 	 */
-	public void deleteByCompanyId(int companyId, Connection connection);
+	public void deleteByCompanyId(int companyId);
 
 	/**
 	 * Delete few computers in the database.

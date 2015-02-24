@@ -48,7 +48,7 @@ public class CompanyDaoImpl implements CompanyDao{
 		List<Company> companyList = new ArrayList<Company>();
 		PreparedStatement preparedStatement = null;
 		java.sql.ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
@@ -77,7 +77,7 @@ public class CompanyDaoImpl implements CompanyDao{
 		PreparedStatement preparedStatement = null;
 		Company company = null;
 		java.sql.ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false);
+		connection = ConnectionManager.getConnection(false, false);
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
@@ -106,10 +106,11 @@ public class CompanyDaoImpl implements CompanyDao{
 	 * @see com.flavien.dao.CompanyDao#deleteByID(int, java.sql.Connection)
 	 */
 	@Override
-	public void deleteByID(int companyId, Connection connection) {
+	public void deleteByID(int companyId) {
 		PreparedStatement preparedStatement = null;
 
 		try {
+			connection = ConnectionManager.getConnection(true, true);
 			preparedStatement = connection.prepareStatement(REQUEST_DELETE);
 			preparedStatement.setInt(1, companyId);
 			preparedStatement.executeUpdate();

@@ -1,6 +1,5 @@
 package com.flavien.dao;
 
-import java.sql.Connection;
 import java.util.List;
 
 import org.junit.Assert;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import com.flavien.dao.impl.DaoManager;
-import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
@@ -87,13 +85,13 @@ public class ComputerDaoTest {
 		Assert.assertEquals(computers.size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
 	}
 
-	@Test
-	public void testDeleteByCompany() {
-		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
-
-		Connection connection = ConnectionManager.getConnection(true);
-		cut.deleteByCompanyId(3, connection);
-		ConnectionManager.closeConnection(connection, true);
-		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER - 2);
-	}
+//	@Test
+//	public void testDeleteByCompany() {
+//		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
+//
+//		CConnectionManager.getConnection(true, true);
+//		cut.deleteByCompanyId(3);
+//		ConnectionManager.closeConnection(true);
+//		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER - 2);
+//	}
 }

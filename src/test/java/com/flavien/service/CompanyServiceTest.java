@@ -73,11 +73,9 @@ public class CompanyServiceTest {
 
 	@Test
 	public void deleteById() {
-		//ConnectionManager.getConnection(true, true);
-		//cut.deleteByID(2);
-		//ConnectionManager.closeConnection(true);
-		//Assert.assertEquals(companies.size(), ScriptRunner.COUNT_TOTAL_COMPANY -1);
-		//Assert.assertEquals(computers.size(), ScriptRunner.COUNT_TOTAL_COMPUTER -2);
+		cut.deleteByID(2);
+		Assert.assertEquals(companies.size(), ScriptRunner.COUNT_TOTAL_COMPANY -1);
+		Assert.assertEquals(computers.size(), ScriptRunner.COUNT_TOTAL_COMPUTER -2);
 	}
 	
 	@Test

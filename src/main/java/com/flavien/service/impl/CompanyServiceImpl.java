@@ -52,16 +52,17 @@ public class CompanyServiceImpl implements CompanyService{
 	 * @see com.flavien.service.CompanyService#deleteByID(int)
 	 */
 	@Override
-	public void deleteByID(int companyId) {		
+	public void deleteByID(int companyId) {	
 		try {
+			ConnectionManager.initTransaction();
 			computerDao.deleteByCompanyId(companyId);
 			companyDao.deleteByID(companyId);
 		} catch (PersistenceException e) {
 			logger.debug("rollback the transaction");
 			ConnectionManager.rollback();
 			throw new ServiceException(e);
-		} finally {
-			ConnectionManager.closeConnection(true);
+		} finally {		
+			ConnectionManager.closeTransaction();
 		}
 	}
 

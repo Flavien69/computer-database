@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.flavien.dao.ComputerDao;
 import com.flavien.dao.impl.DaoManager;
+import com.flavien.dao.utils.ConnectionManager;
+import com.flavien.exception.PersistenceException;
+import com.flavien.exception.ServiceException;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.ComputerService;
@@ -13,17 +16,19 @@ import com.flavien.service.ComputerService;
  * Class that implement the computer service API.
  * 
  */
-public class ComputerServiceImpl implements ComputerService{
+public class ComputerServiceImpl implements ComputerService {
 	private ComputerDao computerDao = DaoManager.INSTANCE.getComputerDaoImpl();
-	
+
 	public ComputerServiceImpl() {
 	}
-	
+
 	public ComputerServiceImpl(ComputerDao computerDao) {
 		this.computerDao = computerDao;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.flavien.service.ComputerService#add(com.flavien.models.Computer)
 	 */
 	@Override
@@ -31,7 +36,9 @@ public class ComputerServiceImpl implements ComputerService{
 		computerDao.add(computer);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.flavien.service.ComputerService#getAll()
 	 */
 	@Override
@@ -39,20 +46,34 @@ public class ComputerServiceImpl implements ComputerService{
 		return computerDao.getAll();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.flavien.service.ComputerService#getByPage(com.flavien.models.Page, java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.flavien.service.ComputerService#getByPage(com.flavien.models.Page,
+	 * java.lang.String)
 	 */
 	@Override
 	public Page getByPage(Page page, String name) {
-		int count = computerDao.getCount(name);
-		if (count > 0){
-			page = computerDao.getByPage(page, name);
-			page.setNbTotalComputer(count);
+		try {
+			ConnectionManager.initTransaction();
+			int count = computerDao.getCount(name);
+			if (count > 0) {
+				page = computerDao.getByPage(page, name);
+				page.setNbTotalComputer(count);
+			}
+		} catch (PersistenceException e) {
+			ConnectionManager.rollback();
+			throw new ServiceException(e);
+		} finally {
+			ConnectionManager.closeTransaction();
 		}
 		return page;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.flavien.service.ComputerService#deleteById(int)
 	 */
 	@Override
@@ -60,15 +81,20 @@ public class ComputerServiceImpl implements ComputerService{
 		computerDao.deleteById(computerId);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.flavien.service.ComputerService#update(com.flavien.models.Computer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.flavien.service.ComputerService#update(com.flavien.models.Computer)
 	 */
 	@Override
 	public void update(Computer computer) {
 		computerDao.update(computer);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.flavien.service.ComputerService#getByID(int)
 	 */
 	@Override
@@ -76,20 +102,25 @@ public class ComputerServiceImpl implements ComputerService{
 		return computerDao.getByID(computerId);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.flavien.service.ComputerService#getByName(java.lang.String)
 	 */
 	@Override
-	public List<Computer> getByName(String name){
+	public List<Computer> getByName(String name) {
 		return computerDao.getByName(name);
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see com.flavien.service.ComputerService#deleteMultipleById(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.flavien.service.ComputerService#deleteMultipleById(java.lang.String)
 	 */
 	@Override
-	public void deleteMultipleById(String computersId) {	
+	public void deleteMultipleById(String computersId) {
 		computerDao.deleteMultipleById(computersId);
 	}
 }

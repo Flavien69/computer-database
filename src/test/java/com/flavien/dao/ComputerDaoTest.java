@@ -85,13 +85,11 @@ public class ComputerDaoTest {
 		Assert.assertEquals(computers.size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
 	}
 
-//	@Test
-//	public void testDeleteByCompany() {
-//		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
-//
-//		CConnectionManager.getConnection(true, true);
-//		cut.deleteByCompanyId(3);
-//		ConnectionManager.closeConnection(true);
-//		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER - 2);
-//	}
+	@Test
+	public void testDeleteByCompany() {
+		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
+
+		cut.deleteByCompanyId(3);
+		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER - 2);
+	}
 }

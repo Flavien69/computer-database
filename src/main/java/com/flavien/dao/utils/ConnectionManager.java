@@ -88,23 +88,20 @@ public class ConnectionManager {
 	 * 
 	 * @return connection
 	 */
-	public static Connection getConnection(boolean isTransaction, boolean isFromThreadLocal) {
+	public static Connection getConnection() {
 
 		Connection connection = null;
-		if (isFromThreadLocal && connectionThreadLocal.get() != null) {
+		
+		if (connectionThreadLocal.get() != null) {
 			logger.debug("get a connection from the threadlocal " + connectionThreadLocal.get().hashCode());
 			return connectionThreadLocal.get();
 		}
 
 		try {
 			connection = connectionPool.getConnection();
-			if (isTransaction)
-				connection.setAutoCommit(false);
-
-			if (isFromThreadLocal) {
-				connectionThreadLocal.set(connection);
-				logger.debug("put a connection to the threadlocal " + connectionThreadLocal.get().hashCode());
-			}
+			connectionThreadLocal.set(connection);
+			connection.setAutoCommit(true);
+			logger.debug("put a connection to the threadlocal " + connectionThreadLocal.get().hashCode());
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -112,6 +109,40 @@ public class ConnectionManager {
 		}
 		return connection;
 
+	}
+
+	/**
+	 * Init a transactional connection and put it in the threadlocal
+	 * 
+	 */
+	public static void initTransaction() {
+		Connection connection = null;
+		try {
+			connection = connectionPool.getConnection();
+			connection.setAutoCommit(false);
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			throw new PersistenceException(e);
+		}
+		connectionThreadLocal.set(connection);
+		logger.debug("put a connection for transaction to the threadlocal " + connectionThreadLocal.get().hashCode());
+	}
+	
+	/**
+	 * Clost a transactional connection and remove it from the threadlocal
+	 * 
+	 */
+	public static void closeTransaction() {
+		Connection connection = connectionThreadLocal.get();
+		try {
+			connection.commit();
+			connection.close();
+		} catch (SQLException e) {
+			logger.error(e.getMessage());
+			throw new PersistenceException(e);
+		}
+		connectionThreadLocal.remove();
 	}
 
 	/**
@@ -150,38 +181,28 @@ public class ConnectionManager {
 	 * release the connection - The connection is not closed it is released and
 	 * it will stay in pool.
 	 * 
-	 * @param connection
-	 * @param isTransaction
 	 */
-	public static void closeConnection(Connection connection, boolean isTransaction) {
+	public static void closeConnection() {
+		logger.info("test");
+		Connection connection = connectionThreadLocal.get();
+		boolean isAutocomit;
 		try {
-			if (connection != null) {
-				if (isTransaction)
-					connection.commit();
-				connection.close();
-			}
+			isAutocomit = connection.getAutoCommit();
+			logger.info(isAutocomit+"");
+
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
 		}
-	}
-
-	/**
-	 * release the connection - The connection is not closed it is released and
-	 * it will stay in pool.
-	 * 
-	 * @param isTransaction
-	 */
-	public static void closeConnection(boolean isTransaction) {
-		if (isTransaction) {
+		if (isAutocomit) {
 			try {
-				connectionThreadLocal.get().commit();
-				connectionThreadLocal.get().close();
-				connectionThreadLocal.remove();
+				connection.close();
 			} catch (SQLException e) {
 				logger.error(e.getMessage());
 				throw new PersistenceException(e);
 			}
+			connectionThreadLocal.remove();
+			logger.info("remove from the threadlocal "+ connectionThreadLocal.hashCode());
 		}
 	}
 
@@ -191,21 +212,6 @@ public class ConnectionManager {
 
 	public static void setConnectionPool(BoneCP connectionPool) {
 		ConnectionManager.connectionPool = connectionPool;
-	}
-
-	/**
-	 * Use to rollback a transaction if an exception is throw
-	 * 
-	 * @param connection
-	 */
-	public static void rollback(Connection connection) {
-		try {
-			if (connection != null)
-				connection.rollback();
-		} catch (SQLException e) {
-			logger.error(e.getMessage());
-			throw new PersistenceException(e);
-		}
 	}
 
 	/**

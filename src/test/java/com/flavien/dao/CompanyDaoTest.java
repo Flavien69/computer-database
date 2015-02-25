@@ -42,14 +42,11 @@ public class CompanyDaoTest {
 		Assert.assertEquals(companies.size(), ScriptRunner.COUNT_TOTAL_COMPANY);
 	}
 
-//	@Test
-//	public void testDeleteById() {
-//		Assert.assertEquals(cut.getAll().size(), 5);
-//
-//		Connection connection = ConnectionManager.getConnection(true, false);
-//		cut.deleteByID(5);
-//		ConnectionManager.closeConnection(connection, true);
-//		Assert.assertEquals(cut.getAll().size(), 4);
-//
-//	}
+	@Test
+	public void testDeleteById() {
+		Assert.assertEquals(cut.getAll().size(), 5);
+		cut.deleteByID(5);
+		Assert.assertEquals(cut.getAll().size(), 4);
+
+	}
 }

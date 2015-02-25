@@ -88,7 +88,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void add(Computer computer) {
 
 		PreparedStatement preparedStatement = null;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_ADD);
@@ -115,7 +115,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 
@@ -130,7 +130,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		PreparedStatement preparedStatement = null;
 		Computer computer = null;
 		ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_BY_ID);
@@ -144,7 +144,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 			ConnectionManager.closeResultSet(rs);
 		}
@@ -159,7 +159,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void update(Computer computer) {
 
 		PreparedStatement preparedStatement = null;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_UPDATE);
@@ -187,7 +187,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			logger.error(e.getMessage());
 			throw new PersistenceException(e);
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 
@@ -200,7 +200,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	public void deleteById(int computerId) {
 
 		PreparedStatement preparedStatement = null;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_DELETE);
@@ -212,7 +212,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 	}
@@ -226,7 +226,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 
 		
 		try {
@@ -244,7 +244,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 		page.setComputerList(ComputerMapperDTO.listToDto(computerList));
@@ -260,7 +260,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 		
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
@@ -272,7 +272,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new RuntimeException(e);
 
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 			ConnectionManager.closeResultSet(rs);
 		}
@@ -287,7 +287,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		int count = 0;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_COUNT);
@@ -303,7 +303,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 		return count;
@@ -317,7 +317,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		List<Computer> computerList = new ArrayList<Computer>();
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_FILTER_BY_NAME);
@@ -330,7 +330,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 			ConnectionManager.closeResultSet(rs);
 		}
@@ -343,7 +343,7 @@ public class ComputerDaoImpl implements ComputerDao {
 	@Override
 	public void deleteMultipleById(String computersId) {
 		PreparedStatement preparedStatement = null;
-		connection = ConnectionManager.getConnection(false, false);
+		connection = ConnectionManager.getConnection();
 
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_MULTIPLE_DELETE);
@@ -355,7 +355,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException(e);
 
 		} finally {
-			ConnectionManager.closeConnection(connection, false);
+			ConnectionManager.closeConnection();
 			ConnectionManager.closePreparedStatement(preparedStatement);
 		}
 	}
@@ -368,7 +368,7 @@ public class ComputerDaoImpl implements ComputerDao {
 
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = ConnectionManager.getConnection(true, true);
+			connection = ConnectionManager.getConnection();
 			preparedStatement = connection.prepareStatement(REQUEST_DELETE_BY_COMPANY_ID);
 			preparedStatement.setInt(1, companyId);
 			preparedStatement.executeUpdate();

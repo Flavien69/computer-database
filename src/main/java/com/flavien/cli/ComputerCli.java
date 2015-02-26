@@ -21,12 +21,13 @@ import com.flavien.service.ComputerService;
  */
 @Component
 public class ComputerCli {
-
+	
 	@Autowired
 	private static CompanyService companyService;
+	
 	@Autowired
 	private static ComputerService computerService;
-
+	
 	/**
 	 * 
 	 * Show a list of computers

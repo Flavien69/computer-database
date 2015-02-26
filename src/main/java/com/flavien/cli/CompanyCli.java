@@ -16,8 +16,13 @@ import com.flavien.service.CompanyService;
 @Component
 public class CompanyCli {
 	
-	@Autowired
+	
 	private static CompanyService companyService;
+	
+	@Autowired
+	public void setCompanyService(CompanyService companyService){
+		CompanyCli.companyService = companyService;
+	}
 	
 	/**
 	 * 

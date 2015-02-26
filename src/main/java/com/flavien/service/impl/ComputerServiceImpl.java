@@ -4,11 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.flavien.dao.ComputerDao;
-import com.flavien.dao.utils.ConnectionManager;
-import com.flavien.exception.PersistenceException;
-import com.flavien.exception.ServiceException;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.ComputerService;
@@ -23,11 +21,13 @@ public class ComputerServiceImpl implements ComputerService {
 	@Autowired
 	private ComputerDao computerDao;
 
-	public ComputerServiceImpl() {}
+	public ComputerServiceImpl() {
+	}
 
 	public ComputerServiceImpl(ComputerDao computerDao) {
 		this.computerDao = computerDao;
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -56,19 +56,12 @@ public class ComputerServiceImpl implements ComputerService {
 	 * java.lang.String)
 	 */
 	@Override
+	@Transactional
 	public Page getByPage(Page page, String name) {
-		try {
-			ConnectionManager.initTransaction();
-			int count = computerDao.getCount(name);
-			if (count > 0) {
-				page = computerDao.getByPage(page, name);
-				page.setNbTotalComputer(count);
-			}
-		} catch (PersistenceException e) {
-			ConnectionManager.rollback();
-			throw new ServiceException(e);
-		} finally {
-			ConnectionManager.closeTransaction();
+		int count = computerDao.getCount(name);
+		if (count > 0) {
+			page = computerDao.getByPage(page, name);
+			page.setNbTotalComputer(count);
 		}
 		return page;
 	}

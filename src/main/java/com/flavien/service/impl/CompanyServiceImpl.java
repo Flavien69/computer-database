@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.flavien.dao.CompanyDao;
 import com.flavien.dao.ComputerDao;
@@ -21,22 +22,24 @@ import com.flavien.service.CompanyService;
  * 
  */
 @Service
-public class CompanyServiceImpl implements CompanyService{
-	
-	
+public class CompanyServiceImpl implements CompanyService {
+
 	private CompanyDao companyDao;
 	private ComputerDao computerDao;
 	private final static Logger logger = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
-	public CompanyServiceImpl() {}
-	
+	public CompanyServiceImpl() {
+	}
+
 	@Autowired
 	public CompanyServiceImpl(CompanyDao companyDao, ComputerDao computerDao) {
 		this.companyDao = companyDao;
 		this.computerDao = computerDao;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.flavien.service.CompanyService#getAll()
 	 */
 	@Override
@@ -44,7 +47,9 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getAll();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.flavien.service.CompanyService#getByID(int)
 	 */
 	@Override
@@ -52,29 +57,24 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.getByID(companyId);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.flavien.service.CompanyService#deleteByID(int)
 	 */
 	@Override
-	public void deleteByID(int companyId) {	
-		try {
-			ConnectionManager.initTransaction();
-			computerDao.deleteByCompanyId(companyId);
-			companyDao.deleteByID(companyId);
-		} catch (PersistenceException e) {
-			logger.debug("rollback the transaction");
-			ConnectionManager.rollback();
-			throw new ServiceException(e);
-		} finally {		
-			ConnectionManager.closeTransaction();
-		}
+	@Transactional
+	public void deleteByID(int companyId) {
+		ConnectionManager.initTransaction();
+		computerDao.deleteByCompanyId(companyId);
+		companyDao.deleteByID(companyId);
 	}
 
-	public void setCompanyDao(CompanyDao companyDao){
+	public void setCompanyDao(CompanyDao companyDao) {
 		this.companyDao = companyDao;
 	}
-	
-	public void setComputerDao(ComputerDao computerDao){
+
+	public void setComputerDao(ComputerDao computerDao) {
 		this.computerDao = computerDao;
 	}
 }

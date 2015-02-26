@@ -5,11 +5,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 
  * Utils class to help CLI classes.
  * 
  */
+@Component
 public class Utils {
 
 	private static Scanner scannerInstance = null;

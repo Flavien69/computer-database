@@ -1,6 +1,9 @@
 package com.flavien.cli;
 
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+
 
 
 /**
@@ -11,7 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Launcher {
 
-	public static void main(String[] args) {	;
+	public static void main(String[] args) {	
+		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("/applicationContextCli.xml");
 		Menu.run();
 	}
 

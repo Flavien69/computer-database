@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.flavien.exception.PersistenceException;
@@ -24,6 +27,10 @@ public class ConnectionManager {
 	private final static Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
 
 	private static BoneCP connectionPool = null;
+	
+	
+	private static DataSource dataSource;
+	
 	private static final String DB_HOST = "localhost";
 	private static final String DB_PORT = "3306";
 	public static final String DB_NAME = PropertyValues.INSTANCE.getDbName();
@@ -36,6 +43,11 @@ public class ConnectionManager {
 	private static int partitionCount = PropertyValues.INSTANCE.getPartitionCount();
 	private static ThreadLocal<Connection> connectionThreadLocal = new ThreadLocal<Connection>();
 
+	@Autowired
+	public void setDataSource(DataSource dataSource) {
+		ConnectionManager.dataSource = dataSource;
+	}
+	
 	/**
 	 * Initialize the connection pool once.
 	 */
@@ -100,7 +112,7 @@ public class ConnectionManager {
 		}
 
 		try {
-			connection = connectionPool.getConnection();
+			connection = dataSource.getConnection();
 			connectionThreadLocal.set(connection);
 			connection.setAutoCommit(true);
 			logger.debug("put a connection to the threadlocal " + connectionThreadLocal.get().hashCode());
@@ -120,7 +132,7 @@ public class ConnectionManager {
 	public static void initTransaction() {
 		Connection connection = null;
 		try {
-			connection = connectionPool.getConnection();
+			connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 
 		} catch (Exception e) {

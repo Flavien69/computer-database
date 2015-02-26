@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ import com.flavien.models.Company;
 @Repository
 public class CompanyDaoImpl implements CompanyDao{
 
-	private Connection connection;
+	private Connection connection; 
 	
 	@Autowired
 	private CompanyMapper companyMapper;

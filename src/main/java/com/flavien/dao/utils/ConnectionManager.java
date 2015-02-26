@@ -48,6 +48,10 @@ public class ConnectionManager {
 		ConnectionManager.dataSource = dataSource;
 	}
 	
+	public static DataSource getDataSource() {
+		return ConnectionManager.dataSource;
+	}
+	
 	/**
 	 * Initialize the connection pool once.
 	 */

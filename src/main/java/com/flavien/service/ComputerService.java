@@ -37,11 +37,6 @@ public interface ComputerService {
 	 */
 	public void deleteById(int computerId);
 		
-	/**
-	 * Delete few computers in the database.
-	 * @param computersId , all the ids of the computers to delete.
-	 */
-	public void deleteMultipleById(String computersId);
 	
 	/**
 	 * Update a computer in the database.

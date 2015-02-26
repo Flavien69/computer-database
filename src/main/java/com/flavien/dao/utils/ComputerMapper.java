@@ -3,7 +3,6 @@ package com.flavien.dao.utils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import com.flavien.dao.impl.ComputerDaoImpl;

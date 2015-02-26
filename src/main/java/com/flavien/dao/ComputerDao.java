@@ -51,13 +51,6 @@ public interface ComputerDao {
 	 */
 	public void deleteByCompanyId(int companyId);
 
-	/**
-	 * Delete few computers in the database.
-	 * 
-	 * @param computersId
-	 *            , all the ids of the computers to delete.
-	 */
-	public void deleteMultipleById(String computersId);
 
 	/**
 	 * Update a computer in the database.

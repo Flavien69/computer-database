@@ -115,14 +115,4 @@ public class ComputerServiceImpl implements ComputerService {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.flavien.service.ComputerService#deleteMultipleById(java.lang.String)
-	 */
-	@Override
-	public void deleteMultipleById(String computersId) {
-		computerDao.deleteMultipleById(computersId);
-	}
 }

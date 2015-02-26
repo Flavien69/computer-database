@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.flavien.dao.CompanyDao;
 import com.flavien.dao.ComputerDao;
-import com.flavien.dao.impl.DaoManager;
 import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.exception.PersistenceException;
 import com.flavien.exception.ServiceException;
@@ -19,14 +20,17 @@ import com.flavien.service.CompanyService;
  * Class that implement the company service API.
  * 
  */
+@Service
 public class CompanyServiceImpl implements CompanyService{
-	private CompanyDao companyDao = DaoManager.INSTANCE.getCompanyDaoImpl();
-	private ComputerDao computerDao = DaoManager.INSTANCE.getComputerDaoImpl();
+	
+	@Autowired
+	private CompanyDao companyDao;
+	@Autowired
+	private ComputerDao computerDao;
 	private final static Logger logger = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
-	public CompanyServiceImpl() {
-	}
-
+	public CompanyServiceImpl() {}
+	
 	public CompanyServiceImpl(CompanyDao companyDao, ComputerDao computerDao) {
 		this.companyDao = companyDao;
 		this.computerDao = computerDao;

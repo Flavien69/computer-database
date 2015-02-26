@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.flavien.dao.CompanyDao;
 import com.flavien.dao.utils.CompanyMapper;
@@ -20,9 +22,14 @@ import com.flavien.models.Company;
  * Implementation to handle database requests for company object.
  *
  */
+@Repository
 public class CompanyDaoImpl implements CompanyDao{
 
 	private Connection connection;
+	
+	@Autowired
+	private CompanyMapper companyMapper;
+	
 	private final static Logger logger = LoggerFactory.getLogger(CompanyDaoImpl.class);
 	public final static String DB_COMPANY_TABLE = "company";
 	public final static String DB_COLUMN_ID = "id";
@@ -53,7 +60,7 @@ public class CompanyDaoImpl implements CompanyDao{
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
 			rs = preparedStatement.executeQuery();
-			companyList = CompanyMapper.INSTANCE.getList(rs);
+			companyList = companyMapper.getList(rs);
 
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -85,7 +92,7 @@ public class CompanyDaoImpl implements CompanyDao{
 			rs = preparedStatement.executeQuery();
 
 			if (rs.first()) {
-				company = CompanyMapper.INSTANCE.getObject(rs);
+				company = companyMapper.getObject(rs);
 			}
 
 		} catch (SQLException e) {

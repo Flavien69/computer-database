@@ -1,8 +1,8 @@
 package com.flavien.service;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.flavien.dao.CompanyDao;
 import com.flavien.dao.ComputerDao;
@@ -38,6 +39,7 @@ public class CompanyServiceTest {
 	private List<Company> companies = new ArrayList<>();
 	private List<Computer> computers = new ArrayList<>();
 
+	
 	@Before
 	public void setUp() {
 		company = new Company.Builder().id(2).name("super company").build();

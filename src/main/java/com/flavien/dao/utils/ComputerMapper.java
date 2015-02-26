@@ -3,6 +3,9 @@ package com.flavien.dao.utils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import com.flavien.dao.impl.ComputerDaoImpl;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
@@ -12,11 +15,11 @@ import com.flavien.models.Computer;
  * Singleton to convert a resultset to a computer object
  *
  */
-public enum ComputerMapper implements RowMappable<Computer>{
-	INSTANCE;	
-	private ComputerMapper(){};
+@Component
+public class ComputerMapper implements RowMappable<Computer>{
+	public ComputerMapper(){};
 	
-
+	
 	/* (non-Javadoc)
 	 * @see com.flavien.dao.utils.RowMappable#getObject(java.sql.ResultSet)
 	 */

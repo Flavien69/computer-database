@@ -3,6 +3,9 @@ package com.flavien.dao.utils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import com.flavien.dao.impl.CompanyDaoImpl;
 import com.flavien.models.Company;
 
@@ -11,10 +14,9 @@ import com.flavien.models.Company;
  * Singleton to convert a resultset to a company object
  *
  */
-public enum CompanyMapper implements RowMappable<Company>{
-	INSTANCE;	
-	private CompanyMapper(){};
-	
+@Component
+public class CompanyMapper implements RowMappable<Company>{
+	public CompanyMapper(){};	
 	
 	/* (non-Javadoc)
 	 * @see com.flavien.dao.utils.RowMappable#getObject(java.sql.ResultSet)

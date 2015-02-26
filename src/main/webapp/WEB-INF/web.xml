@@ -8,6 +8,18 @@
 		<welcome-file>dashboard</welcome-file>
 	</welcome-file-list>
 
+
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>/WEB-INF/**/*Context.xml</param-value>
+	</context-param>
+	
+	<listener>
+	   <listener-class>
+	        org.springframework.web.context.ContextLoaderListener
+	   </listener-class>
+	</listener> 
+
 	<error-page>
 		<error-code>403</error-code>
 		<location>/views/403.jsp</location>

@@ -6,17 +6,23 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 
-import com.flavien.dao.impl.DaoManager;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.utils.ScriptRunner;
 
+@Configuration
 public class ComputerDaoTest {
-	private ComputerDao cut = DaoManager.INSTANCE.getComputerDaoImpl();
+	@Autowired
+	private ComputerDao cut;
 	@Mock
 	private Company company;
+	
+	{
+	}
 
 	/**
 	 * Permit to clean the test database before each test.

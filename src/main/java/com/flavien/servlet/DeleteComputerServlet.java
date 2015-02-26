@@ -4,15 +4,14 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.flavien.service.ComputerService;
-import com.flavien.service.impl.ServiceManager;
 import com.flavien.utils.Utils;
 
 /**
@@ -20,17 +19,19 @@ import com.flavien.utils.Utils;
  * Using this servlet to delete a computer in the database.
  */
 @WebServlet("/delete-computer")
-public class DeleteComputerServlet extends HttpServlet {
+public class DeleteComputerServlet extends AbstractSpringHttpServlet {
 
 	private static final long serialVersionUID = -6224096912496986500L;
 	private final static Logger logger = LoggerFactory.getLogger(DeleteComputerServlet.class);
+	
+	@Autowired
 	private ComputerService computerService;
 
     /**
      * Initialization of the services.
      */
 	public DeleteComputerServlet(){
-		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
+//		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
 	}
 	
 	/* (non-Javadoc)

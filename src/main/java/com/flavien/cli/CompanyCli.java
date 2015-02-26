@@ -2,18 +2,23 @@ package com.flavien.cli;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.flavien.models.Company;
-import com.flavien.service.impl.CompanyServiceImpl;
-import com.flavien.service.impl.ServiceManager;
+import com.flavien.service.CompanyService;
 
 /**
  * 
  * Command line interface to handle company interaction.
  * 
  */
+@Component
 public class CompanyCli {
 	
-	private static CompanyServiceImpl companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
+	@Autowired
+	private static CompanyService companyService;
+	
 	/**
 	 * 
 	 * Show a list of company 

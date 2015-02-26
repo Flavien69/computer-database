@@ -5,13 +5,16 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 
-import com.flavien.dao.impl.DaoManager;
 import com.flavien.models.Company;
 import com.flavien.utils.ScriptRunner;
 
+@Configuration
 public class CompanyDaoTest {
-	private CompanyDao cut = DaoManager.INSTANCE.getCompanyDaoImpl();
+	@Autowired
+	private CompanyDao cut;
 
 	/**
 	 * Permit to clean the test database before each test.

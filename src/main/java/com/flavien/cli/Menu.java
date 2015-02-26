@@ -1,10 +1,14 @@
 package com.flavien.cli;
 
+import org.springframework.stereotype.Component;
+
+
 /**
  * 
  * Command line interface to handle the main menu interaction.
  * 
  */
+@Component
 public class Menu {
 	private static final String MENU_TEMPLATE = "\t%d] %s";
 

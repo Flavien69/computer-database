@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.flavien.exception.PersistenceException;
 import com.flavien.utils.PropertyValues;
@@ -18,6 +19,7 @@ import com.jolbox.bonecp.BoneCPConfig;
  * Class that enable to get a database connection.
  *
  */
+@Component
 public class ConnectionManager {
 	private final static Logger logger = LoggerFactory.getLogger(ConnectionManager.class);
 

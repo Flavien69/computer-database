@@ -6,12 +6,12 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.flavien.dto.ComputerDTO;
 import com.flavien.dto.ComputerMapperDTO;
@@ -20,7 +20,6 @@ import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.service.CompanyService;
 import com.flavien.service.ComputerService;
-import com.flavien.service.impl.ServiceManager;
 import com.flavien.utils.Utils;
 
 /**
@@ -28,19 +27,21 @@ import com.flavien.utils.Utils;
  * Using this servlet to edit a computer in the database.
  */
 @WebServlet("/edit-computer")
-public class EditComputerServlet extends HttpServlet {
+public class EditComputerServlet extends AbstractSpringHttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LoggerFactory.getLogger(EditComputerServlet.class);
 
+	@Autowired
 	private ComputerService computerService;
+	@Autowired
 	private CompanyService companyService;
 
 	/**
 	 * Initialization of the services.
 	 */
 	public EditComputerServlet() {
-		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
-		this.companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
+//		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
+//		this.companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
 	}
 
 	/* (non-Javadoc)

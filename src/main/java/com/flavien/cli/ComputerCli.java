@@ -3,24 +3,29 @@ package com.flavien.cli;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.flavien.dto.ComputerDTO;
 import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
-import com.flavien.service.impl.CompanyServiceImpl;
-import com.flavien.service.impl.ComputerServiceImpl;
-import com.flavien.service.impl.ServiceManager;
+import com.flavien.service.CompanyService;
+import com.flavien.service.ComputerService;
 
 /**
  * 
  * Command line interface to handle company interaction.
  * 
  */
+@Component
 public class ComputerCli {
 
-	private static CompanyServiceImpl companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
-	private static ComputerServiceImpl computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
+	@Autowired
+	private static CompanyService companyService;
+	@Autowired
+	private static ComputerService computerService;
 
 	/**
 	 * 

@@ -2,8 +2,10 @@ package com.flavien.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.flavien.dao.ComputerDao;
-import com.flavien.dao.impl.DaoManager;
 import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.exception.PersistenceException;
 import com.flavien.exception.ServiceException;
@@ -16,16 +18,16 @@ import com.flavien.service.ComputerService;
  * Class that implement the computer service API.
  * 
  */
+@Service
 public class ComputerServiceImpl implements ComputerService {
-	private ComputerDao computerDao = DaoManager.INSTANCE.getComputerDaoImpl();
+	@Autowired
+	private ComputerDao computerDao;
 
-	public ComputerServiceImpl() {
-	}
+	public ComputerServiceImpl() {}
 
 	public ComputerServiceImpl(ComputerDao computerDao) {
 		this.computerDao = computerDao;
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.flavien.dao.ComputerDao;
 import com.flavien.dao.utils.ComputerMapper;
@@ -25,8 +27,13 @@ import com.flavien.utils.PropertyValues;
  * Interface to handle database requests for computer object.
  *
  */
+@Repository
 public class ComputerDaoImpl implements ComputerDao {
 	private Connection connection;
+	
+	@Autowired
+	private ComputerMapper computerMapper;
+	
 	private final static Logger logger = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
 	public static final String DB_NAME = PropertyValues.INSTANCE.getDbName();
@@ -138,7 +145,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			rs = preparedStatement.executeQuery();
 
 			if (rs.first())
-				computer = ComputerMapper.INSTANCE.getObject(rs);
+				computer = computerMapper.getObject(rs);
 
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -237,7 +244,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			preparedStatement.setInt(3, page.getIndex() * page.getEntityByPage());
 			preparedStatement.setInt(4, page.getEntityByPage());
 			rs = preparedStatement.executeQuery();
-			computerList = ComputerMapper.INSTANCE.getList(rs);
+			computerList = computerMapper.getList(rs);
 
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -265,7 +272,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		try {
 			preparedStatement = connection.prepareStatement(REQUEST_GET_ALL);
 			rs = preparedStatement.executeQuery();
-			computerList = ComputerMapper.INSTANCE.getList(rs);
+			computerList = computerMapper.getList(rs);
 
 		} catch (SQLException e) {
 			logger.error(e.getMessage());
@@ -323,7 +330,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			preparedStatement = connection.prepareStatement(REQUEST_FILTER_BY_NAME);
 			preparedStatement.setString(1, name);
 			rs = preparedStatement.executeQuery();
-			computerList = ComputerMapper.INSTANCE.getList(rs);
+			computerList = computerMapper.getList(rs);
 
 		} catch (SQLException e) {
 			logger.error(e.getMessage());

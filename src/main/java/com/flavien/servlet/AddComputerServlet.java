@@ -6,19 +6,19 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.flavien.dto.ComputerDTO;
 import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.dto.validators.DtoValidator;
 import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 import com.flavien.service.ComputerService;
-import com.flavien.service.impl.ServiceManager;
 import com.flavien.utils.Utils;
 
 /**
@@ -26,20 +26,19 @@ import com.flavien.utils.Utils;
  * computer in the database.
  */
 @WebServlet("/add-computer")
-public class AddComputerServlet extends HttpServlet {
+public class AddComputerServlet extends AbstractSpringHttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LoggerFactory.getLogger(AddComputerServlet.class);
 
+	@Autowired
 	private ComputerService computerService;
+	@Autowired
 	private CompanyService companyService;
 
 	/**
 	 * Initialization of the services.
 	 */
-	public AddComputerServlet() {
-		this.computerService = ServiceManager.INSTANCE.getComputerServiceImpl();
-		this.companyService = ServiceManager.INSTANCE.getCompanyServiceImpl();
-	}
+	public AddComputerServlet() {}
 
 	
 	/* (non-Javadoc)

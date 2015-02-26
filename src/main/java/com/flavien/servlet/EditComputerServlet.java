@@ -35,7 +35,9 @@ public class EditComputerServlet extends AbstractSpringHttpServlet {
 	private ComputerService computerService;
 	@Autowired
 	private CompanyService companyService;
-
+	@Autowired
+	private DtoValidator dtoValidator;
+	
 	/**
 	 * Initialization of the services.
 	 */
@@ -96,7 +98,7 @@ public class EditComputerServlet extends AbstractSpringHttpServlet {
 			.build();
 		
 		// validate the DTO
-		List<String> errors = DtoValidator.validate(computerDTO);
+		List<String> errors = dtoValidator.validate(computerDTO);
 		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
 			doGet(request, response);

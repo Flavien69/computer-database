@@ -23,14 +23,14 @@ import com.flavien.service.CompanyService;
 @Service
 public class CompanyServiceImpl implements CompanyService{
 	
-	@Autowired
+	
 	private CompanyDao companyDao;
-	@Autowired
 	private ComputerDao computerDao;
 	private final static Logger logger = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
 	public CompanyServiceImpl() {}
 	
+	@Autowired
 	public CompanyServiceImpl(CompanyDao companyDao, ComputerDao computerDao) {
 		this.companyDao = companyDao;
 		this.computerDao = computerDao;
@@ -70,4 +70,11 @@ public class CompanyServiceImpl implements CompanyService{
 		}
 	}
 
+	public void setCompanyDao(CompanyDao companyDao){
+		this.companyDao = companyDao;
+	}
+	
+	public void setComputerDao(ComputerDao computerDao){
+		this.computerDao = computerDao;
+	}
 }

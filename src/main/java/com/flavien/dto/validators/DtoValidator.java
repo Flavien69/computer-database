@@ -8,6 +8,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import org.springframework.stereotype.Component;
+
 import com.flavien.utils.Utils;
 
 /**
@@ -15,9 +17,10 @@ import com.flavien.utils.Utils;
  * Validate the computerDTO object.
  * 
  */
+@Component
 public class DtoValidator {
 
-	public static <T> List<String> validate(T objectDTO){
+	public <T> List<String> validate(T objectDTO){
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 		Set<ConstraintViolation<T>> violations = validator.validate(objectDTO);
 		List<String> errors = new ArrayList<>();

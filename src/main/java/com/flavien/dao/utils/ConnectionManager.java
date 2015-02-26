@@ -197,12 +197,10 @@ public class ConnectionManager {
 	 * 
 	 */
 	public static void closeConnection() {
-		logger.info("test");
 		Connection connection = connectionThreadLocal.get();
 		boolean isAutocomit;
 		try {
 			isAutocomit = connection.getAutoCommit();
-			logger.info(isAutocomit+"");
 
 		} catch (SQLException e) {
 			logger.error(e.getMessage());

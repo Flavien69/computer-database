@@ -13,7 +13,7 @@ public class ScriptRunner {
 		String line;
 		try {
 			Process p = Runtime.getRuntime().exec(
-					"./src/test/resources/sql/script.sh");
+					"./src/test/resources/db/script.sh");
 
 			BufferedReader input = new BufferedReader(new InputStreamReader(
 					p.getInputStream()));

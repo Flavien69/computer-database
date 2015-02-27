@@ -3,8 +3,6 @@ package com.flavien.dao.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +10,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.flavien.dao.ComputerDao;
-import com.flavien.dao.utils.ComputerMapper;
 import com.flavien.dao.utils.ComputerSpringMapper;
 import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
-import com.flavien.utils.PropertyValues;
 
 /**
  * 
@@ -27,17 +23,14 @@ import com.flavien.utils.PropertyValues;
 @Repository
 public class ComputerDaoImpl implements ComputerDao {
 
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private ComputerSpringMapper computerSpringMapper;
 
-	@Autowired
-	private ComputerMapper computerMapper;
-
 	private final static Logger logger = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
-	public static final String DB_NAME = PropertyValues.INSTANCE.getDbName();
 	public final static String DB_COMPUTER_TABLE = "computer";
 	public final static String DB_COLUMN_ID = "id";
 	public final static String DB_COLUMN_NAME = "name";
@@ -57,11 +50,11 @@ public class ComputerDaoImpl implements ComputerDao {
 	private final static String REQUEST_GET_BY_ID = REQUEST_GET_ALL + " WHERE "
 			+ ComputerDaoImpl.DB_COMPUTER_TABLE + ".id=?";
 
-	private final static String REQUEST_ADD = "INSERT INTO `" + DB_NAME + "`.`" + DB_COMPUTER_TABLE + "` (`"
+	private final static String REQUEST_ADD = "INSERT INTO `" + DB_COMPUTER_TABLE + "` (`"
 			+ DB_COLUMN_NAME + "`, `" + DB_COLUMN_INTRODUCED + "`, `" + DB_COLUMN_DISCONTINUED + "`, `"
 			+ DB_COLUMN_COMPANY_ID + "`) VALUES" + "(?,?,?,?)";
 
-	private final static String REQUEST_UPDATE = "UPDATE  `" + DB_NAME + "`.`" + DB_COMPUTER_TABLE + "` SET "
+	private final static String REQUEST_UPDATE = "UPDATE  `" + DB_COMPUTER_TABLE + "` SET "
 			+ "`name`=?" + ",`introduced`=?" + ",`discontinued`=?" + ",`company_id`=?" + " WHERE id=?";
 
 	private final static String REQUEST_DELETE = "DELETE FROM " + DB_COMPUTER_TABLE + " WHERE "
@@ -83,13 +76,7 @@ public class ComputerDaoImpl implements ComputerDao {
 			+ ComputerDaoImpl.DB_COMPUTER_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME + " like ? or "
 			+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME + " like ?";
 
-	public ComputerDaoImpl() {
-	}
-
-	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
+	public ComputerDaoImpl() {}
 
 	/*
 	 * (non-Javadoc)

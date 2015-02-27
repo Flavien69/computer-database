@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,15 +18,12 @@ import com.flavien.models.Page;
 import com.flavien.utils.ScriptRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:config/applicationContextPersistenceTest.xml" })
+@ContextConfiguration(locations = { "classpath:spring/application-context-dao-test.xml" })
 public class ComputerDaoTest {
 	@Autowired
 	private ComputerDao cut;
 	@Mock
 	private Company company;
-	
-	{
-	}
 
 	/**
 	 * Permit to clean the test database before each test.
@@ -43,11 +41,17 @@ public class ComputerDaoTest {
 		Assert.assertEquals(computer.getId(), 2);
 		Assert.assertEquals(computer.getName(), computerMatcher.getName());
 
-		computer = cut.getByID(200);
-		Assert.assertNull(computer);
+		try {
+			computer = cut.getByID(200);
+		} catch (EmptyResultDataAccessException ex) {
+			Assert.assertTrue(ex instanceof EmptyResultDataAccessException);
+		}
 
-		computer = cut.getByID(-2);
-		Assert.assertNull(computer);
+		try {
+			computer = cut.getByID(-2);
+		} catch (EmptyResultDataAccessException ex) {
+			Assert.assertTrue(ex instanceof EmptyResultDataAccessException);
+		}
 	}
 
 	@Test
@@ -68,7 +72,7 @@ public class ComputerDaoTest {
 
 	@Test
 	public void testAdd() {
-		Computer computer =new Computer.Builder().name("test").build(); 
+		Computer computer = new Computer.Builder().name("test").build();
 
 		cut.add(computer);
 		int count = cut.getCount("");

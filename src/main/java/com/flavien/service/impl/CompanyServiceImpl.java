@@ -10,9 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.flavien.dao.CompanyDao;
 import com.flavien.dao.ComputerDao;
-import com.flavien.dao.utils.ConnectionManager;
 import com.flavien.exception.PersistenceException;
-import com.flavien.exception.ServiceException;
 import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 
@@ -24,14 +22,16 @@ import com.flavien.service.CompanyService;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
+	@Autowired
 	private CompanyDao companyDao;
+	
+	@Autowired
 	private ComputerDao computerDao;
-	private final static Logger logger = LoggerFactory.getLogger(CompanyServiceImpl.class);
-
+	
 	public CompanyServiceImpl() {
 	}
 
-	@Autowired
+	
 	public CompanyServiceImpl(CompanyDao companyDao, ComputerDao computerDao) {
 		this.companyDao = companyDao;
 		this.computerDao = computerDao;
@@ -63,9 +63,8 @@ public class CompanyServiceImpl implements CompanyService {
 	 * @see com.flavien.service.CompanyService#deleteByID(int)
 	 */
 	@Override
-	@Transactional
+	@Transactional(rollbackFor=PersistenceException.class)
 	public void deleteByID(int companyId) {
-		ConnectionManager.initTransaction();
 		computerDao.deleteByCompanyId(companyId);
 		companyDao.deleteByID(companyId);
 	}

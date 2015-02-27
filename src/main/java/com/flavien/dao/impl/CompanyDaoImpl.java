@@ -1,7 +1,7 @@
 package com.flavien.dao.impl;
 
 import java.util.List;
-import javax.sql.DataSource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.flavien.dao.CompanyDao;
-import com.flavien.dao.utils.CompanyMapper;
 import com.flavien.dao.utils.CompanySpringMapper;
+import com.flavien.exception.PersistenceException;
 import com.flavien.models.Company;
 
 /**
@@ -20,13 +20,13 @@ import com.flavien.models.Company;
  */
 @Repository
 public class CompanyDaoImpl implements CompanyDao {	
+	
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private CompanySpringMapper companySpringMapper;
 
-	@Autowired
-	private CompanyMapper companyMapper;
 
 	private final static Logger logger = LoggerFactory.getLogger(CompanyDaoImpl.class);
 	public final static String DB_COMPANY_TABLE = "company";
@@ -39,11 +39,6 @@ public class CompanyDaoImpl implements CompanyDao {
 			+ " =?";
 
 	private final static String REQUEST_GET_BY_ID = "SELECT * FROM " + DB_COMPANY_TABLE + " WHERE id=?";
-
-	@Autowired
-	public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 	
 	public CompanyDaoImpl() {
 	}
@@ -79,7 +74,8 @@ public class CompanyDaoImpl implements CompanyDao {
 	 */
 	@Override
 	public void deleteByID(int companyId) {
-		this.jdbcTemplate.update(REQUEST_DELETE, companyId);
-		logger.info("delete the company "+companyId);
+		throw new PersistenceException();
+		//this.jdbcTemplate.update(REQUEST_DELETE, companyId);
+		//logger.info("delete the company "+companyId);
 	}
 }

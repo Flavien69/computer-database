@@ -1,5 +1,6 @@
 package com.flavien.cli;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -11,6 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class Menu {
 	private static final String MENU_TEMPLATE = "\t%d] %s";
+	
+	@Autowired
+	public ComputerCli computerCli;
+	
+	@Autowired
+	public CompanyCli companyCli;
 
 	public enum MenuEntries {
 		SHOW_COMPANY("Show all the company."), DELETE_COMPANY("Delete a company."), SHOW_COMPUTERS(
@@ -34,7 +41,7 @@ public class Menu {
 	 * Main entry of the menu class.
 	 * 
 	 */
-	public static void run() {
+	public void run() {
 		while (true) {
 			display();
 		}
@@ -46,36 +53,36 @@ public class Menu {
 	 * menu.
 	 * 
 	 */
-	public static void redirectUser(int choice) {
+	public void redirectUser(int choice) {
 		MenuEntries selection = MenuEntries.values()[choice];
 
 		switch (selection) {
 		case SHOW_COMPANY:
-			CompanyCli.showCompany();
+			companyCli.showCompany();
 			break;
 
 		case DELETE_COMPANY:
-			CompanyCli.deleteCompany();
+			companyCli.deleteCompany();
 			break;
 
 		case SHOW_COMPUTERS:
-			ComputerCli.showComputers();
+			computerCli.showComputers();
 			break;
 
 		case SHOW_COMPUTERS_PAGINATION:
-			ComputerCli.showComputersPage();
+			computerCli.showComputersPage();
 			break;
 
 		case UPDATE_COMPUTERS:
-			ComputerCli.updateComputer();
+			computerCli.updateComputer();
 			break;
 
 		case DELETE_COMPUTERS:
-			ComputerCli.deleteComputer();
+			computerCli.deleteComputer();
 			break;
 
 		case CREATE_COMPUTERS:
-			ComputerCli.createComputer();
+			computerCli.createComputer();
 			break;
 
 		case QUIT:
@@ -94,7 +101,7 @@ public class Menu {
 	 * Show the menu and wait the input of the user.
 	 * 
 	 */
-	public static void display() {
+	public void display() {
 		System.out.println("\n\n*********************** MENU ************************\n");
 
 		for (MenuEntries entry : MenuEntries.values()) {

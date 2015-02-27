@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.flavien.dao.ComputerDao;
+import com.flavien.exception.PersistenceException;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.ComputerService;
@@ -56,7 +57,7 @@ public class ComputerServiceImpl implements ComputerService {
 	 * java.lang.String)
 	 */
 	@Override
-	@Transactional
+	@Transactional(readOnly = true, rollbackFor=PersistenceException.class)
 	public Page getByPage(Page page, String name) {
 		int count = computerDao.getCount(name);
 		if (count > 0) {

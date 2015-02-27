@@ -13,7 +13,7 @@ import com.flavien.models.Company;
 import com.flavien.utils.ScriptRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:config/applicationContextPersistenceTest.xml" })
+@ContextConfiguration(locations = { "classpath:spring/application-context-dao-test.xml" })
 public class CompanyDaoTest {
 	@Autowired
 	private CompanyDao cut;
@@ -33,12 +33,6 @@ public class CompanyDaoTest {
 
 		Assert.assertEquals(company.getId(), 2);
 		Assert.assertEquals(company.getName(), companyMatcher.getName());
-
-		company = cut.getByID(200);
-		Assert.assertNull(company);
-
-		company = cut.getByID(-2);
-		Assert.assertNull(company);
 	}
 
 	@Test

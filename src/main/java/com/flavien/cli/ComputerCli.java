@@ -23,17 +23,22 @@ import com.flavien.service.ComputerService;
 public class ComputerCli {
 	
 	@Autowired
-	private static CompanyService companyService;
+	private CompanyService companyService;
 	
 	@Autowired
-	private static ComputerService computerService;
+	private ComputerService computerService;
+	
+	@Autowired
+	private CompanyCli companyCli;
+	
+	public ComputerCli(){}
 	
 	/**
 	 * 
 	 * Show a list of computers
 	 * 
 	 */
-	public static void showComputers() {
+	public void showComputers() {
 		List<Computer> computerList = computerService.getAll();
 		displayComputer(ComputerMapperDTO.listToDto(computerList));
 	}
@@ -43,7 +48,7 @@ public class ComputerCli {
 	 * Show a list of computer page by page using a Page object
 	 * 
 	 */
-	public static void showComputersPage() {
+	public void showComputersPage() {
 		String input;
 		Page page = new Page(-1);
 		do {
@@ -62,7 +67,7 @@ public class ComputerCli {
 	 * Display a list of computer
 	 * 
 	 */
-	public static void displayComputer(List<ComputerDTO> computerList) {
+	public void displayComputer(List<ComputerDTO> computerList) {
 		for (ComputerDTO computerDTO : computerList) {
 			System.out.println(computerDTO.toString());
 		}
@@ -73,7 +78,7 @@ public class ComputerCli {
 	 * Create a computer using the cli interface
 	 * 
 	 */
-	public static void createComputer() {
+	public void createComputer() {
 
 		Computer computer = new Computer.Builder().build();
 
@@ -91,7 +96,7 @@ public class ComputerCli {
 		System.out.println("choose a date of discontinued (" + Utils.DATE_FORMAT + " or 'enter' to skip) :");
 		computer.setDiscontinued(Utils.getDateInput());
 
-		CompanyCli.showCompany();
+		companyCli.showCompany();
 
 		Boolean isCompanyIdError = false;
 		Company company = null;
@@ -119,7 +124,7 @@ public class ComputerCli {
 	 * Update a computer using the cli interface
 	 * 
 	 */
-	public static void updateComputer() {
+	public void updateComputer() {
 
 		System.out.println("\n***************** UPDATE A COMPUTER ***********************************\n");
 		showComputers();
@@ -153,7 +158,7 @@ public class ComputerCli {
 		if (introducedDate != null)
 			computer.setDiscontinued(discontinued);
 
-		CompanyCli.showCompany();
+		companyCli.showCompany();
 		Company company = null;
 		do {
 			if (!isCompanyIdError)
@@ -179,7 +184,7 @@ public class ComputerCli {
 	 * Delete a computer using the cli interface
 	 * 
 	 */
-	public static void deleteComputer() {
+	public void deleteComputer() {
 
 		System.out.println("\n***************** DELETE A COMPUTER ***********************************\n");
 		showComputers();

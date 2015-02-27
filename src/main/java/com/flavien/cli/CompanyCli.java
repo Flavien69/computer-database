@@ -16,20 +16,15 @@ import com.flavien.service.CompanyService;
 @Component
 public class CompanyCli {
 	
-	
-	private static CompanyService companyService;
-	
 	@Autowired
-	public void setCompanyService(CompanyService companyService){
-		CompanyCli.companyService = companyService;
-	}
+	private CompanyService companyService;
 	
 	/**
 	 * 
 	 * Show a list of company 
 	 * 
 	 */
-	public static void showCompany(){
+	public void showCompany(){
 		List<Company> companyList = companyService.getAll();
 		
 		for(Company company: companyList){
@@ -42,7 +37,7 @@ public class CompanyCli {
 	 * Delete a company 
 	 * 
 	 */
-	public static void deleteCompany(){
+	public void deleteCompany(){
 		System.out.println("\n***************** DELETE A COMPANY ************************\n");
 		showCompany();
 

@@ -1,17 +1,20 @@
 package com.flavien.dao.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.flavien.dao.ComputerDao;
 import com.flavien.dao.utils.ComputerSpringMapper;
 import com.flavien.dto.ComputerMapperDTO;
+import com.flavien.exception.PersistenceException;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 
@@ -50,12 +53,12 @@ public class ComputerDaoImpl implements ComputerDao {
 	private final static String REQUEST_GET_BY_ID = REQUEST_GET_ALL + " WHERE "
 			+ ComputerDaoImpl.DB_COMPUTER_TABLE + ".id=?";
 
-	private final static String REQUEST_ADD = "INSERT INTO `" + DB_COMPUTER_TABLE + "` (`"
-			+ DB_COLUMN_NAME + "`, `" + DB_COLUMN_INTRODUCED + "`, `" + DB_COLUMN_DISCONTINUED + "`, `"
-			+ DB_COLUMN_COMPANY_ID + "`) VALUES" + "(?,?,?,?)";
+	private final static String REQUEST_ADD = "INSERT INTO `" + DB_COMPUTER_TABLE + "` (`" + DB_COLUMN_NAME
+			+ "`, `" + DB_COLUMN_INTRODUCED + "`, `" + DB_COLUMN_DISCONTINUED + "`, `" + DB_COLUMN_COMPANY_ID
+			+ "`) VALUES" + "(?,?,?,?)";
 
-	private final static String REQUEST_UPDATE = "UPDATE  `" + DB_COMPUTER_TABLE + "` SET "
-			+ "`name`=?" + ",`introduced`=?" + ",`discontinued`=?" + ",`company_id`=?" + " WHERE id=?";
+	private final static String REQUEST_UPDATE = "UPDATE  `" + DB_COMPUTER_TABLE + "` SET " + "`name`=?"
+			+ ",`introduced`=?" + ",`discontinued`=?" + ",`company_id`=?" + " WHERE id=?";
 
 	private final static String REQUEST_DELETE = "DELETE FROM " + DB_COMPUTER_TABLE + " WHERE "
 			+ DB_COLUMN_ID + " =?";
@@ -76,7 +79,8 @@ public class ComputerDaoImpl implements ComputerDao {
 			+ ComputerDaoImpl.DB_COMPUTER_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME + " like ? or "
 			+ CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME + " like ?";
 
-	public ComputerDaoImpl() {}
+	public ComputerDaoImpl() {
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -98,8 +102,12 @@ public class ComputerDaoImpl implements ComputerDao {
 		if (computer.getCompany() != null && computer.getCompany().getId() != 0)
 			companyId = computer.getCompany().getId();
 
-		this.jdbcTemplate.update(REQUEST_ADD, computer.getName(), introducedTimestamp, discontinuedTimestamp,
-				companyId);
+		try {
+			this.jdbcTemplate.update(REQUEST_ADD, computer.getName(), introducedTimestamp,
+					discontinuedTimestamp, companyId);
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
 		logger.info("add the computer");
 	}
 
@@ -110,8 +118,14 @@ public class ComputerDaoImpl implements ComputerDao {
 	 */
 	@Override
 	public Computer getByID(int computerId) {
-		return this.jdbcTemplate.queryForObject(REQUEST_GET_BY_ID, new Object[] { computerId },
-				computerSpringMapper);
+		Computer computer = null;
+		try {
+			computer = this.jdbcTemplate.queryForObject(REQUEST_GET_BY_ID, new Object[] { computerId },
+					computerSpringMapper);
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
+		return computer;
 	}
 
 	/*
@@ -134,8 +148,12 @@ public class ComputerDaoImpl implements ComputerDao {
 		if (computer.getCompany() != null && computer.getCompany().getId() != 0)
 			companyId = computer.getCompany().getId();
 
-		this.jdbcTemplate.update(REQUEST_UPDATE, computer.getName(), introducedTimestamp,
-				discontinuedTimestamp, companyId, computer.getId());
+		try {
+			this.jdbcTemplate.update(REQUEST_UPDATE, computer.getName(), introducedTimestamp,
+					discontinuedTimestamp, companyId, computer.getId());
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
 		logger.info("edit the computer " + computer.getId());
 	}
 
@@ -146,7 +164,11 @@ public class ComputerDaoImpl implements ComputerDao {
 	 */
 	@Override
 	public void deleteById(int computerId) {
-		this.jdbcTemplate.update(REQUEST_DELETE, computerId);
+		try {
+			this.jdbcTemplate.update(REQUEST_DELETE, computerId);
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
 		logger.info("delete the computer with the id " + computerId);
 	}
 
@@ -159,9 +181,14 @@ public class ComputerDaoImpl implements ComputerDao {
 	@Override
 	public Page getByPage(Page page, String name) {
 		String nameRequest = "%" + name + "%";
-		List<Computer> computerList = this.jdbcTemplate.query(REQUEST_GET_BY_PAGE, new Object[] {
-				nameRequest, nameRequest, page.getIndex() * page.getEntityByPage(), page.getEntityByPage() },
-				computerSpringMapper);
+		List<Computer> computerList = new ArrayList<>();
+		try {
+			computerList = this.jdbcTemplate.query(REQUEST_GET_BY_PAGE, new Object[] { nameRequest,
+					nameRequest, page.getIndex() * page.getEntityByPage(), page.getEntityByPage() },
+					computerSpringMapper);
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
 		page.setComputerList(ComputerMapperDTO.listToDto(computerList));
 		return page;
 	}
@@ -173,7 +200,12 @@ public class ComputerDaoImpl implements ComputerDao {
 	 */
 	@Override
 	public List<Computer> getAll() {
-		List<Computer> computerList = this.jdbcTemplate.query(REQUEST_GET_ALL, computerSpringMapper);
+		List<Computer> computerList = new ArrayList<>();
+		try {
+			computerList = this.jdbcTemplate.query(REQUEST_GET_ALL, computerSpringMapper);
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
 		logger.info("retrieve all the computers");
 		return computerList;
 	}
@@ -186,8 +218,14 @@ public class ComputerDaoImpl implements ComputerDao {
 	@Override
 	public int getCount(String name) {
 		String nameRequest = "%" + name + "%";
-		return this.jdbcTemplate.queryForObject(REQUEST_COUNT, new Object[] { nameRequest, nameRequest },
-				Integer.class);
+		int count = 0;
+		try {
+			count = this.jdbcTemplate.queryForObject(REQUEST_COUNT,
+					new Object[] { nameRequest, nameRequest }, Integer.class);
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
+		return count;
 	}
 
 	/*
@@ -198,8 +236,13 @@ public class ComputerDaoImpl implements ComputerDao {
 	@Override
 	public List<Computer> getByName(String name) {
 		String nameRequest = "%" + name + "%";
-		List<Computer> computerList = this.jdbcTemplate.query(REQUEST_FILTER_BY_NAME,
-				new Object[] { nameRequest }, computerSpringMapper);
+		List<Computer> computerList = new ArrayList<>();
+		try {
+			computerList = this.jdbcTemplate.query(REQUEST_FILTER_BY_NAME, new Object[] { nameRequest },
+					computerSpringMapper);
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
 		return computerList;
 	}
 
@@ -211,7 +254,11 @@ public class ComputerDaoImpl implements ComputerDao {
 	 */
 	@Override
 	public void deleteByCompanyId(int companyId) {
-		this.jdbcTemplate.update(REQUEST_DELETE_BY_COMPANY_ID, companyId);
+		try {
+			this.jdbcTemplate.update(REQUEST_DELETE_BY_COMPANY_ID, companyId);
+		} catch (DataAccessException e) {
+			throw new PersistenceException();
+		}
 		logger.info("delete the computer where id = " + companyId);
 	}
 }

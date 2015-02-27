@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.flavien.dao.ComputerDao;
 import com.flavien.exception.PersistenceException;
+import com.flavien.exception.ServiceException;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.ComputerService;
@@ -57,13 +58,17 @@ public class ComputerServiceImpl implements ComputerService {
 	 * java.lang.String)
 	 */
 	@Override
-	@Transactional(readOnly = true, rollbackFor=PersistenceException.class)
+	@Transactional(readOnly = true, rollbackFor = PersistenceException.class)
 	public Page getByPage(Page page, String name) {
-		int count = computerDao.getCount(name);
-		if (count > 0) {
+		try {
+			int count = computerDao.getCount(name);
 			page = computerDao.getByPage(page, name);
 			page.setNbTotalComputer(count);
+
+		} catch (PersistenceException e) {
+			throw new ServiceException(e);
 		}
+
 		return page;
 	}
 

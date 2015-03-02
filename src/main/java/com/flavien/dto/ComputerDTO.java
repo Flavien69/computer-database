@@ -13,7 +13,7 @@ import com.flavien.models.Company;
  */
 public class ComputerDTO {
 	private int id;
-	@NotBlank
+	@NotBlank(message="{dashboard.company_label}")
 	private String name;
 	
 	@Date

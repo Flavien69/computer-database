@@ -3,7 +3,6 @@ package com.flavien.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.Validator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +30,6 @@ public class AddComputerController {
 	private ComputerService computerService;
 	@Autowired
 	private CompanyService companyService;
-	@Autowired
-	private Validator validator;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String doGet(ModelMap map) {
@@ -46,13 +43,13 @@ public class AddComputerController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String doPost(@ModelAttribute("computerDTO") @Valid ComputerDTO computerDTO,
 			BindingResult bindingResult, @RequestParam("companyId") int companyId, ModelMap map) {
-		
+
 		if (bindingResult.hasErrors()) {
 			List<Company> companies = this.companyService.getAll();
 			map.addAttribute("companies", companies);
 			return "addComputer";
 		}
-		
+
 		Company company = new Company.Builder().id(companyId).build();
 		computerDTO.setCompany(company);
 		this.computerService.add(ComputerMapperDTO.fromDto(computerDTO));

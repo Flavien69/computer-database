@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Launcher {
 
 	public static void main(String[] args) {	
+
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("/spring/application-context.xml");		
 		Menu m = ctx.getBean(Menu.class);
 		m.run();

@@ -5,7 +5,7 @@
 	version="3.0">
 	<display-name>Archetype Created Web Application</display-name>
 	<welcome-file-list>
-		<welcome-file>dashboard</welcome-file>
+		<welcome-file>/views/dashboard.jsp</welcome-file>
 	</welcome-file-list>
 
 

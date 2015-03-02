@@ -18,7 +18,7 @@ import com.flavien.utils.Utils;
  * Servlet implementation class DeleteComputerServlet.
  * Using this servlet to delete a computer in the database.
  */
-@WebServlet("/delete-computer")
+@WebServlet("/delete-computerx")
 public class DeleteComputerServlet extends AbstractSpringHttpServlet {
 
 	private static final long serialVersionUID = -6224096912496986500L;

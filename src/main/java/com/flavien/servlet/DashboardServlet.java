@@ -21,7 +21,7 @@ import com.flavien.utils.Utils;
  * computers filtering by name and per page. Using to delete computers from the
  * database.
  */
-@WebServlet("/dashboard")
+@WebServlet("/dashboardx")
 public class DashboardServlet extends AbstractSpringHttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LoggerFactory.getLogger(DashboardServlet.class);

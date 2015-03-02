@@ -25,7 +25,7 @@ import com.flavien.utils.Utils;
  * Servlet implementation class addComputerServlet Using this servlet to add a
  * computer in the database.
  */
-@WebServlet("/add-computer")
+@WebServlet("/add-computerx")
 public class AddComputerServlet extends AbstractSpringHttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LoggerFactory.getLogger(AddComputerServlet.class);

@@ -26,7 +26,7 @@ import com.flavien.utils.Utils;
  * Servlet implementation class editComputerServlet.
  * Using this servlet to edit a computer in the database.
  */
-@WebServlet("/edit-computer")
+@WebServlet("/edit-computerdd")
 public class EditComputerServlet extends AbstractSpringHttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger logger = LoggerFactory.getLogger(EditComputerServlet.class);

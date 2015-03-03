@@ -31,12 +31,14 @@ public class EditComputerController {
 	private ComputerService computerService;
 	@Autowired
 	private CompanyService companyService;
-
+	@Autowired
+	private ComputerMapperDTO computerMapperDTO;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public String doGet(@RequestParam("id") int id, ModelMap map) {
 		List<Company> companies = this.companyService.getAll();
 		Computer computer = this.computerService.getByID(id);
-		ComputerDTO computerDTO = ComputerMapperDTO.toDto(computer);
+		ComputerDTO computerDTO = computerMapperDTO.toDto(computer);
 
 		map.addAttribute("computer", computerDTO);
 		map.addAttribute("companies", companies);
@@ -57,7 +59,7 @@ public class EditComputerController {
 		
 		Company company = new Company.Builder().id(companyId).build();
 		computerDTO.setCompany(company);
-		this.computerService.update(ComputerMapperDTO.fromDto(computerDTO));
+		this.computerService.update(computerMapperDTO.fromDto(computerDTO));
 		logger.info("Edit the computer");
 		return "redirect:/dashboard";
 	}

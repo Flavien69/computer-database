@@ -42,8 +42,8 @@ public class CompanyCli {
 		showCompany();
 
 		System.out.println("\nchoose a company to delete (ID of the company):");
-		int id = Utils.getIntInput(Utils.NO_MAX_VALUE);
-		while (id == Utils.RESULT_SKIP) {
+		int id = UtilsCli.getIntInput(UtilsCli.NO_MAX_VALUE);
+		while (id == UtilsCli.RESULT_SKIP) {
 			System.out.println("\nERREUR: choose a computer to delete (ID of the computer):");
 		}
 

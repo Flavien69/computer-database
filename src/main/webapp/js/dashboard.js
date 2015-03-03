@@ -1,3 +1,4 @@
+
 //On load
 $(function() {
     // Default: hide edit mode

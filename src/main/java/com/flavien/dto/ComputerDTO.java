@@ -13,13 +13,13 @@ import com.flavien.models.Company;
  */
 public class ComputerDTO {
 	private int id;
-	@NotBlank(message="{dashboard.company_label}")
+	@NotBlank(message="{computer_dto.name_not_blank}")
 	private String name;
 	
-	@Date
+	@Date(message="{computer_dto.date_introduced_format}")
 	private String introduced;
 	
-	@Date
+	@Date(message="{computer_dto.date_discontinued_format}")
 	private String discontinued;
 	private Company company;
 	

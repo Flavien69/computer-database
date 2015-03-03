@@ -87,7 +87,7 @@ public class Menu {
 
 		case QUIT:
 			System.exit(0);
-			Utils.getScannerInstance().close();
+			UtilsCli.getScannerInstance().close();
 			break;
 
 		default:
@@ -110,6 +110,6 @@ public class Menu {
 		System.out.println("\n****************************************************\n");
 
 		System.out.println("Choose a number :");
-		redirectUser(Utils.getIntInput(MenuEntries.values().length));
+		redirectUser(UtilsCli.getIntInput(MenuEntries.values().length));
 	}
 }

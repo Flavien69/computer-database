@@ -31,7 +31,7 @@
 								var="introduced_placeholder" />
 							<label for="introduced"><spring:message
 									code="computer_form.introduced_label" /></label>
-							<form:input type="datetime-local" class="form-control"
+							<form:input class="form-control"
 								id="introduced" name="introduced"
 								placeholder="${introduced_placeholder}" path="introduced"></form:input>
 							<form:errors path="introduced" cssClass="error"></form:errors>
@@ -42,7 +42,7 @@
 								var="discontinued_placeholder" />
 							<label for="discontinued"><spring:message
 									code="computer_form.discontinued_label" /></label>
-							<form:input type="datetime-local" class="form-control"
+							<form:input class="form-control"
 								id="discontinued" name="discontinued"
 								placeholder="${discontinued_placeholder}" path="discontinued"></form:input>
 							<form:errors path="discontinued" cssClass="error"></form:errors>
@@ -93,8 +93,13 @@
 		</div>
 	</div>
 </section>
+<script type="text/javascript">
+	var strings = new Array();
+	strings['date_regex'] = "<spring:message code='date.regex' javaScriptEscape='true' />";
+</script>
 
 <script src="<c:url value="/js/jquery.min.js"/>"></script>
+<script src="<c:url value="/js/bootstrap.min.js"/>"></script>
 <script src="<c:url value="/js/verify.js"/>"></script>
 </body>
 </html>

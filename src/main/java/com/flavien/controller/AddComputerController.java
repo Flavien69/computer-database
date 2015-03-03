@@ -30,6 +30,8 @@ public class AddComputerController {
 	private ComputerService computerService;
 	@Autowired
 	private CompanyService companyService;
+	@Autowired
+	private ComputerMapperDTO computerMapperDTO;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String doGet(ModelMap map) {
@@ -52,7 +54,7 @@ public class AddComputerController {
 
 		Company company = new Company.Builder().id(companyId).build();
 		computerDTO.setCompany(company);
-		this.computerService.add(ComputerMapperDTO.fromDto(computerDTO));
+		this.computerService.add(computerMapperDTO.fromDto(computerDTO));
 		logger.info("add the computer");
 		return "redirect:/dashboard";
 	}

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.flavien.dto.validators.DtoValidator;
 import com.flavien.service.CompanyService;
 import com.flavien.service.ComputerService;
 import com.flavien.utils.Utils;
@@ -23,13 +22,13 @@ public class DeleteComputerController {
 	@Autowired
 	private CompanyService companyService;
 	@Autowired
-	private DtoValidator dtoValidator;
+	private Utils utils;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String doPost(@RequestParam("selection") String idsToDelete){
 		String[] array = idsToDelete.split(",");
 		for (String idString : array){
-			int id = Utils.getInt(idString);
+			int id = utils.getInt(idString);
 			if (id != Utils.ERROR)
 				this.computerService.deleteById(id);
 		}

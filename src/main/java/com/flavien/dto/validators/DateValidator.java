@@ -3,6 +3,8 @@ package com.flavien.dto.validators;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.flavien.utils.Utils;
 
 /**
@@ -10,8 +12,12 @@ import com.flavien.utils.Utils;
  * Implementation of the custom date annotation to validate a date.
  * 
  */
+
 public class DateValidator implements ConstraintValidator<Date, String>{
 
+	@Autowired
+	private Utils utils;
+	
 	@Override
 	public void initialize(Date constraintAnnotation) {}
 
@@ -20,6 +26,6 @@ public class DateValidator implements ConstraintValidator<Date, String>{
 		if(value.isEmpty())
 			return true;
 		
-		return Utils.isLocalDateTime(value);
+		return utils.isLocalDateTime(value);
 	}
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * 
  */
 @Component
-public class Utils {
+public class UtilsCli {
 
 	private static Scanner scannerInstance = null;
 	public static final int RESULT_SKIP = -1;

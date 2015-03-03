@@ -31,6 +31,9 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	@Autowired
 	private ComputerSpringMapper computerSpringMapper;
+	
+	@Autowired 
+	private ComputerMapperDTO computerMapperDTO;
 
 	private final static Logger logger = LoggerFactory.getLogger(ComputerDaoImpl.class);
 
@@ -189,7 +192,7 @@ public class ComputerDaoImpl implements ComputerDao {
 		} catch (DataAccessException e) {
 			throw new PersistenceException();
 		}
-		page.setComputerList(ComputerMapperDTO.listToDto(computerList));
+		page.setComputerList(computerMapperDTO.listToDto(computerList));
 		return page;
 	}
 

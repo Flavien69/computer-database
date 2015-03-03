@@ -43,12 +43,13 @@ public class ComputerServiceTest {
 			computers.add(computer);
 
 		page.setIndex(1);
-		page.setEntityByPage(10);
+		page.setNbEntityByPage(10);
+		page.setSearch("test");
 		page.setComputerList(computerMapperDTO.listToDto(computers));
 
 		when(computerDao.getAll()).thenReturn(computers);
 		when(computerDao.getByID(3)).thenReturn(computer);
-		when(computerDao.getByPage(page, "test")).thenReturn(page);
+		when(computerDao.getByPage(page)).thenReturn(page);
 		when(computerDao.getCount("test")).thenReturn(10);
 
 		cut = new ComputerServiceImpl(computerDao);
@@ -72,7 +73,8 @@ public class ComputerServiceTest {
 	@Test
 	public void TestGetPage() {
 
-		Page p = cut.getByPage(page, "test");
+		page.setSearch("test");
+		Page p = cut.getByPage(page);
 		Assert.assertEquals(p.getComputerList().size(), computerMapperDTO.listToDto(computers).size());
 
 	}

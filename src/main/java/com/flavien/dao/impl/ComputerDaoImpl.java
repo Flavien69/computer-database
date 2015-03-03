@@ -17,6 +17,8 @@ import com.flavien.dto.ComputerMapperDTO;
 import com.flavien.exception.PersistenceException;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
+import com.flavien.models.Page.SortCriteria;
+import com.flavien.models.Page.SortOrder;
 
 /**
  * 
@@ -31,8 +33,8 @@ public class ComputerDaoImpl implements ComputerDao {
 
 	@Autowired
 	private ComputerSpringMapper computerSpringMapper;
-	
-	@Autowired 
+
+	@Autowired
 	private ComputerMapperDTO computerMapperDTO;
 
 	private final static Logger logger = LoggerFactory.getLogger(ComputerDaoImpl.class);
@@ -69,9 +71,9 @@ public class ComputerDaoImpl implements ComputerDao {
 	private final static String REQUEST_DELETE_BY_COMPANY_ID = "DELETE FROM " + DB_COMPUTER_TABLE + " WHERE "
 			+ DB_COLUMN_COMPANY_ID + " =?";
 
-	private final static String REQUEST_GET_BY_PAGE = REQUEST_GET_ALL + " WHERE computer." + DB_COLUMN_NAME
+	private final static String BEGINNING_REQUEST_GET_BY_PAGE = REQUEST_GET_ALL + " WHERE computer." + DB_COLUMN_NAME
 			+ " LIKE ? OR " + CompanyDaoImpl.DB_COMPANY_TABLE + "." + CompanyDaoImpl.DB_COLUMN_NAME
-			+ " LIKE ? ORDER BY " + DB_COLUMN_ID + " LIMIT ?,?";
+			+ " LIKE ?";
 
 	private final static String REQUEST_FILTER_BY_NAME = REQUEST_GET_ALL + " WHERE " + DB_COLUMN_NAME + "?";
 
@@ -182,12 +184,20 @@ public class ComputerDaoImpl implements ComputerDao {
 	 * java.lang.String)
 	 */
 	@Override
-	public Page getByPage(Page page, String name) {
-		String nameRequest = "%" + name + "%";
+	public Page getByPage(Page page) {
+		String nameRequest = "%" + page.getSearch() + "%";
 		List<Computer> computerList = new ArrayList<>();
+		String orderFeature = null;
+		
+		if (SortCriteria.COMPANY_NAME.equals(page.getSortCriteria())) {
+		  orderFeature = getOrderFeature("company", page.getSortCriteria(), page.getSortOrder());
+		} else {
+		  orderFeature = getOrderFeature("computer", page.getSortCriteria(), page.getSortOrder());
+		}
+		String request = BEGINNING_REQUEST_GET_BY_PAGE+" ORDER BY "+ orderFeature+" LIMIT ?,?";
 		try {
-			computerList = this.jdbcTemplate.query(REQUEST_GET_BY_PAGE, new Object[] { nameRequest,
-					nameRequest, page.getIndex() * page.getEntityByPage(), page.getEntityByPage() },
+			computerList = this.jdbcTemplate.query(request, new Object[] { nameRequest,
+					nameRequest, page.getIndex() * page.getNbEntityByPage(), page.getNbEntityByPage() },
 					computerSpringMapper);
 		} catch (DataAccessException e) {
 			throw new PersistenceException();
@@ -263,5 +273,40 @@ public class ComputerDaoImpl implements ComputerDao {
 			throw new PersistenceException();
 		}
 		logger.info("delete the computer where id = " + companyId);
+	}
+
+	private String getOrderFeature(String entity, SortCriteria sortCriterion, SortOrder sortOrder) {
+
+		StringBuilder stringBuilder = new StringBuilder(entity);
+
+		switch (sortCriterion) {
+
+		case ID:
+			stringBuilder.append(".id");
+			break;
+		case NAME:
+			stringBuilder.append(".name");
+			break;
+		case DATE_DISCONTINUED:
+			stringBuilder.append(".discontinued");
+			break;
+		case DATE_INTRODUCED:
+			stringBuilder.append(".introduced");
+			break;
+		case COMPANY_NAME:
+			stringBuilder.append(".name");
+			break;
+		default:
+			stringBuilder.append(".id");
+		}
+
+		if (sortOrder.equals(SortOrder.DESC)) {
+			stringBuilder.append(" desc");
+		} else {
+			stringBuilder.append(" asc");
+		}
+
+		return stringBuilder.toString();
+
 	}
 }

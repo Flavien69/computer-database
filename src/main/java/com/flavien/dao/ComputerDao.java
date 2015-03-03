@@ -32,7 +32,7 @@ public interface ComputerDao {
 	 * @param page         
 	 * @return Page
 	 */
-	public Page getByPage(Page page, String name);
+	public Page getByPage(Page page);
 
 	/**
 	 * Delete a computer in the database by passing the computer id in

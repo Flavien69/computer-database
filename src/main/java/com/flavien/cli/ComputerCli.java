@@ -56,7 +56,7 @@ public class ComputerCli {
 		Page page = new Page(-1);
 		do {
 			page.setIndex(page.getIndex()+1);
-			page = computerService.getByPage(page, "");
+			page = computerService.getByPage(page);
 			displayComputer(page.getComputerList());
 
 			System.out.println("\npage " + page.getIndex() + "/" + page.getNbTotalPage());

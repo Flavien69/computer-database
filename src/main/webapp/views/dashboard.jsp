@@ -19,7 +19,7 @@
 						var="search_filter_btn" />
 					<input type="search" id="searchbox" name="search"
 						class="form-control" placeholder="${search_filter}"
-						<c:if test="${search != null}">value="${search}"</c:if> /> <input
+						<c:if test="${search != null}">value="${page.search}"</c:if> /> <input
 						type="submit" id="searchsubmit" value="${search_filter_btn}"
 						class="btn btn-primary" />
 				</form>
@@ -56,12 +56,12 @@
 								class="fa fa-trash-o fa-lg"></i>
 						</a>
 					</span></th>
-					<th><spring:message code="dashboard.name_label" /></th>
-					<th><spring:message code="dashboard.introduced_label" /></th>
+					<th><a href="<mylib:link target="dashboard" sortCriteria="NAME"/>"><spring:message code="dashboard.name_label" /></a></th>
+					<th><a href="<mylib:link target="dashboard" sortCriteria="DATE_INTRODUCED"/>"><spring:message code="dashboard.introduced_label" /></a></th>
 					<!-- Table header for Discontinued Date -->
-					<th><spring:message code="dashboard.discontinued_label" /></th>
+					<th><a href="<mylib:link target="dashboard" sortCriteria="DATE_DISCONTINUED"/>"><spring:message code="dashboard.discontinued_label" /></a></th>
 					<!-- Table header for Company -->
-					<th><spring:message code="dashboard.company_label" /></th>
+					<th><a href="<mylib:link target="dashboard" sortCriteria="COMPANY_NAME"/>"><spring:message code="dashboard.company_label" /></a></th>
 
 				</tr>
 			</thead>
@@ -88,7 +88,7 @@
 
 <footer class="navbar-fixed-bottom">
 	<div class="container text-center">
-		<mylib:pagination search="${search}" page="${page}" />
+		<mylib:pagination page="${page}" />
 	</div>
 </footer>
 

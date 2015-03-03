@@ -12,11 +12,13 @@
 	media="screen">
 <link href="<c:url value="/css/main.css"/>" rel="stylesheet"
 	media="screen">
+
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-		<a class="navbar-brand" href="dashboard.jsp"> Application - Computer Database </a>
+			<a class="navbar-brand" href="dashboard.jsp"> Application -
+				Computer Database </a>
 			<div id="navbar" class="collapse navbar-collapse pull-right">
 				<ul class="nav navbar-nav">
 					<li class="dropdown"><a href="#" class="dropdown-toggle "

@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -40,18 +39,6 @@ public class ComputerDaoTest {
 
 		Assert.assertEquals(computer.getId(), 2);
 		Assert.assertEquals(computer.getName(), computerMatcher.getName());
-
-		try {
-			computer = cut.getByID(200);
-		} catch (EmptyResultDataAccessException ex) {
-			Assert.assertTrue(ex instanceof EmptyResultDataAccessException);
-		}
-
-		try {
-			computer = cut.getByID(-2);
-		} catch (EmptyResultDataAccessException ex) {
-			Assert.assertTrue(ex instanceof EmptyResultDataAccessException);
-		}
 	}
 
 	@Test
@@ -83,12 +70,12 @@ public class ComputerDaoTest {
 	public void testGetByPage() {
 		Page page = new Page();
 		page.setIndex(10000);
-		page.setEntityByPage(10);
-		Page p = cut.getByPage(page, "");
+		page.setNbEntityByPage(10);
+		Page p = cut.getByPage(page);
 		Assert.assertEquals(p.getComputerList().size(), 0);
 
 		p.setIndex(0);
-		p = cut.getByPage(p, "");
+		p = cut.getByPage(p);
 		Assert.assertEquals(p.getComputerList().size(), 10);
 	}
 

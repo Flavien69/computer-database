@@ -2,6 +2,7 @@ package com.flavien.service;
 
 import java.util.List;
 
+import com.flavien.dto.PageDTO;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 
@@ -29,7 +30,7 @@ public interface ComputerService {
 	 * @param name is the name of the computer
 	 * @return a Page that is the page[index].
 	 */
-	public Page getByPage(Page page, String name);
+	public Page getByPage(Page page);
 	
 	/**
 	 * Delete a computer in the database.

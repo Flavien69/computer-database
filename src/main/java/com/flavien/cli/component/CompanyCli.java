@@ -1,10 +1,11 @@
-package com.flavien.cli;
+package com.flavien.cli.component;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.flavien.cli.HelperCli;
 import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 
@@ -42,8 +43,8 @@ public class CompanyCli {
 		showCompany();
 
 		System.out.println("\nchoose a company to delete (ID of the company):");
-		int id = UtilsCli.getIntInput(UtilsCli.NO_MAX_VALUE);
-		while (id == UtilsCli.RESULT_SKIP) {
+		int id = HelperCli.getIntInput(HelperCli.NO_MAX_VALUE);
+		while (id == HelperCli.RESULT_SKIP) {
 			System.out.println("\nERREUR: choose a computer to delete (ID of the computer):");
 		}
 

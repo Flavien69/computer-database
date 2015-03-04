@@ -1,4 +1,4 @@
-package com.flavien.cli;
+package com.flavien.cli.component;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -6,8 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.flavien.cli.HelperCli;
 import com.flavien.dto.ComputerDTO;
-import com.flavien.dto.ComputerMapperDTO;
+import com.flavien.dto.mapper.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
@@ -61,7 +62,7 @@ public class ComputerCli {
 
 			System.out.println("\npage " + page.getIndex() + "/" + page.getNbTotalPage());
 			System.out.println("\n'enter' to search the next or 'exit' to return in the menu\n");
-			input = UtilsCli.getStringInput();
+			input = HelperCli.getStringInput();
 		} while (input == null && page.getComputerList().size() == Page.DEFAULT_NB_ENTITY_BY_PAGE);
 	}
 
@@ -89,15 +90,15 @@ public class ComputerCli {
 		String name = null;
 		do {
 			System.out.println("choose a name (field needed)");
-			name = UtilsCli.getStringInput();
+			name = HelperCli.getStringInput();
 			computer.setName(name);
 		} while (name == null);
 
-		System.out.println("Vchoose a date of introduced (" + UtilsCli.DATE_FORMAT + " or 'enter' to skip) :");
-		computer.setIntroduced(UtilsCli.getDateInput());
+		System.out.println("Vchoose a date of introduced (" + HelperCli.DATE_FORMAT + " or 'enter' to skip) :");
+		computer.setIntroduced(HelperCli.getDateInput());
 
-		System.out.println("choose a date of discontinued (" + UtilsCli.DATE_FORMAT + " or 'enter' to skip) :");
-		computer.setDiscontinued(UtilsCli.getDateInput());
+		System.out.println("choose a date of discontinued (" + HelperCli.DATE_FORMAT + " or 'enter' to skip) :");
+		computer.setDiscontinued(HelperCli.getDateInput());
 
 		companyCli.showCompany();
 
@@ -109,8 +110,8 @@ public class ComputerCli {
 			else
 				System.out.println("\nERREUR: choose the company (ID of the company or 'enter' to skip):");
 
-			int computerId = UtilsCli.getIntInput(UtilsCli.NO_MAX_VALUE);
-			if (computerId != UtilsCli.RESULT_SKIP) {
+			int computerId = HelperCli.getIntInput(HelperCli.NO_MAX_VALUE);
+			if (computerId != HelperCli.RESULT_SKIP) {
 				company = companyService.getByID(computerId);
 				if (company != null)
 					computer.setCompany(company);
@@ -142,22 +143,22 @@ public class ComputerCli {
 			else
 				System.out.println("\nERREUR: choose the computer to update (ID of the computer):");
 
-			computer = computerService.getByID(UtilsCli.getIntInput(UtilsCli.NO_MAX_VALUE));
+			computer = computerService.getByID(HelperCli.getIntInput(HelperCli.NO_MAX_VALUE));
 			isComputerIdError = true;
 		} while (computer == null);
 
 		System.out.println("Choose a name or 'enter' to skip: ");
-		String name = UtilsCli.getStringInput();
+		String name = HelperCli.getStringInput();
 		if (name != null)
 			computer.setName(name);
 
-		System.out.println("Choose a date of introduced (" + UtilsCli.DATE_FORMAT + " or 'enter' to skip) :");
-		LocalDateTime introducedDate = UtilsCli.getDateInput();
+		System.out.println("Choose a date of introduced (" + HelperCli.DATE_FORMAT + " or 'enter' to skip) :");
+		LocalDateTime introducedDate = HelperCli.getDateInput();
 		if (introducedDate != null)
 			computer.setIntroduced(introducedDate);
 
-		System.out.println("Choose a date of discontinued (" + UtilsCli.DATE_FORMAT + " or 'enter' to skip) :");
-		LocalDateTime discontinued = UtilsCli.getDateInput();
+		System.out.println("Choose a date of discontinued (" + HelperCli.DATE_FORMAT + " or 'enter' to skip) :");
+		LocalDateTime discontinued = HelperCli.getDateInput();
 		if (introducedDate != null)
 			computer.setDiscontinued(discontinued);
 
@@ -169,8 +170,8 @@ public class ComputerCli {
 			else
 				System.out.println("\nERREUR: choose your company (ID of the company or 'enter' to skip):");
 
-			int computerId = UtilsCli.getIntInput(UtilsCli.NO_MAX_VALUE);
-			if (computerId != UtilsCli.RESULT_SKIP) {
+			int computerId = HelperCli.getIntInput(HelperCli.NO_MAX_VALUE);
+			if (computerId != HelperCli.RESULT_SKIP) {
 				company = companyService.getByID(computerId);
 				if (company != null)
 					computer.setCompany(company);
@@ -193,8 +194,8 @@ public class ComputerCli {
 		showComputers();
 
 		System.out.println("\nchoose a computer to delete (ID of the computer):");
-		int id = UtilsCli.getIntInput(UtilsCli.NO_MAX_VALUE);
-		while (id == UtilsCli.RESULT_SKIP) {
+		int id = HelperCli.getIntInput(HelperCli.NO_MAX_VALUE);
+		while (id == HelperCli.RESULT_SKIP) {
 
 			System.out.println("\nERREUR: choose a computer to delete (ID of the computer):");
 		}

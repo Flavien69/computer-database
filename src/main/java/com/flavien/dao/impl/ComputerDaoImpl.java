@@ -12,8 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.flavien.dao.ComputerDao;
-import com.flavien.dao.utils.ComputerSpringMapper;
-import com.flavien.dto.ComputerMapperDTO;
+import com.flavien.dao.mapper.ComputerSpringMapper;
+import com.flavien.dto.mapper.ComputerMapperDTO;
 import com.flavien.exception.PersistenceException;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;

@@ -2,9 +2,6 @@ package com.flavien.models;
 
 import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 /**
  * 
  * Object model that represent a Computer.
@@ -15,8 +12,6 @@ public class Computer {
 	private String name;
 	private LocalDateTime introduced;
 	private LocalDateTime discontinued;
-	@Autowired
-	@Qualifier(value="secondaryFoo")
 	private Company company;
 
 	private Computer() {}

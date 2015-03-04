@@ -1,7 +1,9 @@
-package com.flavien.cli;
+package com.flavien.cli.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.flavien.cli.HelperCli;
 
 
 /**
@@ -87,7 +89,7 @@ public class Menu {
 
 		case QUIT:
 			System.exit(0);
-			UtilsCli.getScannerInstance().close();
+			HelperCli.getScannerInstance().close();
 			break;
 
 		default:
@@ -110,6 +112,6 @@ public class Menu {
 		System.out.println("\n****************************************************\n");
 
 		System.out.println("Choose a number :");
-		redirectUser(UtilsCli.getIntInput(MenuEntries.values().length));
+		redirectUser(HelperCli.getIntInput(MenuEntries.values().length));
 	}
 }

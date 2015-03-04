@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.flavien.dao.CompanyDao;
-import com.flavien.dao.utils.CompanySpringMapper;
+import com.flavien.dao.mapper.CompanySpringMapper;
 import com.flavien.exception.PersistenceException;
 import com.flavien.models.Company;
 

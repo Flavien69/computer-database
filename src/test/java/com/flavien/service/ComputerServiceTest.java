@@ -14,7 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.flavien.dao.ComputerDao;
-import com.flavien.dto.ComputerMapperDTO;
+import com.flavien.dto.mapper.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;

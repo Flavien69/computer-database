@@ -2,7 +2,6 @@ package com.flavien.service;
 
 import java.util.List;
 
-import com.flavien.dto.PageDTO;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 

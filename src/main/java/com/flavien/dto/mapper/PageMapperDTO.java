@@ -1,7 +1,8 @@
-package com.flavien.dto;
+package com.flavien.dto.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.flavien.dto.PageDTO;
 import com.flavien.models.Page;
 
 @Component 

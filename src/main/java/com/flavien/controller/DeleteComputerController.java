@@ -21,14 +21,13 @@ public class DeleteComputerController {
 	private ComputerService computerService;
 	@Autowired
 	private CompanyService companyService;
-	@Autowired
-	private Utils utils;
+
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public String doPost(@RequestParam("selection") String idsToDelete){
 		String[] array = idsToDelete.split(",");
 		for (String idString : array){
-			int id = utils.getInt(idString);
+			int id = Utils.getInt(idString);
 			if (id != Utils.ERROR)
 				this.computerService.deleteById(id);
 		}

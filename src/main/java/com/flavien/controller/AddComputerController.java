@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.flavien.dto.ComputerDTO;
-import com.flavien.dto.ComputerMapperDTO;
+import com.flavien.dto.mapper.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 import com.flavien.service.ComputerService;

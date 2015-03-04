@@ -8,25 +8,18 @@ import javax.validation.ConstraintViolation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.flavien.dto.validators.DateSettings;
 
 /**
  * Utils class to help implementing classes.
  *
  */
-@Component
+
 public class Utils {
 	private final static Logger logger = LoggerFactory.getLogger(Utils.class);
 	public static final String INT_REGEX = "^[0-9]*$";
 	//public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
 	//public static final String DATE_REGEX = "^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])[\\s||T][0-9][0-9]:[0-9][0-9]$";
 	public static final int ERROR = 0;
-
-	@Autowired
-	private DateSettings DateSettings;
 
 	/**
 	 * Convert a string to int.
@@ -35,7 +28,7 @@ public class Utils {
 	 * @return Int
 	 * @throws RuntimeException
 	 */
-	public int getInt(String valeurString) {
+	public static int getInt(String valeurString) {
 		int valeur = 0;
 
 		if (valeurString != null && !valeurString.isEmpty() && isMatch(INT_REGEX, valeurString)) {
@@ -60,11 +53,11 @@ public class Utils {
 	 * @return LocalDateTime
 	 * @throws RuntimeException
 	 */
-	public LocalDateTime getLocalDateTime(String dateInString) {
+	public static LocalDateTime getLocalDateTime(String dateInString, String pattern) {
 		if (dateInString.isEmpty())
 			return null;
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateSettings.getDatePattern());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 		dateInString = dateInString.replaceAll("T", " ");
 		try {
 			LocalDateTime dateTime = LocalDateTime.parse(dateInString, formatter);
@@ -75,17 +68,17 @@ public class Utils {
 		}
 	}
 
-	public String getErrorFromViolation(
+	public static String getErrorFromViolation(
 			@SuppressWarnings("rawtypes") ConstraintViolation constraintViolation) {
 		return "Value '" + constraintViolation.getInvalidValue() + "' is invalid for the field '"
 				+ constraintViolation.getPropertyPath() + "' : " + constraintViolation.getMessage();
 	}
 
-	public boolean isLocalDateTime(String dateInString) {
-		return isMatch(DateSettings.getDateRegex(), dateInString);
+	public static boolean isLocalDateTime(String dateInString, String regex) {
+		return isMatch(regex, dateInString);
 	}
 
-	private Boolean isMatch(String regex, String input) {
+	private static Boolean isMatch(String regex, String input) {
 		Pattern p = Pattern.compile(regex);
 		return p.matcher(input).matches();
 	}

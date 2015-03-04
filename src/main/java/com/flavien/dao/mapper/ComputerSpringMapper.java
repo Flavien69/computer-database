@@ -1,4 +1,4 @@
-package com.flavien.dao.utils;
+package com.flavien.dao.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import com.flavien.dao.DateUtils;
 import com.flavien.dao.impl.ComputerDaoImpl;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<jsp:include page="/views/include/header.jsp" />
+<jsp:include page="include/header.jsp" />
 <section id="main">
 	<div class="container">
 		<h1 id="homeTitle">
@@ -99,4 +99,4 @@
 	strings['edit_button'] = "<spring:message code='dashboard.edit_button' javaScriptEscape='true' />";
 </script>
 
-<jsp:include page="/views/include/footer.jsp" />
+<jsp:include page="include/footer.jsp" />

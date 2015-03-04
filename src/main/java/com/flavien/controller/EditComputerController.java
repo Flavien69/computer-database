@@ -49,7 +49,7 @@ public class EditComputerController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String doPost(@ModelAttribute("computer") @Valid ComputerDTO computerDTO,
-			BindingResult bindingResult, @RequestParam("companyId") int companyId, ModelMap map) {
+			BindingResult bindingResult, ModelMap map) {
 		
 		if (bindingResult.hasErrors()) {
 			List<Company> companies = this.companyService.getAll();
@@ -57,8 +57,6 @@ public class EditComputerController {
 			return "editComputer";
 		}
 		
-		Company company = new Company.Builder().id(companyId).build();
-		computerDTO.setCompany(company);
 		this.computerService.update(computerMapperDTO.fromDto(computerDTO));
 		logger.info("Edit the computer");
 		return "redirect:/dashboard";

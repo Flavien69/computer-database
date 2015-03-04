@@ -44,7 +44,7 @@ public class AddComputerController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String doPost(@ModelAttribute("computerDTO") @Valid ComputerDTO computerDTO,
-			BindingResult bindingResult, @RequestParam("companyId") int companyId, ModelMap map) {
+			BindingResult bindingResult, ModelMap map) {
 
 		if (bindingResult.hasErrors()) {
 			List<Company> companies = this.companyService.getAll();
@@ -52,8 +52,6 @@ public class AddComputerController {
 			return "addComputer";
 		}
 
-		Company company = new Company.Builder().id(companyId).build();
-		computerDTO.setCompany(company);
 		this.computerService.add(computerMapperDTO.fromDto(computerDTO));
 		logger.info("add the computer");
 		return "redirect:/dashboard";

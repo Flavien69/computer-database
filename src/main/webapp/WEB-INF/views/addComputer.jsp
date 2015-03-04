@@ -4,23 +4,18 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<jsp:include page="/views/include/header.jsp" />
+<jsp:include page="include/header.jsp" />
 <section id="main">
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-8 col-xs-offset-2 box">
-				<div class="label label-default pull-right">${computer.id}</div>
 
 				<h1>
-					<spring:message code="computer_form.edit_computer_title" />
+					<spring:message code="computer_form.add_computer_title" />
 				</h1>
-				<form:form modelAttribute="computer" action="edit-computer"
+				<form:form modelAttribute="computerDTO" action="add-computer"
 					method="POST">
 					<fieldset>
-						<div class="form-group">
-							<form:input type="hidden" class="form-control" id="id" name="id"
-								path="id" value="${computer.id}"></form:input>
-						</div>
 						<div class="form-group">
 							<spring:message code="computer_form.name_placeholder"
 								var="name_placeholder" />
@@ -36,7 +31,7 @@
 								var="introduced_placeholder" />
 							<label for="introduced"><spring:message
 									code="computer_form.introduced_label" /></label>
-							<form:input  class="form-control"
+							<form:input class="form-control"
 								id="introduced" name="introduced"
 								placeholder="${introduced_placeholder}" path="introduced"></form:input>
 							<form:errors path="introduced" cssClass="error"></form:errors>
@@ -55,8 +50,8 @@
 						</div>
 						<div class="form-group">
 							<label for="companyId"><spring:message
-									code="computer_form.company_label" /></label> <select
-								class="form-control" id="companyId" name="companyId">
+									code="computer_form.company_label" /></label> <form:select
+								class="form-control" id="company.id" name="company.id" path="company.id">
 								<c:forEach items="${companies}" var="company">
 									<c:choose>
 										<c:when test="${computer.company.id == 0}">
@@ -75,19 +70,19 @@
 								</c:forEach>
 								<c:choose>
 									<c:when test="${computer.company.id == 0}">
-										<option value="${company.id}" selected>No company</option>
+										<option value="0" selected>No company</option>
 									</c:when>
 									<c:otherwise>
-										<option value="${company.id}">No company</option>
+										<option value="0">No company</option>
 									</c:otherwise>
 								</c:choose>
 
-							</select>
+							</form:select>
 						</div>
 					</fieldset>
 					<div class="actions pull-right">
-						<spring:message code="computer_form.edit_button" var="edit" />
-						<input type="submit" value="${edit}"
+						<spring:message code="computer_form.add_button" var="add" />
+						<input type="submit" value="${add}"
 							class="btn btn-primary validation">
 						<spring:message code="computer_form.button_separator" />
 						<a href="<c:url value="dashboard"/>" class="btn btn-default"><spring:message
@@ -98,7 +93,6 @@
 		</div>
 	</div>
 </section>
-
 <script type="text/javascript">
 	var strings = new Array();
 	strings['date_regex'] = "<spring:message code='date.regex' javaScriptEscape='true' />";

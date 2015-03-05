@@ -11,24 +11,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.flavien.dao.repository.ComputerRepository;
-import com.flavien.dto.mapper.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.impl.ComputerServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
+@ContextConfiguration(locations = { "classpath:spring/application-context-dao-test.xml" })
 public class ComputerServiceTest {
 	private ComputerService cut;
 	@Mock
 	private ComputerRepository computerRepository;
 	private Computer computer;
 	private List<Computer> computers;
-	@Autowired
-	private ComputerMapperDTO computerMapperDTO;
 	private Page page;
 	private static final int COUNT_TOTAL = 20;
 
@@ -45,7 +43,6 @@ public class ComputerServiceTest {
 		page.setIndex(1);
 		page.setNbEntityByPage(10);
 		page.setSearch("test");
-		page.setComputerList(computerMapperDTO.listToDto(computers));
 
 		when(computerRepository.findAll()).thenReturn(computers);
 		when(computerRepository.findOne(3)).thenReturn(computer);

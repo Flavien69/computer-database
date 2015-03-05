@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.flavien.models.Computer;
 
@@ -17,6 +18,7 @@ public interface ComputerRepository extends PagingAndSortingRepository<Computer,
 	 * 
 	 * @return List<Computer>
 	 */
+	@Transactional
 	public List<Computer> findAll();
 	
 	/**
@@ -26,7 +28,8 @@ public interface ComputerRepository extends PagingAndSortingRepository<Computer,
 	 * @param companyName
 	 * @param pageable
 	 */
-	Page<Computer> findByNameContainingOrCompanyNameContaining(String name, String companyName, Pageable pageable);
+	@Transactional
+	public Page<Computer> findByNameContainingOrCompanyNameContaining(String name, String companyName, Pageable pageable);
 
 	/**
 	 * Delete all the computers where the company match in the database. Need to
@@ -35,6 +38,7 @@ public interface ComputerRepository extends PagingAndSortingRepository<Computer,
 	 * 
 	 * @param companyId
 	 */
+	@Transactional
 	public void deleteByCompanyId(int companyId);
 
 	/**
@@ -44,7 +48,7 @@ public interface ComputerRepository extends PagingAndSortingRepository<Computer,
 	 *            of the computer to match
 	 * @return the number of computer find in the database.
 	 */
-	
+	@Transactional
 	@Query(value = "SELECT COUNT(*) AS count FROM computer LEFT JOIN company ON "
 			+ "computer.company_id=company.id WHERE computer.name like %:search% or "
 			+ "company.name like %:search%",nativeQuery = true)
@@ -57,6 +61,7 @@ public interface ComputerRepository extends PagingAndSortingRepository<Computer,
 	 *            of the computer to match.
 	 * @return all the computers matching the name find in the database.
 	 */
+	@Transactional
 	public List<Computer> findByName(String name);
 	
 }

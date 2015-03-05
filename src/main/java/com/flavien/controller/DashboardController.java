@@ -24,7 +24,6 @@ public class DashboardController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String doGet(Page page, ModelMap map) {
-
 		page = this.computerService.getByPage(page);
 		map.addAttribute("page", page);
 		logger.info("return the page to the dashboard");

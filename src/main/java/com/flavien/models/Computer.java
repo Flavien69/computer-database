@@ -1,21 +1,49 @@
 package com.flavien.models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 /**
  * 
  * Object model that represent a Computer.
  * 
  */
-public class Computer {
+@Entity
+@Table(name="computer")
+public class Computer implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
+	@Column(name="id")
 	private int id;
+	
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="introduced")
+	@Type(type="com.flavien.dao.mapper.LocalDateTimeUserType")
 	private LocalDateTime introduced;
+	
+	@Column(name="discontinued")
+	@Type(type="com.flavien.dao.mapper.LocalDateTimeUserType")
 	private LocalDateTime discontinued;
+	
+	@OneToOne
 	private Company company;
 
-	private Computer() {}
+	public Computer() {}
 
+	
 	public int getId() {
 		return id;
 	}

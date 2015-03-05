@@ -11,16 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.flavien.dao.repository.ComputerRepository;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
-import com.flavien.models.Page;
 import com.flavien.utils.ScriptRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/application-context-dao-test.xml" })
-public class ComputerDaoTest {
+public class ComputerRepositoryTest {
 	@Autowired
-	private ComputerDao cut;
+	private ComputerRepository cut;
 	@Mock
 	private Company company;
 
@@ -34,7 +34,7 @@ public class ComputerDaoTest {
 
 	@Test
 	public void testGetById() {
-		Computer computer = cut.getByID(2);
+		Computer computer = cut.findOne(2);
 		Computer computerMatcher = new Computer.Builder().id(2).name("CM-2a").build();
 
 		Assert.assertEquals(computer.getId(), 2);
@@ -52,7 +52,7 @@ public class ComputerDaoTest {
 
 	@Test
 	public void testDelete() {
-		cut.deleteById(3);
+		cut.delete(3);
 		int count = cut.getCount("");
 		Assert.assertEquals(count, ScriptRunner.COUNT_TOTAL_COMPUTER - 1);
 	}
@@ -61,35 +61,22 @@ public class ComputerDaoTest {
 	public void testAdd() {
 		Computer computer = new Computer.Builder().name("test").build();
 
-		cut.add(computer);
+		cut.save(computer);
 		int count = cut.getCount("");
 		Assert.assertEquals(count, ScriptRunner.COUNT_TOTAL_COMPUTER + 1);
 	}
 
 	@Test
-	public void testGetByPage() {
-		Page page = new Page();
-		page.setIndex(10000);
-		page.setNbEntityByPage(10);
-		Page p = cut.getByPage(page);
-		Assert.assertEquals(p.getComputerList().size(), 0);
-
-		p.setIndex(0);
-		p = cut.getByPage(p);
-		Assert.assertEquals(p.getComputerList().size(), 10);
-	}
-
-	@Test
 	public void testGetAll() {
-		List<Computer> computers = cut.getAll();
+		List<Computer> computers = cut.findAll();
 		Assert.assertEquals(computers.size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
 	}
 
 	@Test
 	public void testDeleteByCompany() {
-		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
+		Assert.assertEquals(cut.findAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER);
 
 		cut.deleteByCompanyId(3);
-		Assert.assertEquals(cut.getAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER - 2);
+		Assert.assertEquals(cut.findAll().size(), ScriptRunner.COUNT_TOTAL_COMPUTER - 2);
 	}
 }

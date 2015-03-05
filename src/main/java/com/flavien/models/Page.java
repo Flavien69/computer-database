@@ -29,7 +29,7 @@ public class Page {
 	}
 
 	public enum SortCriteria {
-		ID, NAME, DATE_DISCONTINUED, DATE_INTRODUCED, COMPANY_NAME;
+		ID, NAME, DISCONTINUED, INTRODUCED, COMPANY_NAME;
 	}
 
 	public enum SortOrder {

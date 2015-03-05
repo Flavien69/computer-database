@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.flavien.dao.CompanyDao;
-import com.flavien.dao.ComputerDao;
-import com.flavien.exception.PersistenceException;
-import com.flavien.exception.ServiceException;
+import com.flavien.dao.repository.CompanyRepository;
+import com.flavien.dao.repository.ComputerRepository;
 import com.flavien.models.Company;
 import com.flavien.service.CompanyService;
 
@@ -22,18 +20,17 @@ import com.flavien.service.CompanyService;
 public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
-	private CompanyDao companyDao;
-	
+	private CompanyRepository companyRepository;
+
 	@Autowired
-	private ComputerDao computerDao;
-	
+	private ComputerRepository computerRepository;
+
 	public CompanyServiceImpl() {
 	}
 
-	
-	public CompanyServiceImpl(CompanyDao companyDao, ComputerDao computerDao) {
-		this.companyDao = companyDao;
-		this.computerDao = computerDao;
+	public CompanyServiceImpl(CompanyRepository companyRepository, ComputerRepository computerRepository) {
+		this.computerRepository = computerRepository;
+		this.companyRepository = companyRepository;
 	}
 
 	/*
@@ -43,7 +40,7 @@ public class CompanyServiceImpl implements CompanyService {
 	 */
 	@Override
 	public List<Company> getAll() {
-		return companyDao.getAll();
+		return companyRepository.findAll();
 	}
 
 	/*
@@ -53,7 +50,7 @@ public class CompanyServiceImpl implements CompanyService {
 	 */
 	@Override
 	public Company getByID(int companyId) {
-		return companyDao.getByID(companyId);
+		return companyRepository.findOne(companyId);
 	}
 
 	/*
@@ -62,21 +59,10 @@ public class CompanyServiceImpl implements CompanyService {
 	 * @see com.flavien.service.CompanyService#deleteByID(int)
 	 */
 	@Override
-	@Transactional(rollbackFor=PersistenceException.class)
+	@Transactional(readOnly = false)
 	public void deleteByID(int companyId) {
-		try{
-		computerDao.deleteByCompanyId(companyId);
-		companyDao.deleteByID(companyId);
-		}catch(PersistenceException e){
-			throw new ServiceException(e);
-		}
-	}
+		computerRepository.deleteByCompanyId(companyId);
+		companyRepository.delete(companyId);
 
-	public void setCompanyDao(CompanyDao companyDao) {
-		this.companyDao = companyDao;
-	}
-
-	public void setComputerDao(ComputerDao computerDao) {
-		this.computerDao = computerDao;
 	}
 }

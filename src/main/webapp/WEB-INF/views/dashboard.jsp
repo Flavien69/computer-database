@@ -57,9 +57,9 @@
 						</a>
 					</span></th>
 					<th><a href="<mylib:link target="dashboard" sortCriteria="NAME"/>"><spring:message code="dashboard.name_label" /></a></th>
-					<th><a href="<mylib:link target="dashboard" sortCriteria="DATE_INTRODUCED"/>"><spring:message code="dashboard.introduced_label" /></a></th>
+					<th><a href="<mylib:link target="dashboard" sortCriteria="INTRODUCED"/>"><spring:message code="dashboard.introduced_label" /></a></th>
 					<!-- Table header for Discontinued Date -->
-					<th><a href="<mylib:link target="dashboard" sortCriteria="DATE_DISCONTINUED"/>"><spring:message code="dashboard.discontinued_label" /></a></th>
+					<th><a href="<mylib:link target="dashboard" sortCriteria="DISCONTINUED"/>"><spring:message code="dashboard.discontinued_label" /></a></th>
 					<!-- Table header for Company -->
 					<th><a href="<mylib:link target="dashboard" sortCriteria="COMPANY_NAME"/>"><spring:message code="dashboard.company_label" /></a></th>
 

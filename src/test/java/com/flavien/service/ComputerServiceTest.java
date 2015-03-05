@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.flavien.dao.ComputerDao;
+import com.flavien.dao.repository.ComputerRepository;
 import com.flavien.dto.mapper.ComputerMapperDTO;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
@@ -24,7 +24,7 @@ import com.flavien.service.impl.ComputerServiceImpl;
 public class ComputerServiceTest {
 	private ComputerService cut;
 	@Mock
-	private ComputerDao computerDao;
+	private ComputerRepository computerRepository;
 	private Computer computer;
 	private List<Computer> computers;
 	@Autowired
@@ -47,12 +47,11 @@ public class ComputerServiceTest {
 		page.setSearch("test");
 		page.setComputerList(computerMapperDTO.listToDto(computers));
 
-		when(computerDao.getAll()).thenReturn(computers);
-		when(computerDao.getByID(3)).thenReturn(computer);
-		when(computerDao.getByPage(page)).thenReturn(page);
-		when(computerDao.getCount("test")).thenReturn(10);
+		when(computerRepository.findAll()).thenReturn(computers);
+		when(computerRepository.findOne(3)).thenReturn(computer);
+		when(computerRepository.getCount("test")).thenReturn(10);
 
-		cut = new ComputerServiceImpl(computerDao);
+		cut = new ComputerServiceImpl(computerRepository);
 	}
 
 	@Test
@@ -68,14 +67,5 @@ public class ComputerServiceTest {
 
 		computerReturn = cut.getByID(300);
 		Assert.assertNull(computerReturn);
-	}
-
-	@Test
-	public void TestGetPage() {
-
-		page.setSearch("test");
-		Page p = cut.getByPage(page);
-		Assert.assertEquals(p.getComputerList().size(), computerMapperDTO.listToDto(computers).size());
-
 	}
 }

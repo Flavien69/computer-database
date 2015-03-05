@@ -1,12 +1,28 @@
 package com.flavien.models;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 /**
  * 
  * Object model that represent a Company.
  * 
  */
-public class Company {
+@Entity
+@Table(name="company")
+public class Company implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue
+	@Column(name="id")
 	private int id;
+
+	@Column(name="name")
 	private String name;
 
 	public Company() {}

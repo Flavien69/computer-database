@@ -17,8 +17,8 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
-import com.flavien.dao.CompanyDao;
-import com.flavien.dao.ComputerDao;
+import com.flavien.dao.repository.CompanyRepository;
+import com.flavien.dao.repository.ComputerRepository;
 import com.flavien.models.Company;
 import com.flavien.models.Computer;
 import com.flavien.service.impl.CompanyServiceImpl;
@@ -28,9 +28,9 @@ import com.flavien.utils.ScriptRunner;
 public class CompanyServiceTest {
 	private CompanyService cut;
 	@Mock
-	private CompanyDao companyDao;
+	private CompanyRepository companyRepository;
 	@Mock
-	private ComputerDao computerDao;
+	private ComputerRepository computerRepository;
 	@Mock
 	private Connection connection;
 	private Company company;
@@ -51,14 +51,14 @@ public class CompanyServiceTest {
 			computers.add(computer);
 
 		//Mock the companyDao
-		when(companyDao.getAll()).thenReturn(companies);
-		when(companyDao.getByID(2)).thenReturn(company);
+		when(companyRepository.findAll()).thenReturn(companies);
+		when(companyRepository.findOne(2)).thenReturn(company);
 		doAnswer(new Answer<Object>() {
 			public Object answer(InvocationOnMock invocation) {
 				companies.remove(2);
 				return null;
 			}
-		}).when(companyDao).deleteByID(any(int.class));
+		}).when(companyRepository).delete(any(int.class));
 		
 		//Mock the computerDao
 		doAnswer(new Answer<Object>() {
@@ -67,9 +67,9 @@ public class CompanyServiceTest {
 				computers.remove(5);
 				return null;
 			}
-		}).when(computerDao).deleteByCompanyId(any(int.class));
+		}).when(computerRepository).deleteByCompanyId(any(int.class));
 
-		cut = new CompanyServiceImpl(companyDao, computerDao);
+		cut = new CompanyServiceImpl(companyRepository, computerRepository);
 	}
 
 	@Test

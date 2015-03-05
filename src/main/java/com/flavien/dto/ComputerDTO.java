@@ -72,7 +72,7 @@ public class ComputerDTO {
 			str += ", introduced="+ introduced;
 		if(discontinued != null)
 			str += ", discontinued=" + discontinued;
-		if(company.getId() != 0)
+		if(company != null && company.getId() != 0)
 			str += ",\t"+company.toString();
 		str += "]";
 		

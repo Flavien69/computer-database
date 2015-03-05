@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.flavien.dao.ComputerDao;
-import com.flavien.dto.mapper.PageMapperDTO;
-import com.flavien.exception.PersistenceException;
-import com.flavien.exception.ServiceException;
+import com.flavien.dao.mapper.PageRequestMapper;
+import com.flavien.dao.repository.ComputerRepository;
+import com.flavien.dto.mapper.ComputerMapperDTO;
 import com.flavien.models.Computer;
 import com.flavien.models.Page;
 import com.flavien.service.ComputerService;
@@ -21,16 +20,21 @@ import com.flavien.service.ComputerService;
  */
 @Service
 public class ComputerServiceImpl implements ComputerService {
+
 	@Autowired
-	private ComputerDao computerDao;
+	private ComputerMapperDTO computerMapperDTO;
+
 	@Autowired
-	private PageMapperDTO pageMapperDTO;
+	private PageRequestMapper pageRequestMapper;
+
+	@Autowired
+	private ComputerRepository computerRepository;
 
 	public ComputerServiceImpl() {
 	}
 
-	public ComputerServiceImpl(ComputerDao computerDao) {
-		this.computerDao = computerDao;
+	public ComputerServiceImpl(ComputerRepository computerRepository) {
+		this.computerRepository = computerRepository;
 	}
 
 	/*
@@ -40,7 +44,7 @@ public class ComputerServiceImpl implements ComputerService {
 	 */
 	@Override
 	public void add(Computer computer) {
-		computerDao.add(computer);
+		computerRepository.save(computer);
 	}
 
 	/*
@@ -50,7 +54,7 @@ public class ComputerServiceImpl implements ComputerService {
 	 */
 	@Override
 	public List<Computer> getAll() {
-		return computerDao.getAll();
+		return computerRepository.findAll();
 	}
 
 	/*
@@ -61,17 +65,16 @@ public class ComputerServiceImpl implements ComputerService {
 	 * java.lang.String)
 	 */
 	@Override
-	@Transactional(readOnly = true, rollbackFor = PersistenceException.class)
+	@Transactional()
 	public Page getByPage(Page page) {
-		try {
-			int count = computerDao.getCount(page.getSearch());
-			page = computerDao.getByPage(page);
-			page.setNbTotalComputer(count);
 
-		} catch (PersistenceException e) {
-			throw new ServiceException(e);
-		}
+		int count = computerRepository.getCount(page.getSearch());
 
+		page.setComputerList(computerMapperDTO.listToDto(computerRepository
+				.findByNameContainingOrCompanyNameContaining(page.getSearch(), page.getSearch(),
+						pageRequestMapper.toPageRequest(page)).getContent()));
+		
+		page.setNbTotalComputer(count);
 		return page;
 	}
 
@@ -82,7 +85,7 @@ public class ComputerServiceImpl implements ComputerService {
 	 */
 	@Override
 	public void deleteById(int computerId) {
-		computerDao.deleteById(computerId);
+		computerRepository.delete(computerId);
 	}
 
 	/*
@@ -93,7 +96,7 @@ public class ComputerServiceImpl implements ComputerService {
 	 */
 	@Override
 	public void update(Computer computer) {
-		computerDao.update(computer);
+		computerRepository.save(computer);
 	}
 
 	/*
@@ -103,7 +106,7 @@ public class ComputerServiceImpl implements ComputerService {
 	 */
 	@Override
 	public Computer getByID(int computerId) {
-		return computerDao.getByID(computerId);
+		return computerRepository.findOne(computerId);
 	}
 
 	/*
@@ -113,7 +116,7 @@ public class ComputerServiceImpl implements ComputerService {
 	 */
 	@Override
 	public List<Computer> getByName(String name) {
-		return computerDao.getByName(name);
+		return computerRepository.findByName(name);
 
 	}
 

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8b0a236-da44-4682-8895-0f645f62a26b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/computer-database-binding/computer-database-binding.iml" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/META-INF/MANIFEST.MF" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/cli/HelperCli.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/cli/Launcher.java" afterPath="" />
@@ -98,7 +97,7 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/db/reset.sql" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/db/script.sh" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/spring/application-context-dao-test.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-webapp" afterPath="$PROJECT_DIR$/computer-database-webapp" />
     </list>
     <ignored path="computer-database.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -827,12 +826,12 @@
       <option name="number" value="Default" />
       <updated>1425896737543</updated>
       <workItem from="1425896739530" duration="101000" />
-      <workItem from="1425897635160" duration="2199000" />
+      <workItem from="1425897635160" duration="2340000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2300000" />
+    <option name="totallyTimeSpent" value="2441000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="25" width="1922" height="1176" extended-state="6" />

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/computer-database.iml" filepath="$PROJECT_DIR$/computer-database.iml" />
+      <module fileurl="file://$PROJECT_DIR$/computer-database-binding/computer-database-binding.iml" filepath="$PROJECT_DIR$/computer-database-binding/computer-database-binding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/computer-database-core/computer-database-core.iml" filepath="$PROJECT_DIR$/computer-database-core/computer-database-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/computer-database-core/computer-database-core.iml" filepath="$PROJECT_DIR$/computer-database-core/computer-database-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/computer-database-persistence/computer-database-persistence.iml" filepath="$PROJECT_DIR$/computer-database-persistence/computer-database-persistence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/computer-database-service/computer-database-service.iml" filepath="$PROJECT_DIR$/computer-database-service/computer-database-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/computer-database-webapp/computer-database-webapp.iml" filepath="$PROJECT_DIR$/computer-database-webapp/computer-database-webapp.iml" />
+    </modules>
+  </component>
+</project>

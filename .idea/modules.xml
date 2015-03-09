@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/computer-database.iml" filepath="$PROJECT_DIR$/computer-database.iml" />
       <module fileurl="file://$PROJECT_DIR$/computer-database-binding/computer-database-binding.iml" filepath="$PROJECT_DIR$/computer-database-binding/computer-database-binding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/computer-database-console/computer-database-console.iml" filepath="$PROJECT_DIR$/computer-database-console/computer-database-console.iml" />
       <module fileurl="file://$PROJECT_DIR$/computer-database-core/computer-database-core.iml" filepath="$PROJECT_DIR$/computer-database-core/computer-database-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/computer-database-core/computer-database-core.iml" filepath="$PROJECT_DIR$/computer-database-core/computer-database-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/computer-database-persistence/computer-database-persistence.iml" filepath="$PROJECT_DIR$/computer-database-persistence/computer-database-persistence.iml" />

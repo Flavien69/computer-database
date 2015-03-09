@@ -24,6 +24,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="computer-database-binding" />
+        <module name="computer-database-console" />
         <module name="computer-database-core" />
         <module name="computer-database-persistence" />
         <module name="computer-database-service" />
@@ -33,6 +34,7 @@
     <bytecodeTargetLevel>
       <module name="computer-database" target="1.8" />
       <module name="computer-database-binding" target="1.8" />
+      <module name="computer-database-console" target="1.8" />
       <module name="computer-database-core" target="1.8" />
       <module name="computer-database-persistence" target="1.8" />
       <module name="computer-database-service" target="1.8" />

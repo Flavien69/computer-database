@@ -15,7 +15,7 @@ import com.flavien.models.Company;
 import com.flavien.utils.ScriptRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/application-context-persistence-test.xml" })
+@ContextConfiguration(locations = { "classpath:spring/application-context-dao-test.xml" })
 public class CompanyRepositoryTest {
 	@Autowired
 	private CompanyRepository cut;

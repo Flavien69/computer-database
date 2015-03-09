@@ -2,102 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e8b0a236-da44-4682-8895-0f645f62a26b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/cli/HelperCli.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/cli/Launcher.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/cli/component/CompanyCli.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/cli/component/ComputerCli.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/cli/component/Menu.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/cli/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/controller/AddComputerController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/controller/DashboardController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/controller/DeleteComputerController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/controller/EditComputerController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/controller/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dao/DateUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dao/mapper/LocalDateTimeUserType.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dao/mapper/PageRequestMapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dao/mapper/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dao/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dao/repository/CompanyRepository.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dao/repository/ComputerRepository.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/ComputerDTO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/PageDTO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/mapper/ComputerMapperDTO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/mapper/PageMapperDTO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/validators/Date.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/validators/DateValidator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/validators/DtoValidator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/dto/validators/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/exception/PersistenceException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/exception/ServiceException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/exception/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/models/Company.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/models/Computer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/models/Page.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/models/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/service/CompanyService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/service/ComputerService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/service/impl/CompanyServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/service/impl/ComputerServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/service/impl/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/service/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/utils/Utils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/flavien/utils/package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/db/db.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/messages_en.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/messages_fr.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/spring/application-context.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/link.tag" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/pagination.tag" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/403.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/404.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/500.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addComputer.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/dashboard.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editComputer.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/include/footer.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/include/header.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/bootstrap-theme.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/bootstrap-theme.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/bootstrap-theme.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/bootstrap.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/bootstrap.css.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/bootstrap.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/font-awesome.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/font-awesome.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/css/main.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/FontAwesome.otf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/fontawesome-webfont.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/fontawesome-webfont.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/fontawesome-webfont.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/fontawesome-webfont.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/js/bootstrap.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/js/bootstrap.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/js/dashboard.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/js/jquery.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/js/verify.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/flavien/dao/CompanyRepositoryTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/flavien/dao/ComputerRepositoryTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/flavien/integration/DashboardTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/flavien/models/CompanyTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/flavien/models/ComputerTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/flavien/service/CompanyServiceTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/flavien/service/ComputerServiceTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/flavien/utils/ScriptRunner.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/db/db.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/db/reset.sql" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/db/script.sh" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/resources/spring/application-context-dao-test.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-webapp" afterPath="$PROJECT_DIR$/computer-database-webapp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_el_javax_el_api_2_2_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_web_javax_el_2_2_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/computer-database-console/computer-database-console.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/computer-database-service/src/main/java/lol.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/CompanyRepositoryTest.java" afterPath="$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/CompanyRepositoryTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-service/src/test/java/com/flavien/service/CompanyServiceTest.java" afterPath="$PROJECT_DIR$/computer-database-service/src/test/java/com/flavien/service/CompanyServiceTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/ComputerRepositoryTest.java" afterPath="$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/ComputerRepositoryTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-persistence/src/main/resources/application-context-persistence.xml" afterPath="$PROJECT_DIR$/computer-database-persistence/src/main/resources/application-context-persistence.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-service/src/main/resources/application-context-service.xml" afterPath="$PROJECT_DIR$/computer-database-service/src/main/resources/application-context-service.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-persistence/computer-database-persistence.iml" afterPath="$PROJECT_DIR$/computer-database-persistence/computer-database-persistence.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/computer-database-service/computer-database-service.iml" afterPath="$PROJECT_DIR$/computer-database-service/computer-database-service.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="computer-database.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -108,6 +29,7 @@
     <ignored path="$PROJECT_DIR$/computer-database-service/target/" />
     <ignored path="$PROJECT_DIR$/computer-database-binding/target/" />
     <ignored path=".idea/dataSources.local.xml" />
+    <ignored path="$PROJECT_DIR$/computer-database-console/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,18 +53,8 @@
       <file leaf-file-name="computer-database.iml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/computer-database.iml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1242">
-              <caret line="10" column="73" selection-start-line="10" selection-start-column="73" selection-end-line="10" selection-end-column="73" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application-context.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/resources/application-context.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.6" vertical-offset="0" max-vertical-offset="306">
-              <caret line="5" column="67" selection-start-line="5" selection-start-column="67" selection-end-line="5" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1242">
+              <caret line="10" column="55" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -151,7 +63,7 @@
       <file leaf-file-name="addComputer.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/addComputer.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="1962">
+            <state vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1962">
               <caret line="3" column="73" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
               <folding />
             </state>
@@ -161,7 +73,7 @@
       <file leaf-file-name="500.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/500.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.3333333" vertical-offset="0" max-vertical-offset="360">
+            <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="360">
               <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
               <folding />
             </state>
@@ -171,31 +83,49 @@
       <file leaf-file-name="404.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/404.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="378">
+            <state vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="378">
               <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="403.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="403.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/403.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.07017544" vertical-offset="0" max-vertical-offset="513">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="396">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompanyRepositoryTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CompanyRepositoryTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/CompanyRepositoryTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="1044">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.33333334" vertical-offset="24" max-vertical-offset="1026">
+              <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/computer-database-persistence/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1188">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ScriptRunner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/computer-database-core/src/test/java/com/flavien/utils/ScriptRunner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -203,10 +133,11 @@
       <file leaf-file-name="ComputerRepositoryTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/ComputerRepositoryTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="1566">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1548">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <marker date="1425910253682" expanded="true" signature="2107:2190" placeholder="//..." />
               </folding>
             </state>
           </provider>
@@ -215,21 +146,11 @@
       <file leaf-file-name="CompanyServiceTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/computer-database-service/src/test/java/com/flavien/service/CompanyServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="618" max-vertical-offset="1872">
-              <caret line="55" column="45" selection-start-line="55" selection-start-column="45" selection-end-line="55" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="636" max-vertical-offset="1890">
+              <caret line="56" column="45" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="db.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/main/resources/db/db.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -295,6 +216,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -313,153 +235,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database-webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database-webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database-webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database-webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database-webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="WEB-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="computer-database-webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -826,16 +603,17 @@
       <option name="number" value="Default" />
       <updated>1425896737543</updated>
       <workItem from="1425896739530" duration="101000" />
-      <workItem from="1425897635160" duration="2340000" />
+      <workItem from="1425897635160" duration="3705000" />
+      <workItem from="1425916221806" duration="132000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2441000" />
+    <option name="totallyTimeSpent" value="3938000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="25" width="1922" height="1176" extended-state="6" />
-    <editor active="false" />
+    <frame x="-1" y="25" width="1922" height="1176" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -851,12 +629,12 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924527" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32924527" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46509433" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46509433" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -895,6 +673,83 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/computer-database.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1242">
+          <caret line="10" column="73" selection-start-line="10" selection-start-column="73" selection-end-line="10" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/addComputer.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1962">
+          <caret line="3" column="73" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/500.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="360">
+          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/404.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="378">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/403.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="396">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/CompanyRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="846">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/ComputerRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1548">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1425910253682" expanded="true" signature="2107:2190" placeholder="//..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-service/src/test/java/com/flavien/service/CompanyServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="636" max-vertical-offset="1890">
+          <caret line="56" column="45" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/main/resources/db/db.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2322" max-vertical-offset="3888">
@@ -907,7 +762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
           <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -915,7 +769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
           <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -923,7 +776,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="2016">
           <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -935,30 +787,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/CompanyRepositoryTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="1044">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/ComputerRepositoryTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="1566">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="1584">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1425910253682" expanded="true" signature="2107:2190" placeholder="//..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/computer-database-service/src/test/java/com/flavien/service/CompanyServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="618" max-vertical-offset="1872">
-          <caret line="55" column="45" selection-start-line="55" selection-start-column="45" selection-end-line="55" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="636" max-vertical-offset="1890">
+          <caret line="56" column="45" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -967,23 +810,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/computer-database.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1242">
-          <caret line="10" column="73" selection-start-line="10" selection-start-column="73" selection-end-line="10" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/resources/application-context.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.6" vertical-offset="0" max-vertical-offset="306">
-          <caret line="5" column="67" selection-start-line="5" selection-start-column="67" selection-end-line="5" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1242">
+          <caret line="10" column="55" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/addComputer.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="1962">
+        <state vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="1962">
           <caret line="3" column="73" selection-start-line="3" selection-start-column="73" selection-end-line="3" selection-end-column="73" />
           <folding />
         </state>
@@ -991,7 +826,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/500.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.3333333" vertical-offset="0" max-vertical-offset="360">
+        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="360">
           <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
           <folding />
         </state>
@@ -999,7 +834,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/404.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3333334" vertical-offset="0" max-vertical-offset="378">
+        <state vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="378">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
@@ -1007,8 +842,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/computer-database-webapp/src/main/webapp/WEB-INF/views/403.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07017544" vertical-offset="0" max-vertical-offset="513">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="72" max-vertical-offset="396">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-core/src/test/java/com/flavien/utils/ScriptRunner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-persistence/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1188">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/computer-database-persistence/src/test/java/com/flavien/dao/CompanyRepositoryTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="24" max-vertical-offset="1026">
+          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
           <folding />
         </state>
       </provider>
